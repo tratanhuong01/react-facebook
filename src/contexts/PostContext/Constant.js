@@ -1,0 +1,13 @@
+//
+export const UPDATE_DATA = "UPDATE_DATA";
+//
+export const OPEN_MODAL_LOCAL = "OPEN_MODAL_LOCAL";
+//
+export const OPEN_MODAL_FEEL = "OPEN_MODAL_FEEL";
+//
+export const OPEN_MODAL_TAG = "OPEN_MODAL_TAG";
+//
+export const RETURN_MODAL_POST = "RETURN_MODAL_POST";
+//
+export const OPEN_MODAL_CHOOSE_BACKGROUND = "OPEN_MODAL_CHOOSE_BACKGROUND";
+//
