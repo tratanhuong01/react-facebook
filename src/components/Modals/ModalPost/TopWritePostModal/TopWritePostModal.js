@@ -21,10 +21,10 @@ export default function TopWritePostModal() {
                         {`${posts.tags[0].firstName} ${posts.tags[0].lastName}`}</span>
                         {posts.tags.length > 1 &&
                             <> và
-                                {` `} <span className='font-semibold'>{posts.tags.length - 1} người khác</span>
+                                {` `}<span className='font-semibold'>{posts.tags.length - 1} người khác </span>
                             </>}
                     </span>}
-                    {posts.local && <span id="local"> tại <b className="dark:text-white">{posts.local.name}</b></span>}
+                    {posts.local && <span id="local">tại <b className="dark:text-white">{posts.local.name}</b></span>}
                 </p>
                 <div className="py-0 px-1 mt-0.5 w-28 bg-gray-300 dark:bg-dark-third rounded-full">
                     <div className="flex gap-1 py-1.5 justify-center text-xs relative cursor-pointer items-center">

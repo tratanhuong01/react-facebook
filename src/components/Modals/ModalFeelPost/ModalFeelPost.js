@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import feelActivityList from '../../../config/feelActivityList';
-import { ModalContext } from '../../../contexts/ModalContext/ModalContext';
+import { PostContext } from '../../../contexts/PostContext/PostContext';
 import InputComponent from '../../InputComponent/InputComponent'
 import ModalWrapperChildPost from '../ModalWrapperChildPost/ModalWrapperChildPost'
 import ActivityPost from './ActivityPost/ActivityPost';
@@ -8,10 +8,12 @@ import FeelPost from './FeelPost/FeelPost';
 
 export default function ModalFeelPost() {
     //
-    const { posts } = useContext(ModalContext);
+    const { posts, postsDispatch, postsAction } = useContext(PostContext);
     const [type, setType] = useState(posts.activity ? 1 : 0);
     const [loading, setLoading] = useState(true);
-    const [activity, setActivity] = useState();
+    const [activity, setActivity] = useState(
+        posts.activity ? [...feelActivityList.activities].filter(item => item.id === posts.activity.idActivity)[0] : null
+    );
     useEffect(() => {
         let timeOut;
         if (loading) {
@@ -39,11 +41,14 @@ export default function ModalFeelPost() {
                 }} className={`${type === 1 ? 'border-b-4 border-main text-main' : 'border-white dark:border-dark-third'} 
                  p-3 border-solid font-semibold cursor-pointer`}>Hoạt động</li>
             </ul>
-            <div class="w-full my-2 px-2">
+            <div className="w-full my-2 px-2">
                 {activity ? <div className='w-full flex items-center'>
                     <div className='w-1/3 text-sm bg-blue-100 text-blue-500 font-semibold relative rounded-lg mr-2 flex items-center'>
                         <span className='p-2'>{activity.label}</span>
-                        <span onClick={() => setActivity()} className='absolute top-1/2 transform  -translate-y-1/2 -mt-0.5 right-2
+                        <span onClick={() => {
+                            setActivity();
+                            postsDispatch(postsAction.updateData('activity', null));
+                        }} className='absolute top-1/2 transform  -translate-y-1/2 -mt-0.5 right-2
                         cursor-pointer font-semibold text-2xl'>&times;</span>
                     </div>
                     <InputComponent className="dark:text-white w-full py-2 px-4 border border-gray-300 bg-transparent 

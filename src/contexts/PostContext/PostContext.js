@@ -13,6 +13,7 @@ const initialState = {
     component: <ModalPost />,
     modePost: 0,
     background: null,
+    imageVideoUpload: false,
     usingBackground: null
 };
 

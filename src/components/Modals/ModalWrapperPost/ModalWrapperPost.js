@@ -3,11 +3,11 @@ import { PostContext, PostProvider } from '../../../contexts/PostContext/PostCon
 
 export default function ModalWrapperPost(props) {
     //
-    const { feel, images } = props;
+    const { feel, imageVideo } = props;
     //
     return (
         <PostProvider>
-            <ContainerModalPost feel={feel} images={images} />
+            <ContainerModalPost feel={feel} imageVideo={imageVideo} />
         </PostProvider>
     )
 }
@@ -20,8 +20,11 @@ const ContainerModalPost = (props) => {
         if (feel) {
             postsDispatch(postsAction.openModalFeel());
         }
-        if (Array.isArray(imageVideo)) {
-            postsDispatch(postsAction.updateData('imageVideo', imageVideo));
+        if (imageVideo) {
+            if (imageVideo.length > 0) {
+                postsDispatch(postsAction.updateData('imageVideo', imageVideo));
+                postsDispatch(postsAction.updateData('imageVideoUpload', true));
+            }
         }
         //
     }, [feel, postsDispatch, postsAction, imageVideo]);
