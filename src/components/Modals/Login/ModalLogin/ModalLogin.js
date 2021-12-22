@@ -2,9 +2,9 @@ import React from 'react'
 import FormLogin from '../../../Login/FormLogin/FormLogin'
 import ModalWrapper from '../../ModalWrapper'
 
-export default function ModalLogin() {
+export default function ModalLogin(props) {
     //
-
+    const { loginFast } = props;
     //
     return (
         <ModalWrapper
@@ -14,7 +14,7 @@ export default function ModalLogin() {
         >
             <h1 className="-pt-1 pb-0.5 text-2xl my-3 text-center">Đăng nhập ensonet</h1>
             <hr></hr>
-            <FormLogin remember={true} />
+            <FormLogin remember={true} loginFast={loginFast} />
         </ModalWrapper>
     )
 }

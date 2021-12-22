@@ -25,9 +25,10 @@ export const loadingModal = (status) => {
     }
 }
 
-export const openModalLogin = () => {
+export const openModalLogin = (loginFast) => {
     return {
-        type: constants.OPEN_MODAL_LOGIN
+        type: constants.OPEN_MODAL_LOGIN,
+        loginFast
     }
 }
 

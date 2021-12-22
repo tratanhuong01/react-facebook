@@ -1,11 +1,14 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
+import { PAGE_STORY } from '../../../../constants/Config';
 
 export default function ItemStory(props) {
     //
     const { last, nearLast } = props;
+    const navigation = useNavigate();
     //
     return (
-        <div className={`w-1/4 md:w-1/6 ${last ? 'hidden lg:block' : nearLast ? 'hidden md:block' : ''}`}>
+        <div onClick={() => navigation(PAGE_STORY)} className={`w-1/4 md:w-1/6 ${last ? 'hidden lg:block' : nearLast ? 'hidden md:block' : ''}`}>
             <div className="h-44 rounded-xl overflow-hidden relative cursor-pointer flex-shrink-0 
             bg-black border-2 border-solid border-gray-200 shadow-lv1">
                 <div className="relative h-full group cursor-pointer">

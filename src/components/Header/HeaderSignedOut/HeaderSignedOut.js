@@ -1,15 +1,18 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
+import { PAGE_LOGIN } from '../../../constants/Config';
 import ButtonComponent from '../../ButtonComponent/ButtonComponent'
 import InputComponent from '../../InputComponent/InputComponent'
 
 export default function HeaderSignedOut(props) {
     //
     const { hideFormLogin } = props;
+    const navigation = useNavigate();
     //
     return (
         <div className="w-full flex py-2.5 items-center justify-between border-b-2 border-solid border-gray-200 shadow-sm">
-            <span className=" pl-3 text-2xl font-bold text-1877F2">
-                Ensonet <br />
+            <span onClick={() => navigation(PAGE_LOGIN)} className=" pl-3 text-2xl font-bold text-main cursor-pointer">
+                Facebook <br />
             </span>
             {!hideFormLogin &&
                 <div className="w-2/3 gap-3 items-center flex justify-end mr-5">

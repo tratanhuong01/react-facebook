@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import backgrounds from '../../../config/backgrounds'
 import { PostContext } from '../../../contexts/PostContext/PostContext'
 import ButtonComponent from '../../ButtonComponent/ButtonComponent'
@@ -9,7 +9,20 @@ import TopWritePostModal from './TopWritePostModal/TopWritePostModal'
 export default function ModalPost(props) {
     //
     const { posts, postsDispatch, postsAction } = useContext(PostContext);
-    const [backgroundListShow, setBackgroundListShow] = useState(false);
+    const [backgroundListShow, setBackgroundListShow] = useState(posts.background ? true : false);
+    const refInput = useRef();
+    const refArea = useRef();
+    useEffect(() => {
+        //
+        if (refInput.current && refInput) {
+            refInput.current.innerText = posts.content;
+            refInput.current.focus();
+        }
+        if (refArea && refArea.current) {
+            refArea.current.focus();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [posts.background, refInput, refArea]);
     //
     return (
         <ModalWrapper className="animate__rubberBand shadow-sm border-t border-b border-solid border-gray-200 bg-white w-full absolute  
@@ -20,8 +33,8 @@ export default function ModalPost(props) {
                 <TopWritePostModal />
                 <div className="w-full mt-2.5 wrapper-content-right overflow-y-auto" style={{ maxHeight: 365 }}>
                     {posts.background ? <div className='relative h-80 bg-cover' style={{ [posts.background.key]: posts.background.value }}>
-                        <div onInput={(e) => {
-                            if (e.currentTarget.textContent.length >= 10) {
+                        <div ref={refInput} onInput={(e) => {
+                            if (e.currentTarget.textContent.length >= 130) {
                                 postsDispatch(postsAction.updateData('background', null));
                             }
                             else {
@@ -29,21 +42,19 @@ export default function ModalPost(props) {
                             }
                         }} className='text-2xl w-full px-4 flex justify-center text-white font-bold absolute top-1/2 
                         left-1/2 transform -translate-x-1/2 -translate-y-1/2 contentedit break-all text-center ' spellCheck={false}
-                            contentEditable={true} defaultValue={posts.content} placeholder='Hưởng ơi , bạn đang nghĩ gì đấy ?'>
-                        </div>
+                            contentEditable={true} placeholder='Hưởng ơi , bạn đang nghĩ gì đấy ?'></div>
                     </div> :
                         <div className="w-full relative px-2">
-                            <textarea onChange={(event) => {
+                            <textarea ref={refArea} onChange={(event) => {
                                 postsDispatch(postsAction.updateData('content', event.target.value))
                                 if (posts.usingBackground) {
-                                    if (event.target.value.length < 10) {
-                                        console.log("oke");
-                                        postsDispatch(postsAction(postsAction.updateData('background', posts.usingBackground)))
+                                    if (event.target.value.length < 130) {
+                                        postsDispatch(postsAction.updateData('background', posts.usingBackground))
                                     }
                                 }
                             }} spellCheck={false}
-                                className="w-full border-none dark:text-white text-xm px-2 pt-2 py-6 outline-none overflow-hidden dark:bg-dark-second
-                                resize-none" placeholder="Hưởng ơi, Bạn đang nghĩ gì thế?" defaultValue={posts.content}></textarea>
+                                className="w-full border-none h-36 dark:text-white text-xm px-2 pt-2 py-6 outline-none overflow-hidden dark:bg-dark-second
+                            resize-none" placeholder="Hưởng ơi, Bạn đang nghĩ gì thế?" defaultValue={posts.content}></textarea>
                         </div>}
                     <div className='w-full flex -mt-4 relative px-2'>
                         {backgroundListShow ? <div onClick={() => setBackgroundListShow(false)} className='w-9 h-9 bg-gray-300 rounded-lg flex items-center 

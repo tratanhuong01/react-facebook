@@ -16,7 +16,7 @@ export default function BottomWritePostModal() {
                 <label htmlFor="uploadFileS">
                     <li className="cursor-pointer flex w-10 h-10 mx-1 rounded-full hover:bg-gray-200 
                     dark:hover:bg-dark-third justify-center">
-                        <i className="far fa-image text-2xl text-green-500 flex items-center"></i>
+                        <i className={`far fa-image text-2xl text-${posts.background ? 'gray' : 'green'}-500 flex items-center`}></i>
                     </li>
                 </label>
                 <li onClick={() => postsDispatch(postsAction.openModalFeel())} className={`cursor-pointer flex w-10 h-10 mx-1 rounded-full ${posts.feel ? 'bg-yellow-100' : ' '} 
@@ -33,7 +33,7 @@ export default function BottomWritePostModal() {
                 </li>
                 <li className={`cursor-pointer flex w-10 h-10 mx-1 rounded-full hover:bg-gray-200 
                 dark:hover:bg-dark-third justify-center `}>
-                    <i className="far fa-question-circle text-2xl text-pink-600 flex items-center"></i>
+                    <i className={`far fa-question-circle text-2xl text-${posts.background ? 'gray' : 'pink'}-500 flex items-center`}></i>
                 </li>
             </ul>
         </div>

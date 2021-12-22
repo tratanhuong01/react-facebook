@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { PAGE_LOGIN, PAGE_PROFILE } from '../../../../constants/Config';
 
 export default function HeaderLoggedRight() {
     //
     const [active, setActive] = useState();
+    const navigation = useNavigate();
     //
     return (
         <div className="w-1/2 flex sm:w-3/4 md:w-1/4">
-            <div className="w-1/2 flex py-0.875 px-2.5 mx-2 mt-1 mb-1.5 p-1.5 hover:bg-gray-200 round-avatar dark:hover:bg-dark-third 
+            <div onClick={() => navigation(PAGE_PROFILE)} className="w-1/2 flex py-0.875 px-2.5 mx-2 mt-1 mb-1.5 p-1.5 hover:bg-gray-200 round-avatar dark:hover:bg-dark-third 
             lg:mx-0">
                 <div className="w-1/3 hidden lg:block lg:w-full lg:pt-1 xl:w-auto xl:mr-2">
                     <img className="w-8 h-8 rounded-full object-cover"
@@ -40,7 +43,7 @@ export default function HeaderLoggedRight() {
                             +9
                         </span>
                     </li>
-                    <li className="cursor-pointer relative h-10 ml-1 mr-1 w-10 bg-gray-200 
+                    <li onClick={() => navigation(PAGE_LOGIN)} className="cursor-pointer relative h-10 ml-1 mr-1 w-10 bg-gray-200 
                     dark:bg-dark-third dark:text-white text-center rounded-full flex justify-center items-center">
                         <i className="fas fa-sort-down text-2xl transform -translate-y-1 "></i>
                     </li>

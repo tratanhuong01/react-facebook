@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ModalContext } from "../../../../contexts/ModalContext/ModalContext";
 
 ItemAccount.propTypes = {};
 
 function ItemAccount(props) {
+  //
+  const { modalsDispatch, modalsAction } = useContext(ModalContext);
+  //
   return (
     <div
+      onClick={() => modalsDispatch(modalsAction.openModalLogin(true))}
       className="w-1/4 mr-5 mt-5 relative border border-solid border-gray-300 hover:shadow-main cursor-pointer"
     >
       <img

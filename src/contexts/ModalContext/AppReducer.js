@@ -12,7 +12,7 @@ const AppReducer = (state, action) => {
         case constants.CLOSE_MODAL:
             return { ...state, loading: false, data: null };
         case constants.OPEN_MODAL_LOGIN:
-            return { ...state, data: <ModalLogin /> };
+            return { ...state, data: <ModalLogin loginFast={action.loginFast} /> };
         case constants.OPEN_MODAL_POST:
             return { ...state, data: <ModalWrapperPost id={action.id} feel={action.feel} imageVideo={action.imageVideo} /> };
         default:

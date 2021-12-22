@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import InputComponent from "../../InputComponent/InputComponent";
 import ButtonComponent from "../../ButtonComponent/ButtonComponent";
-import { Link } from "react-router-dom";
-import { PAGE_FORGET_ACCOUNT } from "../../../constants/Config";
+import { Link, useNavigate } from "react-router-dom";
+import { PAGE_FORGET_ACCOUNT, PAGE_HOME } from "../../../constants/Config";
 
 function FormLogin(props) {
   //
@@ -15,23 +15,35 @@ function FormLogin(props) {
     ),
     password: Yup.string().required("Mật khẩu không được để trống !!"),
   });
-  const { remember } = props;
+  const { remember, loginFast } = props;
   const {
     register,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
+  const navigation = useNavigate();
   return (
-    <form className="w-full bg-white p-2.5" >
-      <InputComponent
-        type="text"
-        name="emailOrPhone"
-        placeholder="Email Hoặc Số Điện Thoại"
-        className={`border rounded-md p-3 my-2 ${errors.emailOrPhone ? "border-red-500 text-red-500"
-          : "border-gray-200 "}`}
-        register={register}
-      />
+    <form className="w-full bg-white p-2.5" onSubmit={(event) => {
+      event.preventDefault();
+      navigation(PAGE_HOME);
+    }} >
+      {loginFast ? <div className="w-full flex flex-col justify-center p-3">
+        <img
+          src="http://res.cloudinary.com/tratahuong01/image/upload/v1623289152/Avatar/d5peo862j01zy9btpuee.jpg"
+          className="w-48 mx-auto object-cover h-48 rounded-full"
+          alt=""
+        />
+        <p className="font-semibold text-xl text-center mt-2">Trà Hưởng</p>
+      </div> :
+        <InputComponent
+          type="text"
+          name="emailOrPhone"
+          placeholder="Email Hoặc Số Điện Thoại"
+          className={`border rounded-md p-3 my-2 ${errors.emailOrPhone ? "border-red-500 text-red-500"
+            : "border-gray-200 "}`}
+          register={register}
+        />}
       <InputComponent
         type="password"
         name="password"

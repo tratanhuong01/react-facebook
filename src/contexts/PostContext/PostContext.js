@@ -7,6 +7,7 @@ const initialState = {
     tags: [],
     local: null,
     feel: null,
+    activity: null,
     content: "",
     imageVideo: [],
     component: <ModalPost />,

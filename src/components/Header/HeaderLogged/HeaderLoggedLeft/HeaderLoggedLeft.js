@@ -1,5 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import logo from "../../../../assets/images/logo.png";
+import { PAGE_HOME } from '../../../../constants/Config';
+import InputComponent from '../../../InputComponent/InputComponent';
 
 export default function HeaderLoggedLeft() {
     return (
@@ -69,14 +72,14 @@ export default function HeaderLoggedLeft() {
                 </div>
             </div>
             <div className="pt-0.5">
-                <img className="w-12 shadow-lv1 rounded-full sm:w-12 border border-gray-200 border-solid"
-                    src={logo} alt="" srcSet="" />
+                <Link to={PAGE_HOME}><img className="w-12 shadow-lv1 rounded-full sm:w-12 border border-gray-200 border-solid"
+                    src={logo} alt="" srcSet="" /></Link>
             </div>
             <div className="mt-1 pl-4">
                 <div
                     className="relative bg-gray-100 dark:bg-dark-third px-2 py-2 w-11 h-11 lg:w-10 xl:w-max xl:pl-3 xl:pr-8 rounded-full flex items-center justify-center cursor-pointer">
                     <i className="bx bx-search text-gray-500 text-xl xl:mr-2 dark:text-dark-txt"></i>
-                    <input type="text" placeholder="Tìm kiếm trên Ensonet"
+                    <InputComponent type="text" placeholder="Tìm kiếm trên Ensonet"
                         className="outline-none bg-transparent hidden xl:inline-block dark:text-white" />
                 </div>
             </div>
