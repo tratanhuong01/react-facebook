@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { PostContext } from '../../../../contexts/PostContext/PostContext';
 import ButtonComponent from '../../../ButtonComponent/ButtonComponent';
 import backgrounds from '../../../../config/backgrounds';
+import ContentAnswerQuestion from '../../ModalAnswerQuestionPost/ContentAnswerQuestion/ContentAnswerQuestion';
 
 export default function CenterWritePostModal() {
     //
@@ -23,7 +24,7 @@ export default function CenterWritePostModal() {
     //
     return (
         <>
-            {posts.background ? <div className='relative h-80 bg-cover' style={{ [posts.background.key]: posts.background.value }}>
+            {posts.background && <div className='relative h-80 bg-cover' style={{ [posts.background.key]: posts.background.value }}>
                 <div ref={refInput} onInput={(e) => {
                     if (e.currentTarget.textContent.length >= 130) {
                         postsDispatch(postsAction.updateData('background', null));
@@ -34,21 +35,21 @@ export default function CenterWritePostModal() {
                 }} className='text-2xl w-full px-4 flex justify-center text-white font-bold absolute top-1/2 
                         left-1/2 transform -translate-x-1/2 -translate-y-1/2 contentedit break-all text-center ' spellCheck={false}
                     contentEditable={true} placeholder='Hưởng ơi , bạn đang nghĩ gì đấy ?'></div>
-            </div> :
-                <div className="w-full relative px-2">
-                    <textarea ref={refArea} onChange={(event) => {
-                        postsDispatch(postsAction.updateData('content', event.target.value))
-                        if (posts.usingBackground) {
-                            if (event.target.value.length < 130) {
-                                postsDispatch(postsAction.updateData('background', posts.usingBackground))
-                            }
+            </div>}
+            {!posts.background && <div className="w-full relative px-2">
+                <textarea ref={refArea} onChange={(event) => {
+                    postsDispatch(postsAction.updateData('content', event.target.value))
+                    if (posts.usingBackground) {
+                        if (event.target.value.length < 130) {
+                            postsDispatch(postsAction.updateData('background', posts.usingBackground))
                         }
-                    }} spellCheck={false}
-                        className={`w-full border-none ${posts.imageVideoUpload ? '' : 'h-36'} dark:text-white text-xm px-2 pt-2 py-6 outline-none overflow-hidden dark:bg-dark-second
+                    }
+                }} spellCheck={false}
+                    className={`w-full border-none ${posts.imageVideoUpload || posts.answerQuestion ? '' : 'h-36'} dark:text-white text-xm px-2 pt-2 py-6 outline-none overflow-hidden dark:bg-dark-second
                         resize-none`} placeholder="Hưởng ơi, Bạn đang nghĩ gì thế?" defaultValue={posts.content}></textarea>
-                </div>}
+            </div>}
             <div className='w-full flex -mt-4 relative px-2'>
-                {!posts.imageVideoUpload && <>
+                {!posts.imageVideoUpload && !posts.answerQuestion && <>
                     {backgroundListShow ? <div onClick={() => setBackgroundListShow(false)} className='w-9 h-9 bg-gray-300 rounded-lg flex items-center 
                         justify-center cursor-pointer'><span className='bx bx-chevron-left text-2xl text-gray-800'></span></div> :
                         <img src="https://res.cloudinary.com/ensonet-dev/image/upload/v1640124392/BackgroundPosts/SATP_Aa_square-2x_a2yme5.png"
@@ -73,10 +74,24 @@ export default function CenterWritePostModal() {
                     }</>
                 }
                 <ButtonComponent type="button" className={`w-8 h-8 rounded-full bg-white flex justify-center items-center 
-                        absolute right-2 dark:bg-dark-second ${posts.imageVideoUpload ? '-top-16' : 'top-1/2 transform -translate-y-1/2'}`}>
+                        absolute right-2 dark:bg-dark-second ${posts.imageVideoUpload || posts.answerQuestion ? '-top-16' : 'top-1/2 transform -translate-y-1/2'}`}>
                     <i className="far fa-smile text-gray-500 text-2xl dark:text-gray-300"></i>
                 </ButtonComponent>
             </div>
+            {posts.answerQuestion &&
+                <div className='px-9 w-full -mt-1'>
+                    <div className='w-full relative'>
+                        <ContentAnswerQuestion current={posts.answerQuestion}
+                            content={posts.contentAnswerQuestion} input={posts.contentAnswerQuestion} />
+                        <span onClick={() => {
+                            postsDispatch(postsAction.updateData('answerQuestion', null))
+                            postsDispatch(postsAction.updateData('contentAnswerQuestion', ""))
+                        }} className='w-7 h-7 rounded-full cursor-pointer hover:bg-gray-100 text-gray-600 items-center
+                            absolute -top-2 -right-2 bg-white flex justify-center border-gray-200 border-solid border text-xl'>
+                            &times;
+                        </span>
+                    </div>
+                </div>}
         </>
     )
 }

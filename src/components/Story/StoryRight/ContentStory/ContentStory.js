@@ -1,77 +1,69 @@
-import React, { useState } from 'react'
+import React, { memo, useContext, useEffect, useRef } from 'react'
 import ScrollContainer from 'react-indiana-drag-scroll';
-import { Link } from 'react-router-dom'
-import allFeel from "../../../../config/feels";
+import allFeel from "../../../../config/feels"
+import stories from '../../../../config/stories';
+import { StoryContext } from '../../../../contexts/StoryContext/StoryContext';
 import InfoStory from '../InfoStory/InfoStory';
+import HeaderStoryView from './HeaderStoryView/HeaderStoryView';
 
-export default function ContentStory() {
+
+const ContentStory = () => {
     //
-    const [show, setShow] = useState(false);
+    const { stories: { timeCurrent, current, isPlaying, indexRun, show, main, indexStory }, storiesDispatch, storiesAction } = useContext(StoryContext);
+    const refAudio = useRef();
+    useEffect(() => {
+    }, [])
+    useEffect(() => {
+        //
+        let timeOut
+        if (isPlaying) {
+            timeOut = setTimeout(() => {
+                if (timeCurrent + 1 > 10) {
+                    storiesDispatch(storiesAction.updateData('timeCurrent', 0));
+                    if (indexRun + 1 === current.imageList.length) {
+                        storiesDispatch(storiesAction.updateData('indexRun', 0));
+                        if (indexStory + 1 === stories.length) {
+                            storiesDispatch(storiesAction.updateData('indexStory', 0));
+                            storiesDispatch(storiesAction.updateData('indexRun', 0));
+                            storiesDispatch(storiesAction.updateData('main', stories[0].imageList[0]));
+                            storiesDispatch(storiesAction.updateData('current', stories[0]));
+                        }
+                        else {
+                            storiesDispatch(storiesAction.updateData('indexRun', 0));
+                            storiesDispatch(storiesAction.updateData('indexStory', indexStory + 1));
+                            storiesDispatch(storiesAction.updateData('current', stories[indexStory + 1]));
+                            storiesDispatch(storiesAction.updateData('main', stories[indexStory + 1].imageList[0]));
+                        }
+                    }
+                    else {
+                        storiesDispatch(storiesAction.updateData('indexRun', indexRun + 1));
+                        storiesDispatch(storiesAction.updateData('main', current.imageList[indexRun + 1]));
+                    }
+                }
+                else {
+                    storiesDispatch(storiesAction.updateData('timeCurrent', timeCurrent + 1));
+                }
+            }, 1000);
+        }
+        else {
+            refAudio.current.pause();
+            clearTimeout(timeOut);
+        }
+        return () => {
+            clearTimeout(timeOut);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [main, timeCurrent, isPlaying, current]);
     //
     return (
         <div className="w-7/12 story-right bg-gray-400 mt-5 relative m-2 rounded-lg relative"
             style={{ height: "calc(100% - 90px)" }}>
-            <img src="https://res.cloudinary.com/tratahuong01/image/upload/v1624453911/Story/z9kkojxij5zgav74969q.png"
-                className="w-full img-story my-2 object-cover" alt="" style={{ height: "calc(100% - 80px)" }} />
-            <div className="w-full py-1 px-2 absolute top-1">
-                <div className="w-full pb-2">
-                    <ul className="w-full flex">
-                        <li className="w-50% bg-gray-300 mr-1 cursor-pointer">
-                            <div className="bg-white py-0.5 w-0" style={{ width: "59.6%" }}>
-                            </div>
-                        </li>
-                        <li className="w-50% bg-gray-300 mr-1 cursor-pointer">
-                            <div className="bg-white py-0.5 w-0"></div>
-                        </li>
-                    </ul>
-                </div>
-                <div className="w-full flex">
-                    <div className="w-2/12">
-                        <img src="http://res.cloudinary.com/tratahuong01/image/upload/v1638973763/Avatar/kxqbimjteg5ka9cbqh6y.jpg"
-                            className="w-12 h-12 object-cover rounded-full p-1" alt="" />
-                    </div>
-                    <div className="w-1/2 pt-1">
-                        <p className="pb-1"><Link to="" className="font-bold text-white">Trà Hưởng</Link>
-                            &nbsp;<span className="text-sm text-white" >
-                                15 giờ
-                            </span></p>
-                        <p className="text-white text-sm">Mod(Remix) </p>
-                    </div>
-                    <div className="w-1/3">
-                        <ul className="w-full flex relative">
-                            <li id="play" className=" py-2 px-2 cursor-pointer">
-                                <i id="btnClickStart"
-                                    className="text-white text-2xl far fa-stop-circle"></i>
-                            </li>
-                            <li onclick="muteAudio()" className=" py-2 px-2 cursor-pointer">
-                                <i id="muteOrUnMute" className="fas fa-volume-up text-white text-2xl"></i>
-                            </li>
-                            <li onclick="openEditStory()" className="py-2 px-2 cursor-pointer">
-                                <i className="fas fa-ellipsis-h text-white text-2xl"></i>
-                            </li>
-                            <div className="w-80 right-2 top-12 absolute bg-gray-200 border-2 dark:bg-dark-third dark:text-white font-bold border-solid 
-                            border-gray-300 dark:border-dark-second z-50 rounded-lg hidden">
-                                <ul className="w-full">
-                                    <li className="w-full px-2.5 py-2 dark:bg-dark-third bg-gray-200 
-                                    hover:bg-gray-300 dark:hover:bg-dark-second cursor-pointer">
-                                        <div className="flex items-center">
-                                            <i className="far fa-trash-alt text-2xl mr-3"></i>
-                                            Xóa ảnh
-                                        </div>
-                                    </li>
-                                    <li className="w-full px-2.5 py-2 dark:bg-dark-third bg-gray-200 
-                                    hover:bg-gray-300 dark:hover:bg-dark-second cursor-pointer">
-                                        <div className="flex items-center">
-                                            <i className="fas fa-exclamation-triangle text-2xl mr-3"></i>
-                                            Đã xảy ra lỗi
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </ul>
-                    </div>
-                </div>
+            <audio src={main.music} ref={refAudio} className='hidden' autoPlay muted />
+            <div className='w-full h-full flex items-center'>
+                <img src={main.src}
+                    className="w-full img-story object-cover" alt="" style={{ maxHeight: "calc(100%)" }} />
             </div>
+            <HeaderStoryView refAudio={refAudio} />
             <ScrollContainer className="hidden w-full p-2 absolute bottom-2 flex max-w-full overflow-x-auto">
                 <div className="w-10/12 relative flex-shrink-0 flex items-center">
                     <input type="text" name="" id="" placeholder="Trả lời.."
@@ -86,7 +78,7 @@ export default function ContentStory() {
                             alt='' />)}
                 </div>
             </ScrollContainer>
-            {!show && <div onClick={() => setShow(true)} className='absolute -bottom-12 cursor-pointer left-2 p-2 z-50'>
+            {!show && <div onClick={() => storiesDispatch(storiesAction.updateData('show', true))} className='absolute -bottom-12 cursor-pointer left-2 p-2 z-50'>
                 <div className='mb-7 -ml-2  border-b-2 border-gray-200 border-solid'>
                     <i className='bx bx-chevron-left transform text-white rotate-90 mb-0 text-2xl' ></i>
                     <br></br>
@@ -115,7 +107,8 @@ export default function ContentStory() {
                     <p className="font-sm" style={{ fontSize: 5 }}>24kgoldn</p>
                 </div>
             </div>
-            {show && <InfoStory setShow={setShow} />}
+            {show && <InfoStory setShow={(status) => storiesDispatch(storiesAction.updateData('show', status))} />}
         </div>
     )
 }
+export default memo(ContentStory);

@@ -1,3 +1,4 @@
+import ModalAnswerQuestionPost from "../../components/Modals/ModalAnswerQuestionPost/ModalAnswerQuestionPost";
 import ModalChooseBackground from "../../components/Modals/ModalChooseBackground/ModalChooseBackground";
 import ModalEditImageVideo from "../../components/Modals/ModalEditImageVideo/ModalEditImageVideo";
 import ModalFeelPost from "../../components/Modals/ModalFeelPost/ModalFeelPost";
@@ -22,6 +23,8 @@ const AppReducer = (state, action) => {
             return { ...state, component: <ModalChooseBackground /> };
         case constants.OPEN_MODAL_IMAGE_VIDEO_EDIT:
             return { ...state, component: <ModalEditImageVideo /> };
+        case constants.OPEN_MODAL_ANSWER_QUESTION:
+            return { ...state, component: <ModalAnswerQuestionPost /> };
         default:
             return { ...state };
     }

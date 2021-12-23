@@ -10,7 +10,7 @@ export default function ModalLocalPost() {
     //
     return (
         <ModalWrapperChildPost title="Tìm kiếm vị trí">
-            <div class="w-full my-2 px-2">
+            <div className="w-full my-2 px-2">
                 <InputComponent className="dark:text-white w-full p-2.5 border border-gray-300 
                 pl-4 bg-transparent dark:bg-dark-third rounded-3xl" type="text" placeholder="Tìm kiếm" search={true} />
             </div>

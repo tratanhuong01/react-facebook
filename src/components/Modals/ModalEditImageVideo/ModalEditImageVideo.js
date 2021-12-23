@@ -49,7 +49,7 @@ export default function ModalEditImageVideo() {
     return (
         <ModalWrapperChildPost customerClass={`shadow-sm border border-solid border-gray-200 bg-white w-full absolute  
         dark:bg-dark-second rounded-lg transform -translate-x-1/2 -translate-y-1/2 p-2 sm:w-10/12 md:w-2/3 lg:w-2/3 
-        ${length === 1 || length === 2 ? 'xl:w-36%' : length === 3 || length === 4 ? 'xl:w-3/5' : 'xl:w-3/4'} shadow-lv1 
+        ${length <= 2 ? 'xl:w-36%' : length === 3 || length === 4 ? 'xl:w-3/5' : 'xl:w-3/4'} shadow-lv1 
         z-50 top-1/2 left-1/2 `} title={`Ảnh/Video`}>
             <div ref={refContainer} className='w-full relative pt-3 pb-12'>
                 <div className='w-full h-full flex flex-wrap gap-1 max-h-full overflow-x-hidden overflow-y-auto'

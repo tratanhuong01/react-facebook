@@ -320,7 +320,16 @@ button {
 [contenteditable][placeholder]:empty:before {
   content: attr(placeholder);
   position: absolute;
-  /* color: gray; */
+  /* padding: 0px 12px;
+  color: gray; */
+  background-color: transparent;
+}
+
+.contentedittable[placeholder]:empty:before {
+  content: attr(placeholder);
+  position: absolute;
+  padding: 0px 12px;
+  color: rgb(194, 188, 188);
   background-color: transparent;
 }
 

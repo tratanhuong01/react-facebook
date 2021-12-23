@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import stories from '../../../config/stories'
 import { PAGE_CREATE_STORY, PAGE_STORY } from '../../../constants/Config'
 import ItemPost from '../../ItemPost/ItemPost'
 import WritePost from '../../WritePost/WritePost'
@@ -26,11 +27,9 @@ export default function HomeCenter() {
                         <p className="text-center text-sm font-bold pt-6 pb-0 dark:text-white">Tạo Tin</p>
                     </div>
                 </div>
-                <ItemStory />
-                <ItemStory />
-                <ItemStory />
-                <ItemStory nearLast={true} />
-                <ItemStory last={true} />
+                {[...stories].slice(0, 5).map((story, index) => <ItemStory key={story.id} story={story}
+                    nearLast={index === 3 ? true : false} last={index === 4 ? true : false} />)}
+
                 <div onClick={() => navigation(PAGE_STORY)} className="w-10 h-10 absolute top-1/2 transform -translate-y-1/2 -mt-1 -right-4 rounded-full dark:bg-dark-third 
                     cursor-pointer z-20 text-center flex justify-center items-center bg-white text-gray-700 shadow-lv1" >
                     <i className="bx bx-right-arrow-alt text-2xl dark:text-white"></i>

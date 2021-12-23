@@ -10,8 +10,10 @@ const initialState = {
     activity: null,
     content: "",
     imageVideo: [],
+    contentAnswerQuestion: "",
     component: <ModalPost />,
     modePost: 0,
+    answerQuestion: null,
     background: null,
     imageVideoUpload: false,
     usingBackground: null

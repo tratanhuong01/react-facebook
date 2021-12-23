@@ -43,3 +43,9 @@ export const openModalImageVideoEdit = () => {
         type: constants.OPEN_MODAL_IMAGE_VIDEO_EDIT
     }
 }
+
+export const openModalAnswerQuestion = () => {
+    return {
+        type: constants.OPEN_MODAL_ANSWER_QUESTION
+    }
+}

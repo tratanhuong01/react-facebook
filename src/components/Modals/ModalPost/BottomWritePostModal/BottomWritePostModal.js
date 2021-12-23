@@ -11,8 +11,12 @@ export default function BottomWritePostModal() {
                 <p className="pl-2.5 dark:text-white font-bold text-sm flex items-center">Thêm vào bài viết</p>
             </div>
             <ul className="ml-auto flex" id="placeSelection">
-                <li onClick={() => postsDispatch(postsAction.updateData('imageVideoUpload', true))} className="cursor-pointer flex w-10 h-10 mx-1 rounded-full hover:bg-gray-200 
-                    dark:hover:bg-dark-third justify-center">
+                <li onClick={() => {
+                    if (posts.background) return;
+                    postsDispatch(postsAction.updateData('imageVideoUpload', true));
+                }}
+                    className={`cursor-pointer flex w-10 h-10 mx-1 rounded-full ${posts.background ? '' : 'hover:bg-gray-200 dark:hover:bg-dark-third'
+                        } justify-center`}>
                     <i className={`far fa-image text-2xl text-${posts.background ? 'gray' : 'green'}-500 flex items-center`}></i>
                 </li>
                 <li onClick={() => postsDispatch(postsAction.openModalFeel())} className={`cursor-pointer flex w-10 h-10 mx-1 rounded-full ${posts.feel ? 'bg-yellow-100' : ' '} 
@@ -27,11 +31,15 @@ export default function BottomWritePostModal() {
                 hover:bg-gray-200 dark:hover:bg-dark-third justify-center`}>
                     <i className="fas fa-map-marker-alt text-2xl text-red-500 flex items-center"></i>
                 </li>
-                <li className={`cursor-pointer flex w-10 h-10 mx-1 rounded-full hover:bg-gray-200 
-                dark:hover:bg-dark-third justify-center `}>
+                <li onClick={() => {
+                    if (posts.background) return;
+                    postsDispatch(postsAction.openModalAnswerQuestion());
+                }}
+                    className={`cursor-pointer flex w-10 h-10 mx-1 rounded-full ${posts.background ? '' : 'hover:bg-gray-200 dark:hover:bg-dark-third'
+                        } justify-center`}>
                     <i className={`far fa-question-circle text-2xl text-${posts.background ? 'gray' : 'pink'}-500 flex items-center`}></i>
                 </li>
             </ul>
-        </div>
+        </div >
     )
 }

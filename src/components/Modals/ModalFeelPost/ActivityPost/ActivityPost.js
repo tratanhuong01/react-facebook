@@ -29,7 +29,7 @@ const ItemActivityChildPost = (props) => {
             postsDispatch(postsAction.updateData('feel', null));
             postsDispatch(postsAction.returnModalPost());
         }} className={`tac-user-clone pl-4 flex items-center dark:hover:bg-dark-third rounded-lg cursor-pointer 
-        relative ${posts.activity.id !== item.id ? 'hover:bg-gray-200' : 'bg-gray-200'}`} >
+        relative ${posts.activity ? posts.activity.id !== item.id ? 'hover:bg-gray-200' : 'bg-gray-200' : 'hover:bg-gray-200'}`} >
             <div className="w-10 h-10 mr-4 flex justify-center items-center bg-gray-100 rounded-full dark:bg-dark-third">
                 <span className="text-xl">{item.data}</span>
             </div>
