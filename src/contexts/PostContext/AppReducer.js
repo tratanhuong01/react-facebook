@@ -1,4 +1,5 @@
 import ModalChooseBackground from "../../components/Modals/ModalChooseBackground/ModalChooseBackground";
+import ModalEditImageVideo from "../../components/Modals/ModalEditImageVideo/ModalEditImageVideo";
 import ModalFeelPost from "../../components/Modals/ModalFeelPost/ModalFeelPost";
 import ModalLocalPost from "../../components/Modals/ModalLocalPost/ModalLocalPost";
 import ModalPost from "../../components/Modals/ModalPost/ModalPost";
@@ -19,6 +20,8 @@ const AppReducer = (state, action) => {
             return { ...state, component: <ModalPost /> };
         case constants.OPEN_MODAL_CHOOSE_BACKGROUND:
             return { ...state, component: <ModalChooseBackground /> };
+        case constants.OPEN_MODAL_IMAGE_VIDEO_EDIT:
+            return { ...state, component: <ModalEditImageVideo /> };
         default:
             return { ...state };
     }

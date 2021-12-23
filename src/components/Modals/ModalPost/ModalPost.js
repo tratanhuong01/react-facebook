@@ -27,7 +27,8 @@ export default function ModalPost(props) {
                 </div>
                 <div className="w-full px-2 text-center my-2.5 mx-0">
                     <ButtonComponent className="w-full p-2.5 border-none rounded-lg font-bold" type="button" bgColor='bg-main text-white'
-                        disabled={posts.content.length > 0 || posts.tags.length > 0 || posts.feel || posts.local ? false : true}>
+                        disabled={posts.content.length > 0 || posts.activity || posts.imageVideo.length > 0
+                            || posts.tags.length > 0 || posts.feel || posts.local ? false : true}>
                         Đăng
                     </ButtonComponent>
                 </div>

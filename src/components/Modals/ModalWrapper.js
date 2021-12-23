@@ -6,7 +6,7 @@ export default function ModalWrapper(props) {
     const { className } = props;
     //
     return (
-        <div className={className}>
+        <div className={className + ' shadow-lv1 '}>
             <CloseModal />
             {props.children}
         </div>

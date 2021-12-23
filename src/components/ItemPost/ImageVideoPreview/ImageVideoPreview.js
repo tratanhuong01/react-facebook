@@ -81,7 +81,7 @@ export default function ImageVideoPreview(props) {
                     &times;
                 </span>
                 {posts.imageVideo.length > 0 && <div className='flex absolute gap-2 items-center top-3 left-3 z-20'>
-                    <ButtonComponent className='flex items-center px-3 text-sm py-1 bg-gray-100 text-gray-600 
+                    <ButtonComponent handleClick={() => postsDispatch(postsAction.openModalImageVideoEdit())} className='flex items-center px-3 text-sm py-1 bg-gray-100 text-gray-600 
                      hover:text-gray-800 hover:bg-gray-200 rounded-md font-semibold'>
                         <i className='bx bxs-pencil text-xl mr-2'></i>
                         <span>Chỉnh sửa tất cả</span>

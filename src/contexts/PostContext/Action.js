@@ -37,3 +37,9 @@ export const openModalChooseBackground = () => {
         type: constants.OPEN_MODAL_CHOOSE_BACKGROUND
     }
 }
+
+export const openModalImageVideoEdit = () => {
+    return {
+        type: constants.OPEN_MODAL_IMAGE_VIDEO_EDIT
+    }
+}
