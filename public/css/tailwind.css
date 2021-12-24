@@ -509,6 +509,12 @@ video {
   background-color: rgba(58, 59, 60, var(--tw-bg-opacity));
 }
 
+
+.dark .dark\:hover\:bg-dark-main:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgba(24, 25, 26, var(--tw-bg-opacity));
+}
+
 .bg-opacity-10 {
   --tw-bg-opacity: 0.1;
 }

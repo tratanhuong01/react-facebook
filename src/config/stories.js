@@ -11,7 +11,7 @@ const stories = [
             },
             {
                 id: 1,
-                src: "https://res.cloudinary.com/tratahuong01/image/upload/v1626756156/Messenger/ImageGroup/2000000015.jpg",
+                src: "https://res.cloudinary.com/tratahuong01/image/upload/v1621772815/Avatar/nuwie9ee0luvlnu8wvqe.jpg",
                 music: "https://res.cloudinary.com/tratahuong01/video/upload/v1621335275/Sound/3107_wilom8.mp3"
             }
         ]

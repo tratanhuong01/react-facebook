@@ -11,8 +11,7 @@ const ItemActivityPost = (props) => {
                 <span className="text-xl">{item.data}</span>
             </div>
             <p className="dark:text-white">{item.label}</p>
-            <span className="bx bx-chevron-right text-2xl absolute top-4 right-6">
-
+            <span className="bx bx-chevron-right text-2xl dark:text-white absolute top-4 right-6">
             </span>
         </div>
     )

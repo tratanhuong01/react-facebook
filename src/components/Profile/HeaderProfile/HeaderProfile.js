@@ -45,7 +45,7 @@ export default function HeaderProfile() {
                             <i className="bx bx-check flex justiy-center items-center "></i>
                         </span>
                     </p>
-                    <p className="text-gray-600 items-center pl-1 pb-1 flex">
+                    <p className="text-gray-600 dark:text-gray-300 items-center pl-1 pb-1 flex">
                         <span>1.870 bạn bè</span>
                         <span className='mx-1'>•</span>
                         <span></span>

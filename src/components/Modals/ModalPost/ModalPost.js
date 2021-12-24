@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { PostContext } from '../../../contexts/PostContext/PostContext'
 import ButtonComponent from '../../ButtonComponent/ButtonComponent'
 import ImageVideoPreview from '../../ItemPost/ImageVideoPreview/ImageVideoPreview'
@@ -10,16 +10,17 @@ import TopWritePostModal from './TopWritePostModal/TopWritePostModal'
 export default function ModalPost(props) {
     //
     const { posts } = useContext(PostContext);
+    const [emojiShow, setEmojiShow] = useState(false);
     //
     return (
-        <ModalWrapper className="animate__rubberBand shadow-sm border-t border-b border-solid border-gray-200 bg-white w-full absolute  
-        z-50 top-1/2 left-1/2 dark:bg-dark-second rounded-lg transform -translate-x-1/2 -translate-y-1/2 py-2 sm:w-10/12 md:w-2/3 
-        lg:w-2/3 xl:w-36% shadow-lv1">
+        <ModalWrapper className="animate__rubberBand shadow-sm border-t border-b border-solid border-gray-200 bg-white absolute  
+        z-50 top-1/2 left-1/2 dark:bg-dark-second rounded-lg transform -translate-x-1/2 -translate-y-1/2 py-2 w-11/12 sm:w-10/12 md:w-2/3 
+        lg:w-2/3 xl:w-36% shadow-lv1 dark:border-dark-third dark:bg-dark-third">
             <div className='w-full relative'>
                 <p className="text-2xl font-bold p-2.5 -mt-1.5 text-center dark:text-white">Tạo bài viết</p>
                 <TopWritePostModal />
-                <div className="w-full mt-2.5 wrapper-content-right overflow-y-auto" style={{ maxHeight: 365 }}>
-                    <CenterWritePostModal />
+                <div className={`w-full mt-2.5 wrapper-content-right ${emojiShow ? '' : 'overflow-y-auto'}`} style={{ maxHeight: 365 }}>
+                    <CenterWritePostModal setEmojiShow={setEmojiShow} emojiShow={emojiShow} />
                     {posts.imageVideoUpload && <ImageVideoPreview />}
                 </div>
                 <div className='w-full px-2'>

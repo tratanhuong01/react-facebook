@@ -9,7 +9,7 @@ export default function StoryLeft(props) {
     //
     return (
         <>
-            <div className="w-full relative">
+            <div className="w-full relative ">
                 <span className="font-semibold text-2xl pb-4 dark:text-white">Tin</span><br />
                 <div className='flex items-center my-2 gap-2'>
                     <span className='text-sm text-main'>Kho lưu trữ</span>
@@ -18,22 +18,22 @@ export default function StoryLeft(props) {
                 </div>
                 <div onClick={() => setFullScreen(!fullScreen)} className={`text-2xl w-10 h-10 rounded-full bg-gray-200 
                 cursor-pointer ${fullScreen ? 'fixed top-20 left-3 z-50' : 'absolute top-0.5 -right-1'} hover:bg-gray-300
-                 flex justify-center items-center`}>
+                 flex justify-center items-center dark:bg-dark-main dark:text-white dark:hover:bg-dark-third`}>
                     <i className={`bx bx-${fullScreen ? 'exit-' : ''}fullscreen`} ></i>
                 </div>
             </div>
-            <p className='font-semibold my-2'>Tin của bạn</p>
+            <p className='font-semibold my-2 dark:text-white'>Tin của bạn</p>
             <div className="cursor-pointer w-full flex p-2">
                 <div className="w-2/12">
                     <i className="fas fa-plus p-5 text-main bg-gray-100 rounded-full"></i>
                 </div>
                 <div className="w-10/12 pl-3">
                     <p className="font-semibold pb-1 dark:text-white">Tạo tin</p>
-                    <p className="text-sm text-gray-600">Bạn có thể chia sẽ hoặc viết gì đó.</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">Bạn có thể chia sẽ hoặc viết gì đó.</p>
                 </div>
             </div>
             <hr className='my-2' />
-            <p className='font-semibold my-2'>Tất cả tin</p>
+            <p className='font-semibold my-2 dark:text-white'>Tất cả tin</p>
             {storyList.map((story, index) =>
                 <div onClick={() => {
                     storiesDispatch(storiesAction.updateData('current', story));

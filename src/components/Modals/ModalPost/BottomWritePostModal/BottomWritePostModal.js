@@ -6,7 +6,7 @@ export default function BottomWritePostModal() {
     const { posts, postsDispatch, postsAction } = useContext(PostContext);
     //
     return (
-        <div className="w-full flex p-2 border-2 border-solid border-gray-300 mt-4 rounded-lg">
+        <div className="w-full flex p-2 border-2 border-solid border-gray-300 dark:border-dark-third mt-4 rounded-lg">
             <div className="cursor-pointer w-40 flex">
                 <p className="pl-2.5 dark:text-white font-bold text-sm flex items-center">Thêm vào bài viết</p>
             </div>

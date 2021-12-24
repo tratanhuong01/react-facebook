@@ -3,13 +3,15 @@ import { PostContext } from '../../../../contexts/PostContext/PostContext';
 import ButtonComponent from '../../../ButtonComponent/ButtonComponent';
 import backgrounds from '../../../../config/backgrounds';
 import ContentAnswerQuestion from '../../ModalAnswerQuestionPost/ContentAnswerQuestion/ContentAnswerQuestion';
+import EmojiPicker from 'emoji-picker-react';
 
-export default function CenterWritePostModal() {
+export default function CenterWritePostModal(props) {
     //
     const { posts, postsDispatch, postsAction } = useContext(PostContext);
     const [backgroundListShow, setBackgroundListShow] = useState(posts.background ? true : false);
     const refInput = useRef();
     const refArea = useRef();
+    const { emojiShow, setEmojiShow } = props;
     useEffect(() => {
         //
         if (refInput.current && refInput) {
@@ -24,7 +26,8 @@ export default function CenterWritePostModal() {
     //
     return (
         <>
-            {posts.background && <div className='relative h-80 bg-cover' style={{ [posts.background.key]: posts.background.value }}>
+            {posts.background && <div className='relative h-80 bg-cover'
+                style={{ [posts.background.key]: posts.background.value }}>
                 <div ref={refInput} onInput={(e) => {
                     if (e.currentTarget.textContent.length >= 130) {
                         postsDispatch(postsAction.updateData('background', null));
@@ -73,10 +76,22 @@ export default function CenterWritePostModal() {
                         </ul>
                     }</>
                 }
-                <ButtonComponent type="button" className={`w-8 h-8 rounded-full bg-white flex justify-center items-center 
-                        absolute right-2 dark:bg-dark-second ${posts.imageVideoUpload || posts.answerQuestion ? '-top-16' : 'top-1/2 transform -translate-y-1/2'}`}>
-                    <i className="far fa-smile text-gray-500 text-2xl dark:text-gray-300"></i>
-                </ButtonComponent>
+                <div className={`absolute right-2 z-50 dark:bg-dark-second ${posts.imageVideoUpload || posts.answerQuestion
+                    ? '-top-16' : 'top-1/2 transform -translate-y-1/2'}`}>
+                    <div className='relative'>
+                        <ButtonComponent handleClick={() => {
+                            setEmojiShow(!emojiShow);
+                        }} type="button" className={`w-8 h-8 rounded-full bg-white dark:bg-dark-third flex justify-center items-center `}>
+                            <i className="far fa-smile text-gray-500 text-2xl dark:text-gray-300"></i>
+                        </ButtonComponent>
+                        <div className={`absolute bottom-full mb-2 left-0`} style={{ zIndex: 333, left: -150 }}>
+                            {emojiShow && <EmojiPicker pickerStyle={{ width: 300 }} onEmojiClick={(emoji) => {
+                                console.log(emoji);
+                            }} />}
+                        </div>
+                    </div>
+
+                </div>
             </div>
             {posts.answerQuestion &&
                 <div className='px-9 w-full -mt-1'>

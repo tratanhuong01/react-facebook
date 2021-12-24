@@ -7,12 +7,10 @@ export default function TopWritePostModal() {
     //
     return (
         <div className="w-full flex px-0 py-2">
-            <div className="w-2/12 pt-1">
-                <img className="w-14 h-14 rounded-full object-cover mx-auto"
-                    src="http://res.cloudinary.com/tratahuong01/image/upload/v1638973763/Avatar/kxqbimjteg5ka9cbqh6y.jpg"
-                    alt="" />
-            </div>
-            <div className="w-11/12">
+            <img className="w-14 h-14 ml-3 mt-1 rounded-full object-cover mx-auto"
+                src="http://res.cloudinary.com/tratahuong01/image/upload/v1638973763/Avatar/kxqbimjteg5ka9cbqh6y.jpg"
+                alt="" />
+            <div className=" pl-2 " style={{ width: "calc(100% - 70px)" }}>
                 <p className="pt-0.5 dark:text-white">
                     <span className='font-semibold mr-2'>Trà Hưởng</span>
                     {posts.feel && <span id="feelCur">đang {posts.feel.data} cảm thấy {posts.feel.label.toLowerCase()} </span>}

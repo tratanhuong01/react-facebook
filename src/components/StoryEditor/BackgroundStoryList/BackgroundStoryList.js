@@ -11,7 +11,7 @@ export default function BackgroundStoryList() {
         wrapper-content-right overflow-y-auto dark:border-dark-third shadow-xl"
             style={{ maxHeight: 220, height: 220 }}>
             <p className="font-bold text-xm p-2 dark:text-white">Phông nền</p>
-            <ul className="w-full pl-2 flex flex-wrap ">
+            <ul className="w-full pl-2 flex flex-wrap gap-1.5">
                 {backgroundStory.map(item =>
                     <li onClick={() => {
                         storyEditorsDispatch(storyEditorsAction.updateData('data', item))

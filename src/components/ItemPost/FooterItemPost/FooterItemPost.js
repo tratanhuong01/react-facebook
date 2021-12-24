@@ -9,7 +9,7 @@ export default function FooterItemPost() {
     //
     return (
         <>
-            <div className="w-full flex text-sm text-gray-700 justify-between items-center my-1.5">
+            <div className="w-full flex text-sm text-gray-700 dark:text-gray-300 justify-between items-center my-1.5">
                 <div className="flex items-center">
                     <div className="flex gap-1.5 mr-2">
                         {feel && <img src={feel.image} alt="" className="w-4 h-4 rounded-full object-cover" />}
@@ -29,8 +29,8 @@ export default function FooterItemPost() {
                                 <span className="" style={{ color: feel.color }}>{feel.label}</span>
                             </> :
                                 <>
-                                    <span className="bx bx-like text-xl text-gray-700" ></span>
-                                    <span className="text-gray-700 font-semibold ml-2" >Thích</span>
+                                    <span className="bx bx-like text-xl" ></span>
+                                    <span className=" font-semibold ml-2" >Thích</span>
                                 </>}
                         </div>
                     </li>

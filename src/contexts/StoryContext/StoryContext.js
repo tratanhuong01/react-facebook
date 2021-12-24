@@ -5,7 +5,7 @@ import stories from "../../config/stories";
 
 const initialState = {
     current: stories[0],
-    isPlaying: false,
+    isPlaying: true,
     indexStory: 0,
     timeCurrent: 0,
     main: stories[0].imageList[0],

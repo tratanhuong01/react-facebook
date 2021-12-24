@@ -20,10 +20,10 @@ function Login(props) {
   useEffect(() => {
     //
     if (user) {
-      navigation(PAGE_HOME);
+      // navigation(PAGE_HOME);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [user])
   //
   useTitle("Đăng nhập");
   //

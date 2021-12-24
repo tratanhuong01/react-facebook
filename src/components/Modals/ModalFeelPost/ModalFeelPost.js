@@ -29,7 +29,7 @@ export default function ModalFeelPost() {
     //
     return (
         <ModalWrapperChildPost title="Bạn cảm thấy như thế nào?">
-            <ul className='mt-2 mb-4 flex gap-3 text-gray-600'>
+            <ul className='mt-2 mb-4 flex gap-3 text-gray-600 dark:text-white'>
                 <li onClick={() => {
                     setType(0);
                     setLoading(true);

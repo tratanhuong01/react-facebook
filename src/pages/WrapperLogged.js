@@ -1,13 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import HeaderLogged from '../components/Header/HeaderLogged/HeaderLogged'
 import ItemChatMinize from '../components/ItemChatMinize/ItemChatMinize'
+import { PAGE_LOGIN } from '../constants/Config'
 import WrapperPage from './WrapperPage'
 
 export default function WrapperLogged(props) {
     //
     const { hideChat } = props;
     const user = useSelector((state) => state.user);
+    const navigation = useNavigate();
+    useEffect(() => {
+        //
+        if (user) {
+
+        }
+        else {
+            navigation(PAGE_LOGIN);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user])
     //
     return (
         <WrapperPage>

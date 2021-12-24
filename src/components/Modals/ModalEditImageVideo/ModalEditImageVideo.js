@@ -66,7 +66,7 @@ export default function ModalEditImageVideo() {
                     </div>}
                 </div>
                 <div className='w-full absolute z-50 bottom-0 border-t-2 border-solid border-gray-200 
-                left-0 p-2 pb-0 flex justify-end items-center gap-2 bg-white'>
+                left-0 p-2 pb-0 flex justify-end items-center gap-2 bg-white dark:bg-dark-second dark:border-dark-second'>
                     <input type="file" onChange={(event) => {
                         if (event.target.files.length > 0) {
                             postsDispatch(postsAction.updateData('imageVideo', [...posts.imageVideo, ...event.target.files]));

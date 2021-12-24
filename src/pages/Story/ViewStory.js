@@ -19,7 +19,7 @@ export default function ViewStory() {
                     <StoryRight fullScreen={fullScreen} />
                     <div onClick={() => setFullScreen(!fullScreen)} className={`text-2xl w-10 h-10 rounded-full bg-gray-200 
                         cursor-pointer ${fullScreen ? 'fixed top-20 left-3 z-50' : 'hidden'} hover:bg-gray-300
-                        flex justify-center items-center`}>
+                        flex justify-center items-center dark:bg-dark-main dark:text-white dark:hover:bg-dark-third`}>
                         <i className={`bx bx-${fullScreen ? 'exit-' : ''}fullscreen`} ></i>
                     </div>
                 </StoryProvider>

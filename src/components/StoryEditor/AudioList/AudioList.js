@@ -19,11 +19,11 @@ export default function AudioList() {
     const { storyEditor: { audio } } = useContext(StoryEditorContext);
     //
     return (
-        <div className="w-full pb-2 border-2 border-solid border-gray-200 rounded-lg bg-white 
+        <div className="w-full pb-2 border-2 border-solid border-gray-200 rounded-lg bg-white dark:bg-dark-third
                         mb-2 dark:border-dark-third  text-center shadow-xl" style={{ maxHeight: 384, height: 384 }}>
             <p className="font-bold text-xm text-left py-1 px-2 dark:text-white">Âm nhạc</p>
             <audio ref={refAudio} autoPlay src={audio ? audio.src : ''} className='hidden' loop />
-            <InputComponent type="text" name="" className="justify-center dark:bg-dark-third bg-gray-100
+            <InputComponent type="text" name="" className="justify-center dark:bg-dark-second bg-gray-100
             p-2.5 rounded-lg dark:text-white my-3" width="w-11/12" placeholder="Nhập tên bài hát" />
             <ul className="w-full text-left wrapper-content-right text-center overflow-y-auto">
                 {audioList.map((item, index) =>
@@ -59,7 +59,7 @@ const ItemAudio = (props) => {
                 storyEditorsDispatch(storyEditorsAction.updateData('audio', item))
             }} className="w-8/12 font-semibold dark:text-white text-left">
                 <p className="">{`${item.name}`}</p>
-                <p className="text-xs text-gray-600">{`${item.author}`}</p>
+                <p className="text-xs text-gray-600 dark:text-gray-300">{`${item.author}`}</p>
             </div>
             <div onClick={() => {
                 if (refAudio.current) {

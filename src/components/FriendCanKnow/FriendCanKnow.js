@@ -8,15 +8,15 @@ export default function FriendCanKnow() {
     const user = useSelector((state) => state.user);
     //
     return (
-        <div className='w-full px-2 py-0.5 shadow-lv1 bg-white rounded-lg relative'>
+        <div className='w-full px-2 py-0.5 shadow-lv1 bg-white dark:bg-dark-third dark:text-white rounded-lg relative'>
             <div className='flex justify-between w-full py-1.5 items-center'>
                 <p className='font-semibold'>Những người bạn có thể biết</p>
                 <i className='bx bx-dots-horizontal-rounded text-3xl cursor-pointer' ></i>
             </div>
-            <div className='w-full max-w-full flex gap-2 overflow-x-auto'>
+            <div className='w-full max-w-full flex gap-2 overflow-x-auto dark:bg-dark-third'>
                 {[...users.filter(item => item.id !== user.id)].map(item =>
                     <div key={item} className='w-40 justify-center rounded-t-lg flex flex-shrink-0 border-2 border-solid 
-                    border-gray-200 shadow-lv1'>
+                    border-gray-200 shadow-lv1 dark:border-dark-third'>
                         <div className='w-full relative'>
                             <img src={item.avatar}
                                 alt='' className='w-full h-36 rounded-t-lg object-cover' />

@@ -72,7 +72,8 @@ export default function ImageVideoPreview(props) {
     //
     return (
         <div className='w-full px-3 -mt-2'>
-            <div ref={refContainer} className='w-full relative p-2 border border-solid border-gray-200 rounded-lg'>
+            <div ref={refContainer} className='w-full relative p-2 border border-solid border-gray-200  dark:border-dark-third
+             rounded-lg'>
                 <span onClick={() => {
                     postsDispatch(postsAction.updateData('imageVideoUpload', false));
                     postsDispatch(postsAction.updateData('imageVideo', []));

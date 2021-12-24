@@ -68,6 +68,16 @@ const users = [
         password: "manhdung123",
         avatar: "https://res.cloudinary.com/tratahuong01/image/upload/v1621303248/Avatar/xppwkdrirbni7nwce0og.png",
         cover: "https://res.cloudinary.com/tratahuong01/image/upload/v1619960498/CoverImage/pg53ym2nzwa1kegtgre2.jpg"
+    },
+    {
+        id: 7,
+        firstName: "Người",
+        lastName: "Dùng",
+        email: 'account@gmail.com',
+        phone: '099999999',
+        password: "123456789",
+        avatar: "https://live.staticflickr.com/65535/40773876103_d404a8e68a_w.jpg",
+        cover: "https://ai-eo.com/wp-content/uploads/2021/05/unrkg2jh1j0-950x500.jpg"
     }
 ]
 export default users;

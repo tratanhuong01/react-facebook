@@ -3,7 +3,7 @@ import { StoryEditorContext } from '../../../contexts/StoryEditorContext/StoryEd
 
 const ContentTextEdit = (props) => {
     //  
-    const { storyEditor: { content } } = useContext(StoryEditorContext);
+    const { storyEditor: { content, color } } = useContext(StoryEditorContext);
     const refContent = useRef();
     useEffect(() => {
         //
@@ -14,7 +14,7 @@ const ContentTextEdit = (props) => {
     return (
         <div ref={refContent} className="text-xl font-bold text-gray-100 break-all content-story-text w-80 min-h-8 absolute contentedittable__story  
                     top-1/2 left-1/2 rounded-2xl px-2 text-center font-bold outline-none transform -transtate-y-1/2 -translate-x-1/2"
-            placeholder='BẮT ĐẦU NHẬP' spellCheck={false}>
+            placeholder='BẮT ĐẦU NHẬP' spellCheck={false} style={{ color: color ? color.color : "white" }}>
         </div>
     )
 }

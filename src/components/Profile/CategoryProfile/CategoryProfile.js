@@ -42,8 +42,8 @@ export default function CategoryProfile() {
             <ul className="w-full flex py-1">
                 {categories.map(category =>
                     <li onClick={() => setActive(category.id)} key={category.id} className={`text-center py-4 px-4 cursor-pointer 
-                border-b-4 dark:text-white font-semibold border-white ${active === category.id ? `text-blue-500 border-blue-500 
-                rounded-t-lg` : 'rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-dark-third'}  `}>
+                    border-b-4 dark:text-white font-semibold  ${active === category.id ? `text-blue-500 border-blue-500 
+                    rounded-t-lg` : 'rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-dark-third border-white dark:border-dark-second'}  `}>
                         {category.label}
                     </li>
                 )}

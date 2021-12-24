@@ -13,7 +13,7 @@ export default function InputComponent(props) {
             {type === "password" || search ?
                 <div className={`${wrapper} ${width ? width : 'w-full'} relative`}>
                     <input type={show ? "text" : search ? 'text' : "password"} placeholder={placeholder} className={`${width ? width : 'w-full'} ${className} ${borderValidation} 
-                    focus:border-blue-600 ${search ? 'pl-10' : ''} rounded-sm border-solid focus:shadow-sm border-gray-200`}
+                    focus:border-blue-600 ${search ? 'pl-10' : ''} dark:border-dark-third rounded-sm border-solid focus:shadow-sm border-gray-200`}
                         spellCheck={false} onChange={(event) => {
                             if (typeof handleChange === "function") {
                                 handleChange(event.target.value)
@@ -22,10 +22,10 @@ export default function InputComponent(props) {
                     {!search && <span onClick={() => setShow(!show)} className={`bx bx-${show ? 'show' : 'hide'} text-xl text-gray-700 absolute 
                     top-1/2 transform -translate-y-1/2 z-30 right-2 cursor-pointer`}></span>}
                     {search && <span className={`bx bx-search text-xl text-gray-700 absolute 
-                    top-1/2 transform -translate-y-1/2 z-30 left-3 cursor-pointer`}></span>}
+                    top-1/2 transform -translate-y-1/2 z-30 left-3 cursor-pointer dark:text-white`}></span>}
                 </div> :
                 <input type={type} placeholder={placeholder} className={`${width ? width : 'w-full'} ${className} ${borderValidation} focus:border-blue-600 
-                border-solid focus:shadow-sm rounded-sm border-gray-200`}
+                border-solid focus:shadow-sm rounded-sm border-gray-200 dark:border-dark-third`}
                     spellCheck={false} onChange={(event) => {
                         if (typeof handleChange === "function") {
                             handleChange(event.target.value)

@@ -56,9 +56,9 @@ const ContentStory = () => {
     }, [main, timeCurrent, isPlaying, current]);
     //
     return (
-        <div className="w-7/12 story-right bg-gray-400 mt-5 relative m-2 rounded-lg relative"
+        <div className="w-7/12 story-right bg-gray-400 dark:bg-dark-third mt-5 relative m-2 rounded-lg relative"
             style={{ height: "calc(100% - 90px)" }}>
-            <audio src={main.music} ref={refAudio} className='hidden' autoPlay muted />
+            <audio src={main.music} ref={refAudio} className='hidden' autoPlay />
             <div className='w-full h-full flex items-center'>
                 <img src={main.src}
                     className="w-full img-story object-cover" alt="" style={{ maxHeight: "calc(100%)" }} />

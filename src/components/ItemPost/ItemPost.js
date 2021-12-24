@@ -20,7 +20,7 @@ export default function ItemPost() {
                         </Link>
                     </div>
                 </div>
-                <div className="relative -ml-1 w-4/5">
+                <div className="relative ml-2 lg:-ml-1">
                     <p className="dark:text-gray-300 dark:text-white">
                         <Link to="" className="font-semibold mr-2">
                             Phương Thảo

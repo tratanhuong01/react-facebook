@@ -26,7 +26,17 @@ export default function HeaderLoggedRight() {
             </div>
             <div className="w-full pt-2 pb-2 sm:w-full">
                 <ul className="flex float-right">
-                    <li onClick={() => setActive(!active)} className="cursor-pointer relative h-10 ml-1 mr-1 w-10 bg-gray-200 
+                    <li onClick={() => {
+                        const main__logged = document.getElementById('main__logged')
+                        if (main__logged) {
+                            if (main__logged.classList.contains('dark')) {
+                                main__logged.classList.remove('dark');
+                            }
+                            else {
+                                main__logged.classList.add('dark');
+                            }
+                        }
+                    }} className="cursor-pointer relative h-10 ml-1 mr-1 w-10 bg-gray-200 
                     dark:bg-dark-third dark:text-white text-center rounded-full flex justify-center items-center">
                         <i className="bx bx-plus text-xl hidden"></i>
                         <i className="bx bxs-moon text-2xl"></i>

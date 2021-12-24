@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import stories from '../../../config/stories'
-import { PAGE_CREATE_STORY, PAGE_STORY } from '../../../constants/Config'
+import { PAGE_CREATE_STORY } from '../../../constants/Config'
 import ItemPost from '../../ItemPost/ItemPost'
 import WritePost from '../../WritePost/WritePost'
 import ItemStory from './ItemStory/ItemStory'
@@ -14,7 +14,7 @@ export default function HomeCenter() {
     const user = useSelector((state) => state.user);
     //
     return (
-        <div className="center-content relative left-0 px-2 sm:w-full sm:mx-auto md:w-3/4 lg:mx-0 
+        <div className="center-content relative left-0 px-2 w-full sm:mx-auto md:w-3/4 lg:mx-0 
             lg:w-4/6 lg:left-0! xl:w-1/2 xl:px-8 xl:left-1/4">
             <div className="flex my-4 relative gap-1">
                 <div onClick={() => navigation(PAGE_CREATE_STORY)} className="flex-shrink-0 w-1/4 md:w-1/6 px-1 pl-0 relative text-center h-44 cursor-pointer">
@@ -30,12 +30,8 @@ export default function HomeCenter() {
                     </div>
                 </div>
                 {[...stories].slice(0, 5).map((story, index) => <ItemStory key={index} story={story}
-                    nearLast={index === 3 ? true : false} last={index === 4 ? true : false} />)}
-
-                <div onClick={() => navigation(PAGE_STORY)} className="w-10 h-10 absolute top-1/2 transform -translate-y-1/2 -mt-1 -right-4 rounded-full dark:bg-dark-third 
-                    cursor-pointer z-20 text-center flex justify-center items-center bg-white text-gray-700 shadow-lv1" >
-                    <i className="bx bx-right-arrow-alt text-2xl dark:text-white"></i>
-                </div>
+                    nearLast={index === 3 ? 'hidden lg:block' : ''} last={index === 4 ? 'hidden md:block' : ''}
+                    length={[...stories].slice(0, 5).length} index={index} />)}
             </div>
             <WritePost />
             <MeetRom />
