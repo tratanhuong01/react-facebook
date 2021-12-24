@@ -1,5 +1,6 @@
 import React from 'react'
 import ButtonComponent from '../../../ButtonComponent/ButtonComponent'
+import users from '../../../../config/users'
 
 export default function MeetRom() {
     return (
@@ -11,26 +12,13 @@ export default function MeetRom() {
                 <span>Tạo phòng hop mặt</span>
             </ButtonComponent>
             <ul className="mx-4 flex gap-3">
-                <li className="w-10 h-10 flex-shrink-0 rounded-full relative cursor-pointer">
-                    <img src="http://res.cloudinary.com/tratahuong01/image/upload/v1638973763/Avatar/kxqbimjteg5ka9cbqh6y.jpg"
-                        alt="" className="w-full h-full rounded-full object-cover" />
-                    <span className="w-3 h-3 rounded-full absolute bottom-0 right-0 bg-green-500"></span>
-                </li>
-                <li className="w-10 h-10 flex-shrink-0 rounded-full relative cursor-pointer">
-                    <img src="http://res.cloudinary.com/tratahuong01/image/upload/v1638973763/Avatar/kxqbimjteg5ka9cbqh6y.jpg"
-                        alt="" className="w-full h-full rounded-full object-cover" />
-                    <span className="w-3 h-3 rounded-full absolute bottom-0 right-0 bg-green-500"></span>
-                </li>
-                <li className="w-10 h-10 flex-shrink-0 rounded-full relative cursor-pointer">
-                    <img src="http://res.cloudinary.com/tratahuong01/image/upload/v1638973763/Avatar/kxqbimjteg5ka9cbqh6y.jpg"
-                        alt="" className="w-full h-full rounded-full object-cover" />
-                    <span className="w-3 h-3 rounded-full absolute bottom-0 right-0 bg-green-500"></span>
-                </li>
-                <li className="w-10 h-10 flex-shrink-0 rounded-full relative cursor-pointer">
-                    <img src="http://res.cloudinary.com/tratahuong01/image/upload/v1638973763/Avatar/kxqbimjteg5ka9cbqh6y.jpg"
-                        alt="" className="w-full h-full rounded-full object-cover" />
-                    <span className="w-3 h-3 rounded-full absolute bottom-0 right-0 bg-green-500"></span>
-                </li>
+                {users.map(user =>
+                    <li key={user.id} className="w-10 h-10 flex-shrink-0 rounded-full relative cursor-pointer">
+                        <img src={user.avatar}
+                            alt="" className="w-full h-full rounded-full object-cover" />
+                        <span className="w-3 h-3 rounded-full absolute bottom-0 right-0 bg-green-500"></span>
+                    </li>
+                )}
             </ul>
         </div >
     )

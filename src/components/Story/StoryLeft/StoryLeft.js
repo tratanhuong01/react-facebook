@@ -1,8 +1,10 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext } from 'react'
+import storyList from '../../../config/stories';
+import { StoryContext } from '../../../contexts/StoryContext/StoryContext';
 
 export default function StoryLeft(props) {
     //
+    const { stories: { current }, storiesDispatch, storiesAction } = useContext(StoryContext);
     const { fullScreen, setFullScreen } = props;
     //
     return (
@@ -32,20 +34,27 @@ export default function StoryLeft(props) {
             </div>
             <hr className='my-2' />
             <p className='font-semibold my-2'>Tất cả tin</p>
-            <div className="w-full flex my-2 hover:bg-gray-100 cursor-pointer rounded-lg p-2
-            dark:hover:bg-dark-third ">
-                <div className="w-23per">
-                    <img src="http://res.cloudinary.com/tratahuong01/image/upload/v1638973763/Avatar/kxqbimjteg5ka9cbqh6y.jpg"
-                        className="rounded-full p-1 w-16 h-16 border-4 border-white object-cover border-solid" alt="" />
-                </div>
-                <div className="w-3/4">
-                    <p className="font-semibold pt-2 dark:text-white"><Link to="">Trà Hưởng</Link></p>
-                    <p className="color-word text-sm"><span className="text-blue-400">
-                    </span>
-                        <span className="font0-bold text-sm">4 phút trước</span>
-                    </p>
-                </div>
-            </div>
+            {storyList.map((story, index) =>
+                <div onClick={() => {
+                    storiesDispatch(storiesAction.updateData('current', story));
+                    storiesDispatch(storiesAction.updateData('timeCurrent', 0));
+                    storiesDispatch(storiesAction.updateData('indexRun', 0));
+                    storiesDispatch(storiesAction.updateData('indexStory', index));
+                    storiesDispatch(storiesAction.updateData('main', story.imageList[0]));
+                }} key={story.id} className={`w-full flex my-2 cursor-pointer rounded-lg p-2
+                ${story.id === current.id ? 'dark:bg-dark-third bg-gray-100' : 'dark:hover:bg-dark-third hover:bg-gray-100'}`}>
+                    <div className="w-23per">
+                        <img src={story.avatar}
+                            className="rounded-full p-1 w-16 h-16 border-4 border-white object-cover border-solid" alt="" />
+                    </div>
+                    <div className="w-3/4">
+                        <p className="font-semibold pt-2 dark:text-white">{story.fullName}</p>
+                        <p className="color-word text-sm"><span className="text-blue-400">
+                        </span>
+                            <span className="font0-bold text-sm">4 phút trước</span>
+                        </p>
+                    </div>
+                </div>)}
             <hr className="p-2 my-3"></hr>
         </>
     )

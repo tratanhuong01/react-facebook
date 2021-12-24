@@ -319,7 +319,7 @@ button {
 }
 [contenteditable][placeholder]:empty:before {
   content: attr(placeholder);
-  position: absolute;
+  text-align: center;
   /* padding: 0px 12px;
   color: gray; */
   background-color: transparent;
@@ -328,6 +328,19 @@ button {
 .contentedittable[placeholder]:empty:before {
   content: attr(placeholder);
   position: absolute;
+  text-align: center;
+  padding: 0px 12px;
+  color: rgb(194, 188, 188);
+  background-color: transparent;
+}
+
+
+.contentedittable__story[placeholder]:empty:before {
+  content: attr(placeholder);
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  left: 0;
   padding: 0px 12px;
   color: rgb(194, 188, 188);
   background-color: transparent;

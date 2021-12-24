@@ -1,10 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import ButtonComponent from "../components/ButtonComponent/ButtonComponent";
 import AccountIsset from "../components/Login/AccountIsset/AccountIsset";
 import AccountNotIsset from "../components/Login/AccountNotIsset/AccountNotIsset";
 import EndFormLogin from "../components/Login/EndFormLogin/EndFormLogin";
 import FooterLogin from "../components/Login/FooterLogin/FooterLogin";
 import FormLogin from "../components/Login/FormLogin/FormLogin";
+import { PAGE_HOME } from "../constants/Config";
 import { ModalContext } from "../contexts/ModalContext/ModalContext";
 import useTitle from "../hooks/useTitle";
 import WrapperPage from "./WrapperPage";
@@ -12,6 +15,15 @@ import WrapperPage from "./WrapperPage";
 function Login(props) {
   //
   const { modalsDispatch, modalsAction } = useContext(ModalContext);
+  const user = useSelector((state) => state.user);
+  const navigation = useNavigate();
+  useEffect(() => {
+    //
+    if (user) {
+      navigation(PAGE_HOME);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   //
   useTitle("Đăng nhập");
   //

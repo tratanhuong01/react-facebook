@@ -1,12 +1,16 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import ButtonComponent from '../../ButtonComponent/ButtonComponent'
 
 export default function HeaderProfile() {
+    //
+    const user = useSelector((state) => state.user);
+    //
     return (
         <>
             <div className=" relative h-60 lg:h-96 mx-auto" style={{ width: "110%", left: "-4.3%" }}>
                 <img className="w-full h-60 object-cover lg:h-96 rounded-lg"
-                    src="http://res.cloudinary.com/tratahuong01/image/upload/v1623289164/CoverImage/ws78fdicxqcvxelti1xv.jpg"
+                    src={user.cover}
                     alt="" />
                 <div className="w-full h-60 lg:h-96 absolute top-0 left-0 z-20 bg-opacity-50 bg-white hidden">
                     <div className="w-full h-full relative">
@@ -25,7 +29,7 @@ export default function HeaderProfile() {
             <div className="w-full relative z-10 flex pb-2 border-b-6 border-solid border-gray-200">
                 <div className="-mt-9 relative" style={{ width: 180, height: 180 }}>
                     <img className="w-full h-full rounded-full border-4 border-solid border-white object-cover"
-                        src="http://res.cloudinary.com/tratahuong01/image/upload/v1638973763/Avatar/kxqbimjteg5ka9cbqh6y.jpg"
+                        src={user.avatar}
                         alt="" />
                     <div className="text-2xl absolute bottom-2 right-2 z-40 bg-gray-200 w-11 h-11 flex justify-center 
                     items-center rounded-full shadow-lv1 border-2 border-solid border-gray-300">
@@ -35,7 +39,7 @@ export default function HeaderProfile() {
                 </div>
                 <div className="p-2 relative" style={{ width: "calc(100% - 180px)" }}>
                     <p className="font-semibold flex text-4xl py-1 dark:text-white flex items-center">
-                        Trà Hưởng
+                        {`${user.firstName} ${user.lastName}`}
                         <span className="ml-3 bg-blue-500 rounded-full 
                         text-sm font-bold text-white w-4 h-4 flex">
                             <i className="bx bx-check flex justiy-center items-center "></i>

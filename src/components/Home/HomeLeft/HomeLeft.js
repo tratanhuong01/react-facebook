@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import ItemHomeLeft from './ItemHomeLeft/ItemHomeLeft'
 import categories from './categories'
+import { useSelector } from 'react-redux';
 
 export default function HomeLeft() {
     //
     const [loading, setLoading] = useState(false);
+    const user = useSelector((state) => state.user);
     const [length, setLength] = useState(Math.floor(categories.length / 2) + 1);
     //
     return (
@@ -14,9 +16,11 @@ export default function HomeLeft() {
                 <ul className="w-full left-category">
                     <li className="cursor-pointer flex p-2.5 hover:bg-gray-200 font-bold cursor-pointer dark:hover:bg-dark-third">
                         <img className="w-11 h-11 rounded-full object-cover mr-4"
-                            src="http://res.cloudinary.com/tratahuong01/image/upload/v1638973763/Avatar/kxqbimjteg5ka9cbqh6y.jpg"
+                            src={user.avatar}
                             alt="" />
-                        <span className="text-sm flex text-gray-900 items-center font-semibold dark:text-white">Trà Hưởng</span>
+                        <span className="text-sm flex text-gray-900 items-center font-semibold dark:text-white">
+                            {`${user.firstName} ${user.lastName}`}
+                        </span>
                     </li>
                     {categories.slice(0, length).map(
                         (category) => (<ItemHomeLeft image={category.image} label={category.label}

@@ -1,7 +1,12 @@
 import React from 'react'
 import ButtonComponent from '../ButtonComponent/ButtonComponent'
+import users from '../../config/users'
+import { useSelector } from 'react-redux'
 
 export default function FriendCanKnow() {
+    //
+    const user = useSelector((state) => state.user);
+    //
     return (
         <div className='w-full px-2 py-0.5 shadow-lv1 bg-white rounded-lg relative'>
             <div className='flex justify-between w-full py-1.5 items-center'>
@@ -9,14 +14,14 @@ export default function FriendCanKnow() {
                 <i className='bx bx-dots-horizontal-rounded text-3xl cursor-pointer' ></i>
             </div>
             <div className='w-full max-w-full flex gap-2 overflow-x-auto'>
-                {[0, 1, 2, 3, 4, 5, 6, 7].map(item =>
+                {[...users.filter(item => item.id !== user.id)].map(item =>
                     <div key={item} className='w-40 justify-center rounded-t-lg flex flex-shrink-0 border-2 border-solid 
                     border-gray-200 shadow-lv1'>
                         <div className='w-full relative'>
-                            <img src="http://res.cloudinary.com/tratahuong01/image/upload/v1638973763/Avatar/kxqbimjteg5ka9cbqh6y.jpg"
+                            <img src={item.avatar}
                                 alt='' className='w-full h-36 rounded-t-lg object-cover' />
                             <p className='text-base px-2 py-0.5 font-semibold text-center'>
-                                Huong Developer
+                                {`${item.firstName} ${item.lastName}`}
                             </p>
                             <div className='px-2 mx-auto text-sm flex items-center justify-center'>
                                 <img src="http://res.cloudinary.com/tratahuong01/image/upload/v1638973763/Avatar/kxqbimjteg5ka9cbqh6y.jpg"

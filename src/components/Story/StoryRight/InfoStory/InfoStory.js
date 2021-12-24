@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { StoryContext } from '../../../../contexts/StoryContext/StoryContext';
 
 export default function InfoStory(props) {
     //
     const { setShow } = props;
+    const { stories: { current, main }, storiesDispatch, storiesAction } = useContext(StoryContext);
     //
     return (
         <div className="w-full absolute bg-gray-100 dark:bg-dark-second px-2 bottom-0 left-0 rounded-lg"
@@ -12,15 +14,17 @@ export default function InfoStory(props) {
                 <span onClick={() => setShow(false)} className='text-2xl cursor-pointer font-bold absolute top-2 right-2'>
                     &times;</span>
             </p>
-            <ul className="flex whitespace-nowrap overflow-x-hidden" style={{ maxWidth: 368 }}>
-                <li className="mr-2 cursor-pointer flex-shrink-0 showLi " style={{ width: 120 }}>
-                    <img className="w-32 h-40 object-cover showImg" alt=''
-                        src="http://res.cloudinary.com/tratahuong01/image/upload/v1639970050/Story/pxhxin9ywl1ii7u7qped.png" />
-                </li>
-                <li className="mr-2 cursor-pointer flex-shrink-0 showLi " style={{ width: 120 }}>
-                    <img className="w-32 h-40 object-cover showImg" alt=''
-                        src="http://res.cloudinary.com/tratahuong01/image/upload/v1639970050/Story/pxhxin9ywl1ii7u7qped.png" />
-                </li>
+            <ul className="flex overflow-x-hidden" style={{ maxWidth: 368 }}>
+                {current.imageList.map((item, index) =>
+                    <li onClick={() => {
+                        storiesDispatch(storiesAction.updateData('indexRun', index));
+                        storiesDispatch(storiesAction.updateData('main', current.imageList[index]));
+                    }} key={index} className="mr-2 cursor-pointer flex-shrink-0 flex items-center justify-center "
+                        style={{ width: 120, height: 160 }}>
+                        <img className={`${item.id === main.id ? 'w-full h-full' : 'w-5/6 h-5/6'} object-cover`} alt=''
+                            src={item.src} />
+                    </li>
+                )}
                 <li className="cursor-pointer flex-shrink-0 " style={{ width: 120 }}>
                     <div className="w-32 h-40 p-2">
                         <div className="w-full dark:bg-dark-third bg-gray-100 h-36 py-8">

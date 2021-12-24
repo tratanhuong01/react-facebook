@@ -16,7 +16,7 @@ export default function ItemPost() {
                         <Link to="">
                             <img className="w-12 h-12 rounded-full object-cover border-4 border-solid border-gray-200"
                                 alt=""
-                                src="http://res.cloudinary.com/tratahuong01/image/upload/v1638973763/Avatar/kxqbimjteg5ka9cbqh6y.jpg" />
+                                src="https://res.cloudinary.com/tratahuong01/image/upload/v1619944098/Avatar/hn78abc4gea5wryanlta.jpg" />
                         </Link>
                     </div>
                 </div>

@@ -96,7 +96,7 @@ const ContentStory = () => {
                         border-solid' />
                 </div>
             </div>}
-            <div className="w-1/4 bg-white flex p-1.5 absolute top-32 left-24 rounded-lg"
+            <div className="w-1/4 bg-white flex p-1.5 absolute top-1/2 left-16 rounded-lg"
                 style={{ transform: "rotate(-25deg)" }}>
                 <div className="w-1/4 pr-2">
                     <img src="http://res.cloudinary.com/tratahuong01/image/upload/v1639970050/Story/pxhxin9ywl1ii7u7qped.png"

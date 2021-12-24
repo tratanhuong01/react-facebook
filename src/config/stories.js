@@ -27,6 +27,23 @@ const stories = [
                 music: "https://res.cloudinary.com/tratahuong01/video/upload/v1621335275/Sound/LateNight_j4wtmo.mp3"
             }
         ]
+    },
+    {
+        id: 2,
+        avatar: "https://res.cloudinary.com/tratahuong01/image/upload/v1622638494/CommentImage/ovawwikmbz1pota9zpc0.jpg",
+        fullName: "Linh Thuỳ",
+        imageList: [
+            {
+                id: 0,
+                src: "https://res.cloudinary.com/tratahuong01/image/upload/v1619944098/Avatar/hn78abc4gea5wryanlta.jpg",
+                music: "https://res.cloudinary.com/tratahuong01/video/upload/v1621342485/Sound/kujptnkpxpps7icm7ogr.mp3"
+            },
+            {
+                id: 1,
+                src: "https://res.cloudinary.com/tratahuong01/image/upload/v1620699901/Avatar/ssrtwwrhftymveemykki.jpg",
+                music: "https://res.cloudinary.com/tratahuong01/video/upload/v1621335275/Sound/Mo-Den_daxhlg.mp3"
+            }
+        ]
     }
 ];
 

@@ -1,10 +1,15 @@
 import React, { useContext, useEffect } from 'react'
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { PAGE_LOGIN } from '../constants/Config';
 import { ModalContext } from '../contexts/ModalContext/ModalContext'
 
 export default function WrapperPage(props) {
     //
     const { white } = props;
     const { modals } = useContext(ModalContext);
+    const user = useSelector((state) => state.user);
+    const navigation = useNavigate();
     useEffect(() => {
         //
         if (modals.data) {
@@ -13,8 +18,14 @@ export default function WrapperPage(props) {
         else {
             document.getElementsByTagName('body')[0].classList = "";
         }
-        //
-    }, [modals.data]);
+        if (user) {
+
+        }
+        else {
+            navigation(PAGE_LOGIN);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [modals.data, user]);
     //
     return (
         <>

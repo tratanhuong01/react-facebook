@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import stories from '../../../config/stories'
 import { PAGE_CREATE_STORY, PAGE_STORY } from '../../../constants/Config'
@@ -10,6 +11,7 @@ import MeetRom from './MeetRom/MeetRom'
 export default function HomeCenter() {
     //
     const navigation = useNavigate();
+    const user = useSelector((state) => state.user);
     //
     return (
         <div className="center-content relative left-0 px-2 sm:w-full sm:mx-auto md:w-3/4 lg:mx-0 
@@ -17,7 +19,7 @@ export default function HomeCenter() {
             <div className="flex my-4 relative gap-1">
                 <div onClick={() => navigation(PAGE_CREATE_STORY)} className="flex-shrink-0 w-1/4 md:w-1/6 px-1 pl-0 relative text-center h-44 cursor-pointer">
                     <img className="w-full rounded-t-lg object-cover" style={{ height: 125 }}
-                        src="http://res.cloudinary.com/tratahuong01/image/upload/v1638973763/Avatar/kxqbimjteg5ka9cbqh6y.jpg"
+                        src={user.avatar}
                         alt="" />
                     <div className="w-full rounded-b-lg bg-white dark:bg-dark-second relative" style={{ height: 50 }}>
                         <div className="w-11 h-11 rounded-full border-4 border-solid border-white dark:border-dark-second 
@@ -27,7 +29,7 @@ export default function HomeCenter() {
                         <p className="text-center text-sm font-bold pt-6 pb-0 dark:text-white">Tạo Tin</p>
                     </div>
                 </div>
-                {[...stories].slice(0, 5).map((story, index) => <ItemStory key={story.id} story={story}
+                {[...stories].slice(0, 5).map((story, index) => <ItemStory key={index} story={story}
                     nearLast={index === 3 ? true : false} last={index === 4 ? true : false} />)}
 
                 <div onClick={() => navigation(PAGE_STORY)} className="w-10 h-10 absolute top-1/2 transform -translate-y-1/2 -mt-1 -right-4 rounded-full dark:bg-dark-third 

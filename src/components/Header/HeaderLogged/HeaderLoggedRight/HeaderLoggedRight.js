@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { PAGE_LOGIN, PAGE_PROFILE } from '../../../../constants/Config';
+import { PAGE_PROFILE } from '../../../../constants/Config';
+import * as usersAction from "../../../../actions/user/index";
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function HeaderLoggedRight() {
     //
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.user);
     const [active, setActive] = useState();
     const navigation = useNavigate();
     //
@@ -13,11 +17,11 @@ export default function HeaderLoggedRight() {
             lg:mx-0">
                 <div className="w-1/3 hidden lg:block lg:w-full lg:pt-1 xl:w-auto xl:mr-2">
                     <img className="w-8 h-8 rounded-full object-cover"
-                        src="http://res.cloudinary.com/tratahuong01/image/upload/v1638973763/Avatar/kxqbimjteg5ka9cbqh6y.jpg"
+                        src={user.avatar}
                         alt="" />
                 </div>
                 <div className="w-2/3 hidden dark:text-white pt-1 text-center xl:block xl:w-auto lg:pt-2">
-                    Hưởng
+                    {user.lastName}
                 </div>
             </div>
             <div className="w-full pt-2 pb-2 sm:w-full">
@@ -43,7 +47,7 @@ export default function HeaderLoggedRight() {
                             +9
                         </span>
                     </li>
-                    <li onClick={() => navigation(PAGE_LOGIN)} className="cursor-pointer relative h-10 ml-1 mr-1 w-10 bg-gray-200 
+                    <li onClick={() => dispatch(usersAction.logoutUser())} className="cursor-pointer relative h-10 ml-1 mr-1 w-10 bg-gray-200 
                     dark:bg-dark-third dark:text-white text-center rounded-full flex justify-center items-center">
                         <i className="fas fa-sort-down text-2xl transform -translate-y-1 "></i>
                     </li>

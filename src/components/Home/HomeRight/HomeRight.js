@@ -1,10 +1,15 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import users from '../../../config/users';
 
 export default function HomeRight() {
+    //
+    const user = useSelector((state) => state.user);
+    //  
     return (
         <div className="fixed hidden h-screen lg:block lg:w-1/3 lg:left-2/3 xl:left-7/10 xl:w-3/10">
-            <div className="w-full flex h-full">
+            <div className="w-full flex h-full pb-4">
                 <div className="w-1/5 hidden sm:hidden xl:block">
                 </div>
                 <div className="content-right wrapper-content-right w-4/5 overflow-y-auto py-0 
@@ -57,12 +62,20 @@ export default function HomeRight() {
                             </ul>
                         </div>
                     </div>
-                    <div className="w-full flex p-2 items-center relative friends-online relative cursor-pointer dark:hover:bg-dark-third">
-                        <img className="w-10 h-10 rounded-full object-cover"
-                            src="http://res.cloudinary.com/tratahuong01/image/upload/v1638973763/Avatar/kxqbimjteg5ka9cbqh6y.jpg"
-                            alt="" />
-                        <p className="font-semibold ml-3 dark:text-white">Toi Dev</p>
-                    </div>
+                    {
+                        [...users.filter(item => item.id !== user.id)].map(item =>
+                            <div key={item.id} className="w-full flex p-2 items-center relative friends-online relative cursor-pointer dark:hover:bg-dark-third">
+                                <div className='w-10 h-10 relative'>
+                                    <img className="w-full h-full rounded-full object-cover"
+                                        src={item.avatar}
+                                        alt="" />
+                                    <span className="w-2.5 h-2.5 rounded-full absolute bottom-0 right-0 bg-green-500"></span>
+                                </div>
+                                <p className="font-semibold ml-3 dark:text-white">
+                                    {`${item.firstName} ${item.lastName}`}
+                                </p>
+                            </div>)
+                    }
                 </div>
             </div>
         </div >

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -6,9 +6,14 @@ import InputComponent from "../../InputComponent/InputComponent";
 import ButtonComponent from "../../ButtonComponent/ButtonComponent";
 import { Link, useNavigate } from "react-router-dom";
 import { PAGE_FORGET_ACCOUNT, PAGE_HOME } from "../../../constants/Config";
+import users from "../../../config/users";
+import { useDispatch } from "react-redux";
+import * as usersAction from "../../../actions/user/index";
 
 function FormLogin(props) {
   //
+  const [user, setUser] = useState("");
+  const dispatch = useDispatch();
   const validationSchema = Yup.object().shape({
     emailOrPhone: Yup.string().required(
       "Email hoặc số điện thoại không được để trống !!"
@@ -17,6 +22,7 @@ function FormLogin(props) {
   });
   const { remember, loginFast } = props;
   const {
+    handleSubmit,
     register,
     formState: { errors },
   } = useForm({
@@ -24,10 +30,17 @@ function FormLogin(props) {
   });
   const navigation = useNavigate();
   return (
-    <form className="w-full bg-white p-2.5" onSubmit={(event) => {
-      event.preventDefault();
-      navigation(PAGE_HOME);
-    }} >
+    <form className="w-full bg-white p-2.5" onSubmit={handleSubmit((data) => {
+      const result = users.filter(item => ((item.email === data.emailOrPhone || item.phone === data.emailOrPhone)
+        && item.password === data.password));
+      if (result.length > 0) {
+        setUser([result[0]]);
+        dispatch(usersAction.loginUser(result[0]));
+        navigation(PAGE_HOME);
+      }
+      else
+        setUser(null);
+    })} >
       {loginFast ? <div className="w-full flex flex-col justify-center p-3">
         <img
           src="http://res.cloudinary.com/tratahuong01/image/upload/v1623289152/Avatar/d5peo862j01zy9btpuee.jpg"
@@ -51,6 +64,7 @@ function FormLogin(props) {
         className={`border rounded-md p-3 my-2 ${errors.emailOrPhone ? "border-red-500 text-red-500" : "border-gray-200 "}`}
         register={register}
       />
+      {user === null ? <p className="text-red-500 py-2 text-sm">Tài khoản hoặc mật khẩu không chính xác!!</p> : ''}
       {remember &&
         <div className="w-full my-3 px-3 flex items-center">
           <input type="checkbox" className="transform scale-130 mr-2" />

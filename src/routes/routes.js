@@ -7,9 +7,8 @@ import VerifyCodeAccount from "../pages/Auth/VerifyCodeAccount";
 import TypeNewPassword from "../pages/Auth/TypeNewPassword";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
-import CreateStory from "../pages/CreateStory";
-import StoryEditor from "../pages/StoryEditor";
-import Story from "../pages/Story";
+import WrapperStory from "../pages/Story/WrapperStory";
+import ViewStory from "../pages/Story/ViewStory";
 
 const routes = [
   {
@@ -55,17 +54,22 @@ const routes = [
   {
     path: Config.PAGE_CREATE_STORY,
     exact: true,
-    element: <CreateStory />
+    element: <WrapperStory mode={-1} />
   },
   {
-    path: Config.PAGE_STORY_EDITOR,
+    path: Config.PAGE_CREATE_STORY + "/text",
     exact: true,
-    element: <StoryEditor />
+    element: <WrapperStory mode={0} />
+  },
+  {
+    path: Config.PAGE_CREATE_STORY + "/image",
+    exact: true,
+    element: <WrapperStory mode={1} />
   },
   {
     path: Config.PAGE_STORY,
     exact: true,
-    element: <Story />
+    element: <ViewStory />
   },
   {
     path: "",
