@@ -13,7 +13,7 @@ export default function CreateStory(props) {
     useEffect(() => {
         //
         storyEditorsDispatch(storyEditorsAction.updateData('mode', mode));
-        //
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mode])
     //
     return (

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { StoryEditorProvider } from '../../contexts/StoryEditorContext/StoryEditorContext';
 import WrapperLogged from '../WrapperLogged';
 import CreateStory from './CreateStory';

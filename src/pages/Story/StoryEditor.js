@@ -25,7 +25,7 @@ export default function StoryEditor(props) {
             storyEditorsDispatch(storyEditorsAction.updateData('data', backgroundStory[0]));
         }
         storyEditorsDispatch(storyEditorsAction.updateData('mode', mode));
-        //
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mode])
     //
     return (
