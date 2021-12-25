@@ -40,3 +40,10 @@ export const openModalPost = (id, feel, imageVideo) => {
         imageVideo
     }
 }
+
+export const openModalPreviewAvatar = (image) => {
+    return {
+        type: constants.OPEN_MODAL_PREVIEW_AVATAR,
+        image
+    }
+}

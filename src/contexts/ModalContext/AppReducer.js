@@ -1,6 +1,7 @@
 import ModalLogin from "../../components/Modals/Login/ModalLogin/ModalLogin";
 import ModalRegister from "../../components/Modals/Login/ModalRegister/ModalRegister";
 import ModalWrapperPost from "../../components/Modals/ModalWrapperPost/ModalWrapperPost";
+import ModalPreviewAvatar from "../../components/Modals/Profile/ModalPreviewAvatar/ModalPreviewAvatar";
 import * as constants from "./Constant";
 
 const AppReducer = (state, action) => {
@@ -18,6 +19,8 @@ const AppReducer = (state, action) => {
                 ...state, data: <ModalWrapperPost id={action.id} feel={action.feel}
                     imageVideo={action.imageVideo} />
             };
+        case constants.OPEN_MODAL_PREVIEW_AVATAR:
+            return { ...state, data: <ModalPreviewAvatar image={action.image} /> };
         default:
             return { ...state };
     }

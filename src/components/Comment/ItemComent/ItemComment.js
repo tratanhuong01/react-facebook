@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import Feels from '../Feels/Feels'
+import Feels from '../../ItemPost/Feels/Feels'
 import StickerComment from './StickerComment/StickerComment'
 import allFeel from "../../../config/feels";
 

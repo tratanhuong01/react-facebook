@@ -15,7 +15,7 @@ export default function FriendCanKnow() {
             </div>
             <div className='w-full max-w-full flex gap-2 overflow-x-auto dark:bg-dark-third'>
                 {[...users.filter(item => item.id !== user.id)].map(item =>
-                    <div key={item} className='w-40 justify-center rounded-t-lg flex flex-shrink-0 border-2 border-solid 
+                    <div key={item.id} className='w-40 justify-center rounded-t-lg flex flex-shrink-0 border-2 border-solid 
                     border-gray-200 shadow-lv1 dark:border-dark-third'>
                         <div className='w-full relative'>
                             <img src={item.avatar}

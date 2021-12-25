@@ -12,10 +12,8 @@ export default function Profile() {
     return (
         <WrapperLogged>
             <div className="w-full bg-white dark:bg-dark-second">
-                <div className="dark:bg-dark-second pt-10 w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">
-                    <div className="w-full border-b-2 border-solid border-gray-300 relative">
-                        <HeaderProfile />
-                    </div>
+                <HeaderProfile />
+                <div className="dark:bg-dark-second w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">
                     <CategoryProfile />
                     <InviteProfile />
                 </div>

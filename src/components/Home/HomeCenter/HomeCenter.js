@@ -40,6 +40,7 @@ export default function HomeCenter() {
             <ItemPost />
             <ItemPost />
             <ItemPost />
+            <ItemPost />
         </div>
     )
 }

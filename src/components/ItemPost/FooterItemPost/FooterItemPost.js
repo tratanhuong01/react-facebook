@@ -45,7 +45,7 @@ export default function FooterItemPost() {
                     text-sm h-12 flex items-center justify-center ">
                         <i className="bx bx-share text-xl transform rotate-180 dark:text-gray-300"></i> &nbsp; Chia sẻ
                     </li>
-                    {show && <div className=" bg-white my-2 absolute w-80 p-1 border-2 border-solid rounded-lg dark:bg-dark-second">
+                    {show && <div className=" bg-white my-3 arrow__bottom bottom-full absolute w-80 p-1 border-2 border-solid rounded-lg dark:bg-dark-second">
                         <ul className="w-full">
                             <li className="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
                             hover:bg-gray-300">

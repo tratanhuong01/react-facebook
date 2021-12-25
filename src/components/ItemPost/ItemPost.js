@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import FooterItemPost from './FooterItemPost/FooterItemPost';
 import AvatarPost from './AvatarPost/AvatarPost';
-import ItemComment from './ItemComent/ItemComment';
-import TypeCommentInput from '../TypeCommentInput/TypeCommentInput';
+import TypeCommentInput from '../Comment/TypeCommentInput/TypeCommentInput';
+import ItemComment from '../Comment/ItemComent/ItemComment';
 
 export default function ItemPost() {
     //
+    const [dataComment, setDataComment] = useState({ value: null, content: "", type: -1 });
     //
     return (
         <div className="w-full bg-white dark:bg-dark-second my-4 shadow-lv1 py-4 px-2 rounded-lg">
@@ -56,7 +57,7 @@ export default function ItemPost() {
             <div className="w-full">
                 <ItemComment />
             </div>
-            <TypeCommentInput />
+            <TypeCommentInput dataComment={dataComment} setDataComment={setDataComment} />
         </div>
 
     )

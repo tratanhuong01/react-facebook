@@ -3,7 +3,7 @@ import ContentStory from './ContentStory/ContentStory'
 import storyList from "../../../config/stories";
 import { StoryContext } from '../../../contexts/StoryContext/StoryContext';
 
-export default function StoryRight(props) {
+export default function ViewStoryRight(props) {
     //
     const { fullScreen } = props;
     const { stories, stories: { indexRun, indexStory, current }, storiesDispatch, storiesAction } = useContext(StoryContext);

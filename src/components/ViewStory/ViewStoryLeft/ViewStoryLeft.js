@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import storyList from '../../../config/stories';
 import { StoryContext } from '../../../contexts/StoryContext/StoryContext';
 
-export default function StoryLeft(props) {
+export default function ViewStoryLeft(props) {
     //
     const { stories: { current }, storiesDispatch, storiesAction } = useContext(StoryContext);
     const { fullScreen, setFullScreen } = props;
