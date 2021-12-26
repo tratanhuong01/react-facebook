@@ -1,11 +1,19 @@
-function useOutSideClick(ref) {
+import { useContext, useEffect } from "react";
+import { ModalContext } from "../contexts/ModalContext/ModalContext";
+
+const useOutSideClick = (ref, func) => {
+    //
+    const { modals, modalsDispatch, modalsAction } = useContext(ModalContext);
+
+    //
     useEffect(() => {
-        /**
-         * Alert if clicked on outside of element
-         */
-        function handleClickOutside(event) {
+
+        const handleClickOutside = (event) => {
             if (ref.current && !ref.current.contains(event.target)) {
-                alert("You clicked outside of me!");
+                modalsDispatch(modalsAction.closeModal());
+                if (typeof func === "function") {
+                    func(false);
+                }
             }
         }
 
@@ -15,5 +23,8 @@ function useOutSideClick(ref) {
             // Unbind the event listener on clean up
             document.removeEventListener("mousedown", handleClickOutside);
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ref]);
+    return { modals, modalsDispatch, modalsAction };
 }
+export default useOutSideClick;

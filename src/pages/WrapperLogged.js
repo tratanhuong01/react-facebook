@@ -24,7 +24,7 @@ export default function WrapperLogged(props) {
     //
     return (
         <WrapperPage>
-            {user && <div className="w-full bg-gray-100 dark:bg-dark-main h-screen relative" >
+            {user && <div className="w-full bg-gray-100 dark:bg-dark-main h-screen overflow-hidden relative" >
                 <HeaderLogged />
                 {props.children}
                 {!hideChat && <div className="h-auto p-3 w-20">

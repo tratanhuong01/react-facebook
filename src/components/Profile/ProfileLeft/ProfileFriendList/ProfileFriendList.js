@@ -8,7 +8,7 @@ export default function ProfileFriendList() {
                     <p className="dark:text-white font-bold pt-2">Bạn bè <br /></p>
                     <span className="color-word">8 người bạn</span>
                 </div>
-                <div className="w-1/2 mt-2.5 mr-2.5 text-right text-main">
+                <div className="w-1/2 mt-2.5 pr-2.5 text-right text-main">
                     Xem tất cả
                 </div>
             </div>

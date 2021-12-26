@@ -17,7 +17,8 @@ export default function HeaderProfile() {
                     <i className='bx bx-globe text-2xl mr-2' ></i>Ảnh bìa của bạn hiển thị công khai.
                 </p>
                 <div className='flex items-center gap-2'>
-                    <ButtonComponent handleClick={() => setCover(user.cover)} className=' rounded-md px-8 py-2 font-semibold  text-white bg-black bg-opacity-20'>
+                    <ButtonComponent handleClick={() => setCover(user.cover)} className='rounded-md px-8 py-2 font-semibold 
+                     text-white bg-black bg-opacity-20'>
                         Huỷ
                     </ButtonComponent>
                     <ButtonComponent className=' rounded-md px-10 py-2 font-semibold bg-main text-white'>
@@ -27,7 +28,7 @@ export default function HeaderProfile() {
             </div>}
             <div className="dark:bg-dark-second pt-10 w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">
                 <div className="w-full border-b-2 border-solid border-gray-300 relative">
-                    <div className=" relative h-60 lg:h-96 mx-auto" style={{ width: "110%", left: "-4.3%" }}>
+                    <div className=" relative h-60 lg:h-96 mx-auto" style={{ width: "110%", left: "-4.5%" }}>
                         <img className="w-full h-60 object-cover lg:h-96 rounded-lg"
                             src={cover ? cover.name ? URL.createObjectURL(cover) : cover : cover}
                             alt="" />

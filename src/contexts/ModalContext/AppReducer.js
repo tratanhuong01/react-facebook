@@ -11,7 +11,9 @@ const AppReducer = (state, action) => {
         case constants.LOADING_MODAL:
             return { ...state, loading: action.status };
         case constants.CLOSE_MODAL:
-            return { ...state, loading: false, data: null };
+            return { ...state, loading: false, data: null, popover: false };
+        case constants.UPDATE_POPOVER:
+            return { ...state, popover: action.status };
         case constants.OPEN_MODAL_LOGIN:
             return { ...state, data: <ModalLogin loginFast={action.loginFast} /> };
         case constants.OPEN_MODAL_POST:

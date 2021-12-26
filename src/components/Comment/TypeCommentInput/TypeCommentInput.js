@@ -23,6 +23,7 @@ export default function TypeCommentInput(props) {
                 <div className="z-50 hidden right-0 bg-white my-2 absolute w-72 dark:border-dark-second 
                 shadow-lg border-gray-300 p-1 border-2 border-solid rounded-lg dark:bg-dark-second"
                     style={{ maxHeight: 360, height: 360 }}>
+
                 </div>
             </div>
             {dataComment.value && dataComment.value.name && <PreviewImageComment dataComment={dataComment}

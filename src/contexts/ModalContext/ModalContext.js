@@ -5,6 +5,7 @@ import AppReducer from "./AppReducer";
 const initialState = {
     loading: false,
     data: null,
+    popover: true,
 };
 
 export const ModalContext = createContext();

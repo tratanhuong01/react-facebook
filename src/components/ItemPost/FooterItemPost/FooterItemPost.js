@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import allFeel from "../../../config/feels";
 import Feels from '../Feels/Feels';
+import ButtonShare from './ButtonShare/ButtonShare';
+
 
 export default function FooterItemPost() {
     //
     const [feel, setFeel] = useState();
-    const [show, setShow] = useState(false);
     //
     return (
         <>
@@ -40,46 +41,7 @@ export default function FooterItemPost() {
                 h-12 text-sm cursor-pointer justify-center items-center flex">
                     <i className="far fa-comment-alt dark:text-gray-300"></i> &nbsp; Bình Luận
                 </li>
-                <div onClick={() => setShow(!show)} className="w-1/3 z-40 relative cursor-pointer justify-center items-center">
-                    <li className="dark:text-gray-300 dark:hover:bg-dark-third hover:bg-gray-200 w-full font-semibold 
-                    text-sm h-12 flex items-center justify-center ">
-                        <i className="bx bx-share text-xl transform rotate-180 dark:text-gray-300"></i> &nbsp; Chia sẻ
-                    </li>
-                    {show && <div className=" bg-white my-3 arrow__bottom bottom-full absolute w-80 p-1 border-2 border-solid rounded-lg dark:bg-dark-second">
-                        <ul className="w-full">
-                            <li className="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
-                            hover:bg-gray-300">
-                                <i className="bx bx-share text-2xl pr-2 rotate-90"></i>
-                                Chia sẽ ngay (Công khai)
-                            </li>
-                            <li className="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
-                            hover:bg-gray-300">
-                                <i className="bx bx-share text-2xl pr-2 rotate-90"></i>
-                                Chia sẽ ngay (Bạn bè)
-                            </li>
-                            <li className="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
-                            hover:bg-gray-300">
-                                <i className="bx bx-share text-2xl pr-2 rotate-90"></i>
-                                Chia sẽ ngay (Chỉ mình tôi)
-                            </li>
-                            <li className="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
-                            hover:bg-gray-300">
-                                <i className="fas fa-user-edit text-xl pr-2"></i>
-                                Chia sẽ lên bản tin
-                            </li>
-                            <li class="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
-                            hover:bg-gray-300" >
-                                <i className="bx bx-copy  text-xl pr-2"></i>
-                                Sao chép liên kết
-                            </li>
-                            <li className="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
-                            hover:bg-gray-300">
-                                <i className="bx bxl-messenger text-xl pr-2"></i>
-                                Gửi qua messenger
-                            </li>
-                        </ul>
-                    </div>}
-                </div>
+                <ButtonShare />
             </ul>
         </>
     )

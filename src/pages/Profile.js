@@ -11,34 +11,36 @@ import WrapperLogged from './WrapperLogged'
 export default function Profile() {
     return (
         <WrapperLogged>
-            <div className="w-full bg-white dark:bg-dark-second">
-                <HeaderProfile />
-                <div className="dark:bg-dark-second w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">
-                    <CategoryProfile />
-                    <InviteProfile />
-                </div>
-            </div>
-            <div className='w-full bg-white dark:bg-dark-main'>
-                <div className="dark:bg-dark-main bg-gray-100 w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">
-                    <div className='w-full py-2'>
-                        <FriendCanKnow />
+            <div className='w-full h-screen overflow-y-auto overflow-x-hidden'>
+                <div className="w-full bg-white dark:bg-dark-second">
+                    <HeaderProfile />
+                    <div className="dark:bg-dark-second w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">
+                        <CategoryProfile />
+                        <InviteProfile />
                     </div>
                 </div>
-            </div>
-            <div className="w-full relative bg-gray-100 dark:bg-dark-main pt-3">
-                <div className="mx-auto relative w-full lg:flex xl:w-63% md:w-4/5 lg:w-3/4 md:mx-auto lg:flex-wrap rounded-lg">
-                    <div className="w-full lg:flex" >
-                        <ProfileLeft />
-                        <div className="w-full mx-auto rounded-lg lg:w-7/12">
-                            <WritePost />
-                            <div className='w-full my-2'>
-                                <ItemPost />
-                                <ItemPost />
-                                <ItemPost />
-                            </div>
+                <div className='w-full bg-white dark:bg-dark-main'>
+                    <div className="dark:bg-dark-main bg-gray-100 w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">
+                        <div className='w-full py-2'>
+                            <FriendCanKnow />
                         </div>
                     </div>
+                </div>
+                <div className="w-full relative bg-gray-100 dark:bg-dark-main pt-3">
+                    <div className="mx-auto relative w-full lg:flex xl:w-63% md:w-4/5 lg:w-3/4 md:mx-auto lg:flex-wrap rounded-lg">
+                        <div className="w-full lg:flex" >
+                            <ProfileLeft />
+                            <div className="w-full mx-auto rounded-lg lg:w-7/12">
+                                <WritePost />
+                                <div className='w-full my-2'>
+                                    <ItemPost />
+                                    <ItemPost />
+                                    <ItemPost />
+                                </div>
+                            </div>
+                        </div>
 
+                    </div>
                 </div>
             </div>
         </WrapperLogged >

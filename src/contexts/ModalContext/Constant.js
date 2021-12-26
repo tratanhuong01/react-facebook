@@ -5,6 +5,8 @@ export const OPEN_MODAL_ADD_ACCOUNT_LOGIN = "OPEN_MODAL_ADD_ACCOUNT_LOGIN";
 //
 export const CLOSE_MODAL = "CLOSE_MODAL";
 //
+export const UPDATE_POPOVER = "UPDATE_POPOVER";
+//
 export const LOADING_MODAL = "LOADING_MODAL";
 //
 export const OPEN_MODAL_LOGIN = "OPEN_MODAL_LOGIN";

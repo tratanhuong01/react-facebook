@@ -41,6 +41,13 @@ export const openModalPost = (id, feel, imageVideo) => {
     }
 }
 
+export const updatePopover = (status) => {
+    return {
+        type: constants.UPDATE_POPOVER,
+        status
+    }
+}
+
 export const openModalPreviewAvatar = (image) => {
     return {
         type: constants.OPEN_MODAL_PREVIEW_AVATAR,
