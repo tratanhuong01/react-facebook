@@ -9,6 +9,8 @@ import Home from "../pages/Home";
 import Profile from "../pages/Profile";
 import WrapperStory from "../pages/Story/WrapperStory";
 import ViewStory from "../pages/Story/ViewStory";
+import Watch from "../pages/Watch";
+import NotFound from "../pages/NotFound";
 
 const routes = [
   {
@@ -72,9 +74,14 @@ const routes = [
     element: <ViewStory />
   },
   {
-    path: "",
+    path: Config.PAGE_WATCH,
     exact: true,
-    element: ""
+    element: <Watch />
+  },
+  {
+    path: "*",
+    exact: true,
+    element: <NotFound />
   },
 ];
 

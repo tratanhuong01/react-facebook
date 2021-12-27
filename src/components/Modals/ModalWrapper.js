@@ -9,7 +9,7 @@ export default function ModalWrapper(props) {
     useOutSideClick(refContainer)
     //
     return (
-        <div ref={refContainer} className={className + ' shadow-lv1 '}>
+        <div ref={refContainer} className={`${className} shadow-lv1 animate__animated animate__fadeIn`}>
             <div className='w-full relative'>
                 <p className="text-2xl font-bold p-2.5 -mt-1.5 text-center dark:text-white">
                     {title}

@@ -921,7 +921,22 @@ input {
   width: 100%;
 }
 .arrow__bottom::before {
-  content: " ";
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  bottom: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 12px solid black;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+}
+.arrow__bottom::after {
+  content: "";
+  width: 0;
+  height: 0;
   position: absolute;
   bottom: -24px;
   left: 50%;
@@ -929,6 +944,32 @@ input {
   border: 12px solid white;
   border-left-color: transparent;
   border-bottom-color: transparent;
+  border-right-color: transparent;
+}
+.arrow__top::after {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 12px solid white;
+  border-left-color: transparent;
+  border-top-color: transparent;
+  border-right-color: transparent;
+}
+.arrow__top::before {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 12px solid black;
+  border-left-color: transparent;
+  border-top-color: transparent;
   border-right-color: transparent;
 }
 .shadow-main {
@@ -942,4 +983,7 @@ input {
 }
 .hover\:shadow-lv1:hover {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.shadow-lv2 {
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.4);
 }

@@ -16,16 +16,14 @@ export default function ButtonShare() {
         const rect = current.getBoundingClientRect();
         const elementTop = rect.top;
         refPopup.current.style.display = "flex";
-
         if (elementTop < 500) {
-            refPopup.current.classList.add("top-full ")
-            refPopup.current.classList.remove("bottom-full")
+            refPopup.current.classList.add("top-full", "arrow__top")
+            refPopup.current.classList.remove("bottom-full", "arrow__bottom")
         }
         else {
-            refPopup.current.classList.remove("top-full")
-            refPopup.current.classList.add("bottom-full")
+            refPopup.current.classList.remove("top-full", "arrow__top")
+            refPopup.current.classList.add("bottom-full", "arrow__bottom")
         }
-
         window.addEventListener("click", winEv)
     }
 

@@ -1,20 +1,45 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { PAGE_PROFILE } from '../../../../constants/Config';
-import * as usersAction from "../../../../actions/user/index";
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import PopoverHeaderRightWrapper from './PopoverHeaderRightWrapper';
+import PopoverMessage from './PopoverMessage/PopoverMessage';
+import PopoverNotification from './PopoverNotification/PopoverNotification';
+import PopoverSetting from './PopoverSetting/PopoverSetting';
 
 export default function HeaderLoggedRight() {
     //
-    const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
-    const [active, setActive] = useState();
+    const [active, setActive] = useState(-1);
     const navigation = useNavigate();
+    let count = 0;
+    const refPopover = useRef();
+    const handleClick = (num) => {
+        setActive(num);
+        const current = refPopover.current;
+        if (!current)
+            return;
+        refPopover.current.style.display = "block";
+
+        window.addEventListener("click", windowEvent)
+    }
+    const windowEvent = () => {
+        ++count;
+        if (count > 1) {
+            refPopover.current.style.display = "none";
+            count = 0;
+            // setActive(-1)
+            window.removeEventListener("click", windowEvent);
+        }
+        else {
+            refPopover.current.style.display = "block";
+        }
+    }
     //
     return (
         <div className="w-1/2 flex sm:w-3/4 md:w-1/4">
-            <div onClick={() => navigation(PAGE_PROFILE)} className="w-1/2 flex py-0.875 px-2.5 mx-2 mt-1 mb-1.5 p-1.5 hover:bg-gray-200 round-avatar dark:hover:bg-dark-third 
-            lg:mx-0">
+            <div onClick={() => navigation(PAGE_PROFILE)} className="w-1/2 flex py-0.875 px-2.5 mx-2 mt-1 mb-1.5 p-1.5 
+            hover:bg-gray-200 round-avatar dark:hover:bg-dark-third lg:mx-0">
                 <div className="w-1/3 hidden lg:block lg:w-full lg:pt-1 xl:w-auto xl:mr-2">
                     <img className="w-8 h-8 rounded-full object-cover"
                         src={user.avatar}
@@ -24,7 +49,7 @@ export default function HeaderLoggedRight() {
                     {user.lastName}
                 </div>
             </div>
-            <div className="w-full pt-2 pb-2 sm:w-full">
+            <div className="w-full pt-2 pb-2 sm:w-full relative">
                 <ul className="flex float-right">
                     <li onClick={() => {
                         const main__logged = document.getElementById('main__logged')
@@ -41,7 +66,7 @@ export default function HeaderLoggedRight() {
                         <i className="bx bx-plus text-xl hidden"></i>
                         <i className="bx bxs-moon text-2xl"></i>
                     </li>
-                    <li onClick={() => setActive(!active)} className="cursor-pointer relative h-10 ml-1 mr-1 w-10 bg-gray-200 
+                    <li onClick={() => handleClick(0)} className="cursor-pointer relative h-10 ml-1 mr-1 w-10 bg-gray-200 
                     dark:bg-dark-third dark:text-white text-center rounded-full flex justify-center items-center">
                         <i className="bx bxl-messenger text-2xl"></i>
                         <span className="absolute -top-2 -right-1 text-xs transform scale-90 text-white font-semibold bg-red-500 w-5 h-5
@@ -49,7 +74,7 @@ export default function HeaderLoggedRight() {
                             +9
                         </span>
                     </li>
-                    <li onClick={() => setActive(!active)} className="cursor-pointer relative h-10 ml-1 mr-1 w-10 bg-gray-200 
+                    <li onClick={() => handleClick(1)} className="cursor-pointer relative h-10 ml-1 mr-1 w-10 bg-gray-200 
                     dark:bg-dark-third dark:text-white text-center rounded-full flex justify-center items-center">
                         <i className="far fa-bell text-xl"></i>
                         <span className="absolute -top-2 -right-1 text-xs transform scale-90 text-white font-semibold bg-red-500 w-5 h-5
@@ -57,18 +82,17 @@ export default function HeaderLoggedRight() {
                             +9
                         </span>
                     </li>
-                    <li onClick={() => dispatch(usersAction.logoutUser())} className="cursor-pointer relative h-10 ml-1 mr-1 w-10 bg-gray-200 
+                    <li onClick={() => handleClick(2)} className="cursor-pointer relative h-10 ml-1 mr-1 w-10 bg-gray-200 
                     dark:bg-dark-third dark:text-white text-center rounded-full flex justify-center items-center">
                         <i className="fas fa-sort-down text-2xl transform -translate-y-1 "></i>
                     </li>
                 </ul >
+                <PopoverHeaderRightWrapper ref={refPopover} active={active}>
+                    {active === 0 ? <PopoverMessage /> :
+                        active === 1 ? <PopoverNotification /> :
+                            active === 2 ? <PopoverSetting /> : ""}
+                </PopoverHeaderRightWrapper>
             </div >
-            <div className="w-full hidden p-2 rounded-lg absolute dark:bg-dark-second bg-white 
-            z-50 top-16 wrapper-scrollbar overflow-x-hidden overflow-y-auto border-solid border-gray-200 
-            lg:w-92 lg:p-0 tranform -translate-1/2 sm:w-3/4 right-0 border-2 lg:w-92 shadow-xl 
-            dark:border-dark-main" style={{ maxheight: "675px !important" }}>
-
-            </div>
         </div >
     )
 }

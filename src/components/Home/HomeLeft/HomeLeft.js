@@ -14,7 +14,8 @@ export default function HomeLeft() {
             <div className="pl-1.5 h-full w-4/6 overflow-x-hidden overflow-y-auto 
                 xl:w-full">
                 <ul className="w-full left-category">
-                    <li className="cursor-pointer flex p-2.5 hover:bg-gray-200 font-bold cursor-pointer dark:hover:bg-dark-third">
+                    <li className="cursor-pointer flex p-2.5 hover:bg-gray-200 font-bold 
+                    cursor-pointer dark:hover:bg-dark-third rounded-lg">
                         <img className="w-11 h-11 rounded-full object-cover mr-4"
                             src={user.avatar}
                             alt="" />
@@ -33,7 +34,7 @@ export default function HomeLeft() {
                             setLength(length === categories.length ? Math.floor(categories.length / 2) + 1 : categories.length);
                             clearTimeout(timeOut);
                         }, 200);
-                    }} className="cursor-pointer flex p-2.5 hover:bg-gray-200 font-bold cursor-pointer dark:hover:bg-dark-third">
+                    }} className="cursor-pointer rounded-lg flex p-2.5 hover:bg-gray-200 font-bold cursor-pointer dark:hover:bg-dark-third">
                         <div className="w-10 h-10 rounded-full bg-gray-300 flex justify-center items-center">
                             <span className={`${loading ? 'fas fa-circle-notch fa-spin text-sm' : `bx bx-chevron-${length ===
                                 categories.length ? 'left' : 'right'}  text-2xl`} transform rotate-90`}></span>

@@ -25,3 +25,7 @@ export const PAGE_STORY = "/story/view";
 //
 export const PAGE_STORY_EDITOR = "/story/create/edit";
 //
+export const PAGE_WATCH = "/watch";
+//
+export const PAGE_MARKETPLACE = "/marketplace";
+//
