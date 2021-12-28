@@ -13,7 +13,7 @@ export default function ItemComment() {
             <div className="w-1/12 pt-2">
                 <Link to="">
                     <img className="w-12 h-12 p-0.5 object-cover rounded-full"
-                        src="http://res.cloudinary.com/tratahuong01/image/upload/v1638973763/Avatar/kxqbimjteg5ka9cbqh6y.jpg"
+                        src="https://res.cloudinary.com/tratahuong01/image/upload/v1621772815/Avatar/nuwie9ee0luvlnu8wvqe.jpg"
                         alt="" srcSet=""
                     />
                 </Link>

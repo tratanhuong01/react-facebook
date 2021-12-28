@@ -20,16 +20,16 @@ export default function HeaderLoggedRight() {
         if (!current)
             return;
         refPopover.current.style.display = "block";
-
-        window.addEventListener("click", windowEvent)
+        document.addEventListener("click", windowEvent, false)
     }
-    const windowEvent = () => {
+    const windowEvent = (event) => {
         ++count;
         if (count > 1) {
-            refPopover.current.style.display = "none";
-            count = 0;
-            // setActive(-1)
-            window.removeEventListener("click", windowEvent);
+            if (refPopover.current && !refPopover.current.contains(event.target)) {
+                refPopover.current.style.display = "none";
+                count = 0;
+                document.removeEventListener("click", windowEvent);
+            }
         }
         else {
             refPopover.current.style.display = "block";
@@ -49,7 +49,7 @@ export default function HeaderLoggedRight() {
                     {user.lastName}
                 </div>
             </div>
-            <div className="w-full pt-2 pb-2 sm:w-full relative">
+            <div className="w-full pt-2 pb-2 pr-3 sm:w-full relative">
                 <ul className="flex float-right">
                     <li onClick={() => {
                         const main__logged = document.getElementById('main__logged')
@@ -69,17 +69,17 @@ export default function HeaderLoggedRight() {
                     <li onClick={() => handleClick(0)} className="cursor-pointer relative h-10 ml-1 mr-1 w-10 bg-gray-200 
                     dark:bg-dark-third dark:text-white text-center rounded-full flex justify-center items-center">
                         <i className="bx bxl-messenger text-2xl"></i>
-                        <span className="absolute -top-2 -right-1 text-xs transform scale-90 text-white font-semibold bg-red-500 w-5 h-5
-                        rounded-full flex justify-center items-center">
-                            +9
+                        <span className="absolute -top-2 -right-2 text-xs transform scale-90 text-white font-semibold 
+                        bg-red-500 px-1 h-5 rounded-full flex justify-center items-center">
+                            9+
                         </span>
                     </li>
                     <li onClick={() => handleClick(1)} className="cursor-pointer relative h-10 ml-1 mr-1 w-10 bg-gray-200 
                     dark:bg-dark-third dark:text-white text-center rounded-full flex justify-center items-center">
                         <i className="far fa-bell text-xl"></i>
-                        <span className="absolute -top-2 -right-1 text-xs transform scale-90 text-white font-semibold bg-red-500 w-5 h-5
-                        rounded-full flex justify-center items-center">
-                            +9
+                        <span className="absolute -top-2 -right-2 text-xs transform scale-90 text-white font-semibold 
+                        bg-red-500 px-1 h-5 rounded-full flex justify-center items-center">
+                            9+
                         </span>
                     </li>
                     <li onClick={() => handleClick(2)} className="cursor-pointer relative h-10 ml-1 mr-1 w-10 bg-gray-200 
