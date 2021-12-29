@@ -13,6 +13,7 @@ export default function LabelGender({ name, value, register }) {
                 type="radio"
                 name={name}
                 value={value}
+                defaultChecked={value === "Nam" ? true : false}
                 {...register(name)}
             />
         </div>

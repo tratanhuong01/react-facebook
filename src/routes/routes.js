@@ -11,6 +11,7 @@ import WrapperStory from "../pages/Story/WrapperStory";
 import ViewStory from "../pages/Story/ViewStory";
 import Watch from "../pages/Watch";
 import NotFound from "../pages/NotFound";
+import Messenger from "../pages/Messenger";
 
 const routes = [
   {
@@ -34,9 +35,14 @@ const routes = [
     element: <RecoverAccount />
   },
   {
-    path: Config.PAGE_VERIFY_CODE_ACCOUNT,
+    path: Config.PAGE_VERIFY_CODE_ACCOUNT_RECOVER,
     exact: true,
-    element: <VerifyCodeAccount />
+    element: <VerifyCodeAccount verifyAccountNew={false} />
+  },
+  {
+    path: Config.PAGE_VERIFY_CODE_ACCOUNT_REGISTER,
+    exact: true,
+    element: <VerifyCodeAccount verifyAccountNew={true} />
   },
   {
     path: Config.PAGE_TYPE_NEW_PASSWORD,
@@ -77,6 +83,11 @@ const routes = [
     path: Config.PAGE_WATCH,
     exact: true,
     element: <Watch />
+  },
+  {
+    path: Config.PAGE_MESSENGER,
+    exact: true,
+    element: <Messenger />
   },
   {
     path: "*",

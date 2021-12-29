@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import InputComponent from "../../../InputComponent/InputComponent";
 import LabelGender from "./LabelGender";
 import ModalWrapper from "../../ModalWrapper";
+import { REGEX_EMAIL, REGEX_PHONE } from "../../../../constants/Config";
+import api from "../../../../api/api";
 
 function ModalRegister(props) {
   //
@@ -13,7 +15,15 @@ function ModalRegister(props) {
     lastName: Yup.string().required("Tên không được để trống !!"),
     emailOrPhone: Yup.string().required(
       "Email hoặc số điện thoại không được để trống !!"
-    ),
+    ).test('test-name', 'Email hoặc số điện thoại không hợp lệ !!',
+      function (value) {
+        let isValidEmail = REGEX_EMAIL.test(value);
+        let isValidPhone = REGEX_PHONE.test(value);
+        if (!isValidEmail && !isValidPhone) {
+          return false;
+        }
+        return true;
+      }),
     emailAgain: Yup.string().oneOf(
       [Yup.ref("emailOrPhone"), null],
       "Email phải giống với email trên !!"
@@ -24,17 +34,19 @@ function ModalRegister(props) {
     password: Yup.string()
       .min(6, "Mật khẩu phải tối đa 6 kí tự !!")
       .required("Mật khẩu không được để trống !!"),
-    sex: Yup.string()
-      .required("Phải chọn giới tính !!")
-      .nullable("Phải chọn giới tính !!"),
+    gender: Yup.string()
+      .required("Phải chọn giới tính !!").default("Nam"),
   });
-
+  const [errorsIsset, setErrorsIsset] = useState(null);
+  const [emailAgain, setEmailAgain] = useState(false);
   const {
+    handleSubmit,
     register,
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(validationSchema),
+    mode: "onChange"
   });
-
   return (
     <ModalWrapper
       className={`wrapper-scrollbar p-2 w-11/12 fixed top-1/2 left-1/2 transform 
@@ -44,42 +56,88 @@ function ModalRegister(props) {
       <h1 className="-pt-1 pb-0.5 text-3xl font-bold">Đăng Kí</h1>
       <p className="pb-2.5 text-sm pt-0.5 text-gray-600">Nhanh Chóng Dễ Dàng</p>
       <hr />
-      <form className="mt-2">
+      <form onSubmit={handleSubmit(async (data) => {
+        let result = await api(`users/check/register`, 'POST', data.emailOrPhone, { "Content-Type": "application/json" });
+        if (result.data) {
+          setErrorsIsset("Email hoặc số điện thoại đã tồn tại !!");
+          setEmailAgain(false);
+        }
+        else {
+          setEmailAgain(null);
+          setErrorsIsset(false);
+          result = await api(`users`, 'POST', {
+            id: null,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            birthday: '2021-12-29 14:57:49.728',
+            gender: data.gender,
+            isOnline: 0,
+            isTick: 0,
+            avatar: null,
+            cover: null,
+            codeEmail: null,
+            codePhone: null,
+            timeCreated: null,
+            description: null,
+            isDark: null,
+            email: REGEX_EMAIL.test(data.emailOrPhone) ? data.emailOrPhone : null,
+            phone: REGEX_PHONE.test(data.emailOrPhone) ? data.emailOrPhone : null
+          }, {})
+        }
+      })} className="mt-2">
         <div className="w-full gap-3 flex">
-          <InputComponent
-            type="text"
-            name="firstName"
-            className={`w-1/2 p-2 border my-1 `}
-            placeholder="Họ"
-          />
-          <InputComponent
-            type="text"
-            name="lastName"
-            className={`w-1/2 p-2 border my-1 `}
-            placeholder="Tên"
-          />
+          <div className="w-1/2">
+            <InputComponent
+              register={register}
+              error={errors["firstName"]}
+              type="text"
+              name="firstName"
+              className={`w-full p-2 border my-1 `}
+              placeholder="Họ"
+            />
+          </div>
+          <div className="w-1/2">
+            <InputComponent
+              register={register}
+              error={errors["lastName"]}
+              type="text"
+              name="lastName"
+              className={`w-full p-2 border my-1 `}
+              placeholder="Tên"
+            />
+          </div>
         </div>
         <div className="w-full">
           <InputComponent
+            register={register}
+            error={errors["emailOrPhone"]}
             type="text"
             name="emailOrPhone"
+            handleChange={value => {
+              setErrorsIsset(false);
+              setEmailAgain(REGEX_EMAIL.test(value))
+            }}
             className={`p-2 border my-1`}
             placeholder="Số Di Động Hoặc Email"
           />
         </div>
-        {/* {stateEmailAgain === true &&
+        {errorsIsset && <p className='text-red-600 font-semibold text-sm my-2'>{errorsIsset}</p>}
+        {emailAgain &&
+          <div className="w-full">
             <InputComponent
+              register={register}
+              error={errors['emailAgain']}
               type="text"
               name="emailAgain"
-              className={`border-2 p-1.5  ${errors.emailAgain
-                ? " border-red-500 text-red-500"
-                : " border-gray-300 "
-                } `}
+              className={`p-2 border my-1`}
               placeholder="Nhập Lại Email"
             />
-          } */}
+          </div>
+        }
         <div className="w-full">
           <InputComponent
+            register={register}
+            error={errors["password"]}
             type="password"
             name="password"
             className={`p-2 border my-1 `}
@@ -90,6 +148,8 @@ function ModalRegister(props) {
           Ngày Sinh
         </p>
         <InputComponent
+          register={register}
+          error={errors["birthday"]}
           type="date"
           name="birthday"
           className=" border-2 p-2"
@@ -101,6 +161,7 @@ function ModalRegister(props) {
           <LabelGender name="gender" value="Nữ" register={register} />
           <LabelGender name="gender" value="Khác" register={register} />
         </div>
+        {errors["gender"] && <p className='text-red-600 font-semibold text-sm my-2'>{errors["gender"].message}</p>}
         <p className="text-gray-600 text-xs px-1">
           Bằng cách nhấp vào Đăng ký, bạn đồng ý với
           <span style={{ color: "#385989" }}>

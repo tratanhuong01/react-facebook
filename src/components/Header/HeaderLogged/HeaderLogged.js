@@ -3,7 +3,10 @@ import HeaderLoggedCenter from './HeaderLoggedCenter/HeaderLoggedCenter'
 import HeaderLoggedLeft from './HeaderLoggedLeft/HeaderLoggedLeft'
 import HeaderLoggedRight from './HeaderLoggedRight/HeaderLoggedRight'
 
-export default function HeaderLogged() {
+export default function HeaderLogged(props) {
+    //
+    const { hideMessage } = props;
+    //
     return (
         <div className="w-full block z-50 fixed bg-white top-0 dark:bg-dark-second border-b-2 border-solid border-gray-200 
         dark:border-dark-third shadow-lv1" id="header" >
@@ -14,7 +17,7 @@ export default function HeaderLogged() {
                         <HeaderLoggedCenter />
                     </div>
                 </div>
-                <HeaderLoggedRight />
+                <HeaderLoggedRight hideMessage={hideMessage} />
             </div>
         </div >
     )

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent'
-import { PAGE_FORGET_ACCOUNT, PAGE_VERIFY_CODE_ACCOUNT } from '../../constants/Config'
+import { PAGE_FORGET_ACCOUNT, PAGE_VERIFY_CODE_ACCOUNT_RECOVER } from '../../constants/Config'
 import WrapperAuthenination from '../WrapperAuthenination'
 
 export default function RecoverAccount() {
@@ -12,7 +12,7 @@ export default function RecoverAccount() {
         <WrapperAuthenination hideFormLogin={true} title="Đặt lại mật khẩu của bạn">
             <form method='post' onSubmit={(e) => {
                 e.preventDefault();
-                navigation(PAGE_VERIFY_CODE_ACCOUNT);
+                navigation(PAGE_VERIFY_CODE_ACCOUNT_RECOVER);
             }}>
                 <div className="w-full my-2 p-2 flex">
                     <div className="w-2/3 pl-4">

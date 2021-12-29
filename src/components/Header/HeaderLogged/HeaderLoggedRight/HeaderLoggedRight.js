@@ -7,8 +7,9 @@ import PopoverMessage from './PopoverMessage/PopoverMessage';
 import PopoverNotification from './PopoverNotification/PopoverNotification';
 import PopoverSetting from './PopoverSetting/PopoverSetting';
 
-export default function HeaderLoggedRight() {
+export default function HeaderLoggedRight(props) {
     //
+    const { hideMessage } = props;
     const user = useSelector((state) => state.user);
     const [active, setActive] = useState(-1);
     const navigation = useNavigate();
@@ -66,14 +67,14 @@ export default function HeaderLoggedRight() {
                         <i className="bx bx-plus text-xl hidden"></i>
                         <i className="bx bxs-moon text-2xl"></i>
                     </li>
-                    <li onClick={() => handleClick(0)} className="cursor-pointer relative h-10 ml-1 mr-1 w-10 bg-gray-200 
+                    {!hideMessage && <li onClick={() => handleClick(0)} className="cursor-pointer relative h-10 ml-1 mr-1 w-10 bg-gray-200 
                     dark:bg-dark-third dark:text-white text-center rounded-full flex justify-center items-center">
                         <i className="bx bxl-messenger text-2xl"></i>
                         <span className="absolute -top-2 -right-2 text-xs transform scale-90 text-white font-semibold 
                         bg-red-500 px-1 h-5 rounded-full flex justify-center items-center">
                             9+
                         </span>
-                    </li>
+                    </li>}
                     <li onClick={() => handleClick(1)} className="cursor-pointer relative h-10 ml-1 mr-1 w-10 bg-gray-200 
                     dark:bg-dark-third dark:text-white text-center rounded-full flex justify-center items-center">
                         <i className="far fa-bell text-xl"></i>
