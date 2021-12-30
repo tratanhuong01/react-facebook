@@ -10,7 +10,8 @@ export default function Introduction() {
                 🧑‍💻
             </p>
             {/* <hr /> */}
-            <ButtonComponent className='w-full p-2 text-sm bg-gray-200 hover:bg-gray-300 font-semibold rounded-lg'>
+            <ButtonComponent className='w-full p-2 text-sm bg-gray-200 hover:bg-gray-300 font-semibold 
+            rounded-lg dark:bg-dark-second dark:text-white'>
                 Chỉnh sửa tiểu sử
             </ButtonComponent>
             <ul className="w-full mt-3">
@@ -57,13 +58,16 @@ export default function Introduction() {
                 </li>
 
             </ul>
-            <ButtonComponent className='w-full text-sm my-2 p-2 bg-gray-200 hover:bg-gray-300 font-semibold rounded-lg'>
+            <ButtonComponent className='w-full text-sm my-2 p-2 bg-gray-200 hover:bg-gray-300 font-semibold 
+            dark:bg-dark-second dark:text-white rounded-lg'>
                 Chỉnh sửa chi tiết
             </ButtonComponent>
-            <ButtonComponent className='w-full text-sm my-2 p-2 bg-gray-200 hover:bg-gray-300 font-semibold rounded-lg'>
+            <ButtonComponent className='w-full text-sm my-2 p-2 bg-gray-200 hover:bg-gray-300 font-semibold 
+            dark:bg-dark-second dark:text-white rounded-lg'>
                 Thêm sở thích
             </ButtonComponent>
-            <ButtonComponent className='w-full text-sm my-2 p-2 bg-gray-200 hover:bg-gray-300 font-semibold rounded-lg'>
+            <ButtonComponent className='w-full text-sm my-2 p-2 bg-gray-200 hover:bg-gray-300 font-semibold 
+            dark:bg-dark-second dark:text-white rounded-lg'>
                 Thêm nội dung đáng chú ý
             </ButtonComponent>
         </>

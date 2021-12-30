@@ -1,18 +1,20 @@
 import React, { useContext } from 'react'
+import { useSelector } from 'react-redux';
 import { PostContext } from '../../../../contexts/PostContext/PostContext'
 
 export default function TopWritePostModal() {
     //
     const { posts } = useContext(PostContext);
+    const user = useSelector((state) => state.user);
     //
     return (
         <div className="w-full flex px-0 py-2">
             <img className="w-14 h-14 ml-3 mt-1 rounded-full object-cover mx-auto"
-                src="http://res.cloudinary.com/tratahuong01/image/upload/v1638973763/Avatar/kxqbimjteg5ka9cbqh6y.jpg"
+                src={user.avatar}
                 alt="" />
             <div className=" pl-2 " style={{ width: "calc(100% - 70px)" }}>
                 <p className="pt-0.5 dark:text-white">
-                    <span className='font-semibold mr-2'>Trà Hưởng</span>
+                    <span className='font-semibold mr-2'>{`${user.firstName} ${user.lastName}`}</span>
                     {posts.feel && <span id="feelCur">đang {posts.feel.data} cảm thấy {posts.feel.label.toLowerCase()} </span>}
                     {posts.activity && <span id="feelCur">đang {posts.activity.data} {posts.activity.name.replace('Đang', '')} {posts.activity.label.toLowerCase()} </span>}
                     {posts.tags.length > 0 && <span id="tag">cùng với <span className='font-semibold'>

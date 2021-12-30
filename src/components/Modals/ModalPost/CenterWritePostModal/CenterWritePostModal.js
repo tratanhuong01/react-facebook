@@ -4,9 +4,11 @@ import ButtonComponent from '../../../ButtonComponent/ButtonComponent';
 import backgrounds from '../../../../config/backgrounds';
 import ContentAnswerQuestion from '../../ModalAnswerQuestionPost/ContentAnswerQuestion/ContentAnswerQuestion';
 import EmojiPicker from 'emoji-picker-react';
+import { useSelector } from 'react-redux';
 
 export default function CenterWritePostModal(props) {
     //
+    const user = useSelector((state) => state.user);
     const { posts, postsDispatch, postsAction } = useContext(PostContext);
     const [backgroundListShow, setBackgroundListShow] = useState(posts.background ? true : false);
     const refInput = useRef();
@@ -37,7 +39,7 @@ export default function CenterWritePostModal(props) {
                     }
                 }} className='text-2xl w-full px-4 flex justify-center text-white font-bold absolute top-1/2 
                         left-1/2 transform -translate-x-1/2 -translate-y-1/2 contentedit break-all text-center ' spellCheck={false}
-                    contentEditable={true} placeholder='Hưởng ơi , bạn đang nghĩ gì đấy ?'></div>
+                    contentEditable={true} placeholder={`${user.lastName} ơi , bạn đang nghĩ gì đấy ?`}></div>
             </div>}
             {!posts.background && <div className="w-full relative px-2">
                 <textarea ref={refArea} onChange={(event) => {
@@ -49,7 +51,7 @@ export default function CenterWritePostModal(props) {
                     }
                 }} spellCheck={false}
                     className={`w-full border-none ${posts.imageVideoUpload || posts.answerQuestion ? '' : 'h-36'} dark:text-white text-xm px-2 pt-2 py-6 outline-none overflow-hidden dark:bg-dark-second
-                        resize-none`} placeholder="Hưởng ơi, Bạn đang nghĩ gì thế?" defaultValue={posts.content}></textarea>
+                        resize-none`} placeholder={`${user.lastName} ơi , bạn đang nghĩ gì đấy ?`} defaultValue={posts.content}></textarea>
             </div>}
             <div className='w-full flex -mt-4 relative px-2'>
                 {!posts.imageVideoUpload && !posts.answerQuestion && <>

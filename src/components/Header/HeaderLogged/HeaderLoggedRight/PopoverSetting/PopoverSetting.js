@@ -1,9 +1,11 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import * as usersAction from "../../../../../actions/user/index";
 
 export default function PopoverSetting() {
     //
     const user = useSelector((state) => state.user);
+    const dispatch = useDispatch();
     //
     return (
         <div className='w-full p-2 rounded-lg'>
@@ -31,7 +33,7 @@ export default function PopoverSetting() {
                 </div>
             </div>
             <hr className='border-gray-300 my-1.5 dark:border-dark-third' />
-            <div className='w-full p-2 rounded-lg cursor-pointer hover:bg-gray-200 dark:hover:bg-dark-third flex w-full items-center'>
+            <div onClick={() => dispatch(usersAction.logoutUser())} className='w-full p-2 rounded-lg cursor-pointer hover:bg-gray-200 dark:hover:bg-dark-third flex w-full items-center'>
                 <span className='bx bx-log-out text-2xl w-8 h-8 rounded-full flex justify-center items-center 
                 bg-gray-200 dark:bg-dark-third dark:text-white'></span>
                 <div className='pl-3'>

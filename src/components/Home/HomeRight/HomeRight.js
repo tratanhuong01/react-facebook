@@ -17,14 +17,16 @@ export default function HomeRight() {
                     <div className="w-full">
                         <p className="font-bold dark:text-white pt-2.5">Được tài trợ</p>
                         <div className="w-full flex mx-0 my-4">
-                            <img className="w-32 h-32 object-contain rounded-lg" src="https://scontent.fdad3-2.fna.fbcdn.net/v/t45.1600-4/cp0/q75/spS444/p296x100/250637557_23848423080230737_7995752096789870701_n.jpg?_nc_cat=108&ccb=1-5&_nc_sid=67cdda&_nc_ohc=YqQcWlOdx3oAX-csQe_&_nc_ht=scontent.fdad3-2.fna&oh=00_AT9kZJPbCPYWfVEaJhQoq5Ayjj05qL8K9doTYN9Jq7l1CQ&oe=61CAAF79" alt="" />
+                            <img className="w-32 h-32 object-contain rounded-lg"
+                                src="https://res.cloudinary.com/tratahuong01/image/upload/v1620001760/Avatar/p5vqncs5a5wdc1tv4kl9.jpg" alt="" />
                             <div className="block my-9 mx-2.5">
                                 <span><Link to="" className="dark:text-white font-bold">Didongviet</Link></span> <br />
                                 <span><Link className="text-xs dark:text-white" to="">didongviet.vn</Link></span>
                             </div>
                         </div>
                         <div className="w-full flex mx-0 my-4">
-                            <img className="w-32 h-32 object-contain rounded-lg" src="https://scontent.fdad3-2.fna.fbcdn.net/v/t45.1600-4/cp0/q75/spS444/p296x100/250637557_23848423080230737_7995752096789870701_n.jpg?_nc_cat=108&ccb=1-5&_nc_sid=67cdda&_nc_ohc=YqQcWlOdx3oAX-csQe_&_nc_ht=scontent.fdad3-2.fna&oh=00_AT9kZJPbCPYWfVEaJhQoq5Ayjj05qL8K9doTYN9Jq7l1CQ&oe=61CAAF79" alt="" />
+                            <img className="w-32 h-32 object-contain rounded-lg"
+                                src="https://res.cloudinary.com/tratahuong01/image/upload/v1620001760/Avatar/p5vqncs5a5wdc1tv4kl9.jpg" alt="" />
                             <div className="block my-9 mx-2.5">
                                 <span><Link to="" className="dark:text-white font-bold">Didongviet</Link></span> <br />
                                 <span><Link className="text-xs dark:text-white" to="">didongviet.vn</Link></span>

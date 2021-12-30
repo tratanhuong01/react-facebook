@@ -1,0 +1,32 @@
+import React, { useContext, useEffect } from 'react'
+import { useSelector } from 'react-redux';
+import api from '../../../api/api';
+import { UserProfileContext } from '../../../contexts/UserProfileContext/UserProfileContext'
+import ItemPost from '../../ItemPost/ItemPost'
+
+export default function PostProfileList() {
+    //
+    const headers = useSelector((state) => state.headers);
+    const { userProfilesDispatch, userProfilesAction, userProfile: { postList, userProfile } } = useContext(UserProfileContext);
+    useEffect(() => {
+        //
+        let unmounted = false;
+        const fetch = async () => {
+            const result = await api(`posts?idUser=${userProfile.id}`, 'GET', {}, headers);
+            if (unmounted) return;
+            userProfilesDispatch(userProfilesAction.updateData('postList', result.data));
+        }
+        fetch();
+        return () => {
+            unmounted = true;
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userProfile])
+    //
+    return (
+        <div className='w-full my-2'>
+            {postList.map(post => <ItemPost key={post.id} post={post} />
+            )}
+        </div>
+    )
+}

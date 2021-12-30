@@ -2,12 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent'
 import InputComponent from '../../components/InputComponent/InputComponent'
-import { PAGE_LOGIN } from '../../constants/Config'
+import { PAGE_LOGIN, REGEX_EMAIL } from '../../constants/Config'
 import WrapperAuthenination from '../WrapperAuthenination'
 import jwt_decode from "jwt-decode";
+import api from '../../api/api'
+import { useDispatch } from 'react-redux'
+import * as usersAction from "../../actions/user/index";
 
 export default function VerifyCodeAccount(props) {
     //
+    const dispatch = useDispatch();
     const navigation = useNavigate();
     const { verifyAccountNew } = props;
     const [token, setToken] = useState();
@@ -34,7 +38,7 @@ export default function VerifyCodeAccount(props) {
     return (
         <WrapperAuthenination title={verifyAccountNew ? 'Xác thực tài khoản' : "Đặt lại mật khẩu của bạn"} hideFormLogin={true}>
             <div className="w-full my-2 p-2 pl-5">
-                <p>Vui lòng kiểm tra điện thoại để xem tin nhắn văn bản có mã. Mã của bạn có 6 ký tự.</p>
+                <p>Vui lòng kiểm tra thiết bị cua của bạn để xem tin nhắn văn bản có mã. Mã của bạn có 8 ký tự.</p>
                 <div className="w-full flex my-2 items-center">
                     <div className='w-1/2'>
                         <InputComponent handleChange={(value) => {
@@ -47,7 +51,7 @@ export default function VerifyCodeAccount(props) {
                     </div>
                     <div className="ml-5">
                         <p>Chúng tôi đã gửi cho bạn mã đến:</p>
-                        <p className="text-sm mt-1">+*********22</p>
+                        <p className="text-sm mt-1">{token ? token.sub : ''}</p>
                     </div>
                 </div>
             </div>
@@ -60,15 +64,32 @@ export default function VerifyCodeAccount(props) {
                     <ButtonComponent link={""} className="px-4 font-semibold mr-3 py-2.5 rounded-lg bg-gray-300 text-gray-800">
                         Huỷ
                     </ButtonComponent>
-                    <ButtonComponent handleClick={() => {
+                    <ButtonComponent handleClick={async () => {
                         if (code === "") {
                             setError("Mã xác nhận không được trống !!");
                         }
-                        else if (code !== Number(token.aud)) {
+                        else if (code !== token.aud) {
                             setError("Mã xác nhận không chính xác !!");
                         }
                         else {
-                            alert("oke")
+                            setError(null);
+                            if (token) {
+                                let result = await api(`users?id=${token.jti}`, "GET", {}, {});
+                                if (result.data) {
+                                    if (REGEX_EMAIL.test(token.sub)) {
+                                        result.data.codeEmail = token.aud;
+                                    }
+                                    else {
+                                        result.data.codePhone = token.aud;
+                                    }
+                                    await api(`users`, 'PUT', result.data, {});
+                                    result = await api(`users/generate/login/id/jwt?id=${token.jti}`, 'POST', null, {});
+                                    if (result.data) {
+                                        localStorage.setItem('user', result.data.token);
+                                        dispatch(usersAction.loginUserRequest());
+                                    }
+                                }
+                            }
                         }
                     }} className="px-4 py-2 mr-5 rounded-lg bg-main text-white">
                         Tiếp tục

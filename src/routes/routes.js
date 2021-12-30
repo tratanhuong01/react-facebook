@@ -55,7 +55,7 @@ const routes = [
     element: <Home />
   },
   {
-    path: Config.PAGE_PROFILE,
+    path: `${Config.PAGE_PROFILE}/:id`,
     exact: true,
     element: <Profile />
   },

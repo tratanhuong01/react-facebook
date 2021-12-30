@@ -61,13 +61,13 @@ export default function ContentMessageTop(props) {
                         <>
                             <ItemHeaderContentMessageTop mini={mini}>
                                 <svg width="28px" height="28px" viewBox="-4 -4 24 24"><line x1="2" x2="14"
-                                    y1="8" y2="8" stroke-linecap="round" stroke-width="2" stroke="#692CF2"></line>
+                                    y1="8" y2="8" strokeLinecap="round" strokeWidth="2" stroke="#692CF2"></line>
                                 </svg>
                             </ItemHeaderContentMessageTop>
                             <ItemHeaderContentMessageTop mini={mini}>
                                 <svg width="26px" height="26px" viewBox="-4 -4 24 24"><line x1="2" x2="14" y1="2" y2="14"
-                                    stroke-linecap="round" stroke-width="2" stroke="#692CF2"></line><line x1="2" x2="14"
-                                        y1="14" y2="2" stroke-linecap="round" stroke-width="2" stroke="#692CF2"></line>
+                                    strokeLinecap="round" strokeWidth="2" stroke="#692CF2"></line><line x1="2" x2="14"
+                                        y1="14" y2="2" strokeLinecap="round" strokeWidth="2" stroke="#692CF2"></line>
                                 </svg>
                             </ItemHeaderContentMessageTop>
                         </> :

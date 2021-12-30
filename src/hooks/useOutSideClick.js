@@ -13,10 +13,10 @@ const useOutSideClick = (ref, func) => {
                 modalsDispatch(modalsAction.closeModal());
                 if (typeof func === "function") {
                     func(false);
+                    document.removeEventListener("mousedown", handleClickOutside);
                 }
             }
         }
-
         // Bind the event listener
         document.addEventListener("mousedown", handleClickOutside);
         return () => {

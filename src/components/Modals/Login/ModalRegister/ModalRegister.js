@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import InputComponent from "../../../InputComponent/InputComponent";
 import LabelGender from "./LabelGender";
 import ModalWrapper from "../../ModalWrapper";
-import { REGEX_EMAIL, REGEX_PHONE } from "../../../../constants/Config";
+import { PAGE_VERIFY_CODE_ACCOUNT_REGISTER, REGEX_EMAIL, REGEX_PHONE } from "../../../../constants/Config";
 import api from "../../../../api/api";
+import { ModalContext } from "../../../../contexts/ModalContext/ModalContext";
+import { useNavigate } from "react-router-dom";
 
 function ModalRegister(props) {
   //
@@ -37,6 +39,8 @@ function ModalRegister(props) {
     gender: Yup.string()
       .required("Phải chọn giới tính !!").default("Nam"),
   });
+  const navigation = useNavigate();
+  const { modalsDispatch, modalsAction } = useContext(ModalContext);
   const [errorsIsset, setErrorsIsset] = useState(null);
   const [emailAgain, setEmailAgain] = useState(false);
   const {
@@ -57,8 +61,11 @@ function ModalRegister(props) {
       <p className="pb-2.5 text-sm pt-0.5 text-gray-600">Nhanh Chóng Dễ Dàng</p>
       <hr />
       <form onSubmit={handleSubmit(async (data) => {
-        let result = await api(`users/check/register`, 'POST', data.emailOrPhone, { "Content-Type": "application/json" });
+        modalsDispatch(modalsAction.loadingModal(true));
+        let result = await api(`users/check/register?emailOrPhone=${data.emailOrPhone}`, 'POST',
+          null, {});
         if (result.data) {
+          modalsDispatch(modalsAction.loadingModal(false));
           setErrorsIsset("Email hoặc số điện thoại đã tồn tại !!");
           setEmailAgain(false);
         }
@@ -82,7 +89,24 @@ function ModalRegister(props) {
             isDark: null,
             email: REGEX_EMAIL.test(data.emailOrPhone) ? data.emailOrPhone : null,
             phone: REGEX_PHONE.test(data.emailOrPhone) ? data.emailOrPhone : null
-          }, {})
+          }, {});
+          if (result.data) {
+            const id = result.data.id;
+            const emailOrPhone = REGEX_EMAIL.test(data.emailOrPhone) ? 'email' : 'phone';
+            result = await api(`send/code/${emailOrPhone}?${emailOrPhone}=${data.emailOrPhone}`, 'POST', null, {});
+            result = await api(`users/generate/jwt`, 'POST', {
+              emailOrPhone: data.emailOrPhone,
+              time: 3600,
+              type: 0,
+              code: result.data,
+              id: id
+            }, {});
+            navigation(`${PAGE_VERIFY_CODE_ACCOUNT_REGISTER}?token=${result.data}`)
+            modalsDispatch(modalsAction.loadingModal(true));
+          }
+          else {
+            alert("Error System!!")
+          }
         }
       })} className="mt-2">
         <div className="w-full gap-3 flex">
@@ -183,7 +207,7 @@ function ModalRegister(props) {
           </button>
         </div>
       </form>
-    </ ModalWrapper>
+    </ ModalWrapper >
   );
 }
 

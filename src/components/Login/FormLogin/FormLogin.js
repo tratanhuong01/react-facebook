@@ -4,11 +4,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import InputComponent from "../../InputComponent/InputComponent";
 import ButtonComponent from "../../ButtonComponent/ButtonComponent";
-import { Link, useNavigate } from "react-router-dom";
-import { PAGE_FORGET_ACCOUNT, PAGE_HOME } from "../../../constants/Config";
-import users from "../../../config/users";
+import { Link } from "react-router-dom";
+import { PAGE_FORGET_ACCOUNT } from "../../../constants/Config";
 import { useDispatch } from "react-redux";
 import * as usersAction from "../../../actions/user/index";
+import api from "../../../api/api";
 
 function FormLogin(props) {
   //
@@ -28,15 +28,15 @@ function FormLogin(props) {
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
-  const navigation = useNavigate();
   return (
-    <form className="w-full bg-white p-2.5" onSubmit={handleSubmit((data) => {
-      const result = users.filter(item => ((item.email === data.emailOrPhone || item.phone === data.emailOrPhone)
-        && item.password === data.password));
-      if (result.length > 0) {
-        setUser([result[0]]);
-        dispatch(usersAction.loginUser(result[0]));
-        navigation(PAGE_HOME);
+    <form className="w-full bg-white p-2.5" onSubmit={handleSubmit(async (data) => {
+      const result = await api(`users/check/login`, 'POST', {
+        emailOrPhone: data.emailOrPhone,
+        password: data.password
+      }, {});
+      if (result.data) {
+        localStorage.setItem('user', result.data.token);
+        dispatch(usersAction.loginUser(result.data.users));
       }
       else
         setUser(null);
@@ -56,6 +56,7 @@ function FormLogin(props) {
           className={`border rounded-md p-3 my-2 ${errors.emailOrPhone ? "border-red-500 text-red-500"
             : "border-gray-200 "}`}
           register={register}
+          error={errors['emailOrPhone']}
         />}
       <InputComponent
         type="password"
@@ -63,6 +64,7 @@ function FormLogin(props) {
         placeholder="Mật Khẩu"
         className={`border rounded-md p-3 my-2 ${errors.emailOrPhone ? "border-red-500 text-red-500" : "border-gray-200 "}`}
         register={register}
+        error={errors['emailOrPhone']}
       />
       {user === null ? <p className="text-red-500 py-2 text-sm">Tài khoản hoặc mật khẩu không chính xác!!</p> : ''}
       {remember &&

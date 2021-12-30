@@ -1,10 +1,12 @@
 import React, { useContext } from 'react'
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { ModalContext } from '../../contexts/ModalContext/ModalContext'
 
 export default function WritePost() {
     //
     const { modalsDispatch, modalsAction } = useContext(ModalContext);
+    const user = useSelector((state) => state.user);
     //
     return (
         <div className="w-full bg-white mb-3 mt-2 dark:bg-dark-second m-auto rounded-lg mb-2 border-2 border-solid 
@@ -13,12 +15,12 @@ export default function WritePost() {
                 <div className="mr-3">
                     <Link to="">
                         <img className="w-12 rounded-full h-12 object-cover " alt=""
-                            src="http://res.cloudinary.com/tratahuong01/image/upload/v1638973763/Avatar/kxqbimjteg5ka9cbqh6y.jpg" />
+                            src={user.avatar} />
                     </Link>
                 </div>
                 <div style={{ width: "calc(100% - 60px)" }}>
                     <input onClick={() => modalsDispatch(modalsAction.openModalPost())} className="w-full rounded-full p-3 border-none outline-none bg-gray-100 
-                    dark:bg-dark-third"  type="text" placeholder="Hưởng ơi bạn đang nghĩ gì đó ?" />
+                    dark:bg-dark-third"  type="text" placeholder={`${user.lastName} ơi bạn đang nghĩ gì đó ?`} />
                 </div>
             </div>
             <hr className='dark:border-dark-third' />

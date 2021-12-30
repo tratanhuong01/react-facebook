@@ -1,17 +1,19 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import PreviewImageComment from '../PreviewImageComment/PreviewImageComment'
 import CategoryInputComment from './CategoryInputComment/CategoryInputComment'
 
 export default function TypeCommentInput(props) {
     //
     const { dataComment, setDataComment } = props;
+    const user = useSelector((state) => state.user);
     //
     return (
         <>
             <div className="w-full mx-0 my-2 flex relative">
                 <div className="w-1/12">
                     <img className="w-12 h-12 p-0.5 object-cover rounded-full border-2 border-solid"
-                        src="https://res.cloudinary.com/tratahuong01/image/upload/v1621772815/Avatar/nuwie9ee0luvlnu8wvqe.jpg"
+                        src={user.avatar}
                         alt="" srcSet="" />
                 </div>
                 <div className="w-11/12 ml-2 relative bg-gray-100 dark:bg-dark-third pl-1 overflow-hidden rounded-full">

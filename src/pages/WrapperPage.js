@@ -1,13 +1,18 @@
 import React, { useContext, useEffect, useRef } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ModalContext } from '../contexts/ModalContext/ModalContext'
+import * as usersAction from "../actions/user/index";
+import { PAGE_LOGIN } from '../constants/Config';
+import { useNavigate } from 'react-router-dom';
 
 export default function WrapperPage(props) {
     //
     const { white } = props;
     const { modals } = useContext(ModalContext);
+    const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
     const ref = useRef();
+    const navigation = useNavigate();
     useEffect(() => {
         //
         if (modals.data) {
@@ -16,11 +21,20 @@ export default function WrapperPage(props) {
         else {
             document.getElementsByTagName('body')[0].classList = "";
         }
-        if (!user) {
-            if (ref.current) {
-                ref.current.classList = "";
+
+        if (localStorage && localStorage.getItem("user")) {
+            if (!user) {
+                if (ref.current) {
+                    ref.current.classList = "";
+                }
+                dispatch(usersAction.loginUserRequest());
             }
         }
+        else {
+            navigation(PAGE_LOGIN);
+        }
+        //
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [modals.data, user]);
     //

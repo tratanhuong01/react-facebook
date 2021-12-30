@@ -39,7 +39,7 @@ export default function HeaderLoggedRight(props) {
     //
     return (
         <div className="w-1/2 flex sm:w-3/4 md:w-1/4">
-            <div onClick={() => navigation(PAGE_PROFILE)} className="w-1/2 flex py-0.875 px-2.5 mx-2 mt-1 mb-1.5 p-1.5 
+            <div onClick={() => navigation(PAGE_PROFILE + `/${user.id}`)} className="w-1/2 flex py-0.875 px-2.5 mx-2 mt-1 mb-1.5 p-1.5 
             hover:bg-gray-200 round-avatar dark:hover:bg-dark-third lg:mx-0">
                 <div className="w-1/3 hidden lg:block lg:w-full lg:pt-1 xl:w-auto xl:mr-2">
                     <img className="w-8 h-8 rounded-full object-cover"
