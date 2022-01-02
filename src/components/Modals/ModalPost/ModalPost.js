@@ -1,4 +1,7 @@
 import React, { useContext, useState } from 'react'
+import { useSelector } from 'react-redux'
+import api from '../../../api/api'
+import { ModalContext } from '../../../contexts/ModalContext/ModalContext'
 import { PostContext } from '../../../contexts/PostContext/PostContext'
 import ButtonComponent from '../../ButtonComponent/ButtonComponent'
 import ImageVideoPreview from '../../ItemPost/ImageVideoPreview/ImageVideoPreview'
@@ -10,7 +13,77 @@ import TopWritePostModal from './TopWritePostModal/TopWritePostModal'
 export default function ModalPost(props) {
     //
     const { posts } = useContext(PostContext);
+    const { user, headers } = useSelector((state) => {
+        return {
+            user: state.user,
+            headers: state.headers
+        }
+    })
     const [emojiShow, setEmojiShow] = useState(false);
+    const { modalsDispatch, modalsAction } = useContext(ModalContext);
+    const hanlePost = async () => {
+        modalsDispatch(modalsAction.loadingModal(true));
+        const postNew = {
+            activity: posts.activity,
+            answerQuestion: null,
+            backgroundPost: null,
+            content: posts.content,
+            feel: posts.feel,
+            id: null,
+            local: posts.local,
+            timeCreated: null,
+            typePost: 2,
+            userPost: user
+        }
+        let post = null;
+        let uploadImage = false;
+        if (posts.background) {
+            post = await api(`posts`, 'POST', { ...postNew, backgroundPost: JSON.stringify(posts.background) }, headers);
+        }
+        else if (posts.answerQuestion) {
+            post = await api(`posts`, 'POST', {
+                ...postNew, answerQuestion: JSON.stringify({
+                    ...posts.answerQuestion,
+                    contentAnswerQuestion: posts.contentAnswerQuestion
+                })
+            }, headers);
+        }
+        else {
+            post = await api(`posts`, 'POST', postNew, headers);
+            uploadImage = true;
+        }
+        if (post.data) {
+            for (let index = 0; index < posts.tags.length; index++) {
+                const tag = posts.tags[index];
+                await api('tagsPosts', 'POST', {
+                    id: null,
+                    userTagPost: tag,
+                    postTagPost: post.data,
+                    timeCreated: null
+                }, headers)
+            }
+            if (uploadImage) {
+                for (let index = 0; index < posts.imageVideo.length; index++) {
+                    const imageVideo = posts.imageVideo[index];
+                    const formData = new FormData();
+                    formData.append("multipartFile", imageVideo);
+                    formData.append("id", new Date().getTime());
+                    formData.append("publicId", "Posts/");
+                    formData.append("typeFile", "image");
+                    const imageUpload = await api(`uploadFile`, 'POST', formData, headers);
+                    await api(`imageVideoPosts`, 'POST', {
+                        id: null,
+                        postImageVideoPost: post.data,
+                        src: imageUpload.data.url,
+                        typeImageVideoPost: "image",
+                        timeCreated: null,
+                    }, { ...headers, "Content-Type": "application/json" });
+                }
+            }
+        }
+        modalsDispatch(modalsAction.closeModal());
+    }
+
     //
     return (
         <ModalWrapper className="animate__rubberBand shadow-sm border-t border-b border-solid border-gray-200 bg-white absolute  
@@ -25,7 +98,7 @@ export default function ModalPost(props) {
                 <BottomWritePostModal />
             </div>
             <div className="w-full px-2 text-center my-2.5 mx-0">
-                <ButtonComponent className="w-full p-2.5 border-none rounded-lg font-bold" type="button" bgColor='bg-main text-white'
+                <ButtonComponent handleClick={hanlePost} className="w-full p-2.5 border-none rounded-lg font-bold" type="button" bgColor='bg-main text-white'
                     disabled={posts.content.length > 0 || posts.activity || posts.imageVideo.length > 0
                         || posts.tags.length > 0 || posts.feel || posts.local ? false : true}>
                     Đăng

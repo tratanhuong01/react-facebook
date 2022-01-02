@@ -67,7 +67,7 @@ export default function ImageVideoPreview(props) {
             });
             setData(result);
         }
-        //
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [posts.imageVideo, refContainer]);
     //
     return (

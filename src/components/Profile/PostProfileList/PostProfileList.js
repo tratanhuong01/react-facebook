@@ -25,7 +25,7 @@ export default function PostProfileList() {
     //
     return (
         <div className='w-full my-2'>
-            {postList.map(post => <ItemPost key={post.id} post={post} />
+            {postList.map(postDetail => <ItemPost key={postDetail.post.id} postDetail={postDetail} />
             )}
         </div>
     )

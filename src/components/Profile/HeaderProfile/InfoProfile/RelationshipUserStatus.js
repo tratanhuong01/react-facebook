@@ -61,7 +61,7 @@ export default function RelationshipUserStatus(props) {
             unmounted = true;
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [userProfile]);
     //
     return (
         <div className="flex justify-end items-center">
@@ -78,7 +78,7 @@ export default function RelationshipUserStatus(props) {
                     icon="bx bx-user-delete" label={"Xoá lời mời"} show={false} >
                 </ButtonRelationshipUser>
             </>}
-            {(userRelationship ? (userRelationship.status === 1 || userRelationship.status === 3) &&
+            {(userRelationship ? ((userRelationship.status === 1 || userRelationship.status === 3) && (user.id !== userProfile.id)) &&
                 <ButtonRelationshipUser handleClick={(status) => process(status)} status={-1} show={true}
                     icon={userRelationship.status === 3 ? 'bx bx-user-check' : 'bx bxs-user-x'}
                     label={userRelationship.status === 3 ? 'Bạn bè' : 'Huỷ lời mời'} >

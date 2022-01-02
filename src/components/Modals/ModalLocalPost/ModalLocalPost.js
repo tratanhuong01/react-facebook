@@ -17,7 +17,7 @@ export default function ModalLocalPost() {
             <div className="tac-user wrapper-content-right">
                 {locals.map(local =>
                     <div onClick={() => {
-                        postsDispatch(postsAction.updateData('local', local));
+                        postsDispatch(postsAction.updateData('local', JSON.stringify(local)));
                         postsDispatch(postsAction.returnModalPost());
                     }} key={local.id} className="w-full pl-4  dark:hover:bg-dark-third rounded-lg cursor-pointer relative flex py-1.5
                     hover:bg-gray-200">

@@ -33,7 +33,7 @@ export default function WrapperLogged(props) {
                         </div>
                     </div>
                 </div>}
-                <div className="fixed bottom-0 flex right-20 z-40">
+                <div className="fixed bottom-0 flex right-20 z-40 hidden">
                     <div className="relative bg-white m-2 dark:bg-dark-second rounded-lg 
                     dark:border-dark-third border-2 border-solid border-gray-300 ml-auto" style={{ width: 340, height: 486 }}>
                         <div className='w-full h-full flex flex-col'>

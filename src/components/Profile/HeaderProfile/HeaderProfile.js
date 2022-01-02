@@ -8,25 +8,25 @@ import UpdateCoverImage from './UpdateCoverImage/UpdateCoverImage';
 export default function HeaderProfile() {
     //
     const user = useSelector((state) => state.user);
-    const { userProfile: { userProfile } } = useContext(UserProfileContext);
-    const [cover, setCover] = useState(userProfile.cover);
+    const { userProfile, userProfilesDispatch, userProfilesAction } = useContext(UserProfileContext);
+    const [cover, setCover] = useState(userProfile.userProfile.cover);
     const refLoadingCover = useRef();
     const { modalsDispatch, modalsAction } = useContext(ModalContext);
     useEffect(() => {
-        setCover(userProfile.cover);
+        setCover(userProfile.userProfile.cover);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userProfile, setCover])
+    }, [userProfile.userProfile, setCover]);
     //
     return (
         <>
-            {cover && cover.name && <UpdateCoverImage setCover={setCover} cover={cover} user={userProfile} refLoadingCover={refLoadingCover} />}
+            {cover && cover.name && <UpdateCoverImage setCover={setCover} cover={cover} user={userProfile.userProfile} refLoadingCover={refLoadingCover} />}
             <div className="dark:bg-dark-second pt-10 w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">
                 <div className="w-full border-b-2 border-solid border-gray-300 relative">
                     <div className=" relative h-60 lg:h-96 mx-auto" style={{ width: "110%", left: "-4.5%" }}>
-                        <img className="w-full h-60 object-cover lg:h-96 rounded-lg"
+                        <img className="w-full h-60 bg-white object-cover lg:h-96 rounded-lg"
                             src={cover ? cover.name ? URL.createObjectURL(cover) : cover : cover}
                             alt="" />
-                        {user.id === userProfile.id && <>
+                        {user.id === userProfile.userProfile.id && <>
                             <div ref={refLoadingCover} className="w-full h-60 lg:h-96 absolute top-0 left-0 z-20 bg-opacity-50 
                             bg-black flex justify-center items-center" style={{ display: 'none' }}>
                                 <i className="fas fa-spinner fa-pulse text-5xl text-main"></i>
@@ -47,19 +47,20 @@ export default function HeaderProfile() {
                     <div className="w-full relative z-10 flex pb-2 border-b-6 border-solid border-gray-200">
                         <div className="-mt-9 relative" style={{ width: 180, height: 180 }}>
                             <img className="w-full h-full rounded-full border-4 border-solid border-white object-cover"
-                                src={userProfile.avatar}
+                                src={userProfile.userProfile.avatar}
                                 alt="" />
-                            {user.id === userProfile.id && <div className="text-2xl absolute bottom-2 right-2 z-40 bg-gray-200 w-11 h-11 flex justify-center 
+                            {user.id === userProfile.userProfile.id && <div className="text-2xl absolute bottom-2 right-2 z-40 bg-gray-200 w-11 h-11 flex justify-center 
                             items-center rounded-full shadow-lv1 border-2 border-solid border-gray-300">
                                 <input name="fileAvatar" id="changeAvatar" onChange={(event) => {
                                     if (event.target.files.length > 0) {
-                                        modalsDispatch(modalsAction.openModalPreviewAvatar(event.target.files[0]))
+                                        modalsDispatch(modalsAction.openModalPreviewAvatar(event.target.files[0], userProfile,
+                                            userProfilesDispatch, userProfilesAction))
                                     }
                                 }} type="file" accept="image" className='hidden' />
                                 <label htmlFor="changeAvatar"><i className="fas fa-camera"></i></label>
                             </div>}
                         </div>
-                        <InfoProfile user={userProfile} />
+                        <InfoProfile user={userProfile.userProfile} />
                     </div>
                 </div>
             </div>

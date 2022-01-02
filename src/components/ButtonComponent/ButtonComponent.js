@@ -22,7 +22,7 @@ export default function ButtonComponent(props) {
                 {props.children}
             </Link>)
             :
-            (<button type={type} onClick={() => typeof handleClick === "function" ? handleClick() :
+            (<button type={type} onClick={() => typeof handleClick === "function" && !disabled ? handleClick() :
                 ""} className={`${className} border-solid cursor-pointer 
             ${disabled ? 'cursor-not-allowed bg-gray-500 text-gray-100' : bgColor} `} disabled={disabled}>
                 {props.children}

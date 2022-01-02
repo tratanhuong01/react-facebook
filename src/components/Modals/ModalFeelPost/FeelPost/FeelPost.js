@@ -8,7 +8,7 @@ const ItemFeelPost = (props) => {
     const { posts, postsDispatch, postsAction } = useContext(PostContext);
     return (
         <div onClick={() => {
-            postsDispatch(postsAction.updateData('feel', item));
+            postsDispatch(postsAction.updateData('feel', JSON.stringify(item)));
             postsDispatch(postsAction.updateData('activity', null));
             postsDispatch(postsAction.returnModalPost());
         }} className={`tac-user-clone pl-4 flex items-center dark:hover:bg-dark-third rounded-lg cursor-pointer 

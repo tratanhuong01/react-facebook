@@ -4,8 +4,9 @@ import Feels from '../../ItemPost/Feels/Feels'
 import StickerComment from './StickerComment/StickerComment'
 import allFeel from "../../../config/feels";
 
-export default function ItemComment() {
+export default function ItemComment(props) {
     //
+    const { commentPost } = props;
     const [feel, setFeel] = useState(null);
     //
     return (
@@ -13,14 +14,16 @@ export default function ItemComment() {
             <div className="w-1/12 pt-2">
                 <Link to="">
                     <img className="w-12 h-12 p-0.5 object-cover rounded-full"
-                        src="https://res.cloudinary.com/tratahuong01/image/upload/v1621772815/Avatar/nuwie9ee0luvlnu8wvqe.jpg"
-                        alt="" srcSet=""
+                        src={commentPost.userCommentPost.avatar}
+                        alt="" srcSet="" loading='lazy'
                     />
                 </Link>
             </div>
             <div className="w-11/12 ml-2 relative main-comment">
                 <div className="comment-per w-max p-2  relative rounded-lg" style={{ maxWidth: "91%" }}>
-                    <p><Link to="" className="font-semibold dark:text-white">Trà Hưởng</Link></p>
+                    <p><Link to="" className="font-semibold dark:text-white">
+                        {`${commentPost.userCommentPost.firstName} ${commentPost.userCommentPost.lastName}`}
+                    </Link></p>
                     <StickerComment />
                     <span className="absolute cursor-pointer rounded-full -bottom-1"
                         style={{ left: "92%", whiteSpace: "nowrap" }}>

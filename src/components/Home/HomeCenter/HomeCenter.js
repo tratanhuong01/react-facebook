@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import stories from '../../../config/stories'
 import { PAGE_CREATE_STORY } from '../../../constants/Config'
-import ItemPost from '../../ItemPost/ItemPost'
 import WritePost from '../../WritePost/WritePost'
+import HomePostList from './HomePostList/HomePostList'
 import ItemStory from './ItemStory/ItemStory'
 import MeetRom from './MeetRom/MeetRom'
 
@@ -35,12 +35,7 @@ export default function HomeCenter() {
             </div>
             <WritePost />
             <MeetRom />
-            <ItemPost />
-            <ItemPost />
-            <ItemPost />
-            <ItemPost />
-            <ItemPost />
-            <ItemPost />
+            <HomePostList />
         </div>
     )
 }

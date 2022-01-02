@@ -48,9 +48,12 @@ export const updatePopover = (status) => {
     }
 }
 
-export const openModalPreviewAvatar = (image) => {
+export const openModalPreviewAvatar = (image, userProfile, userProfilesDispatch, userProfilesAction) => {
     return {
         type: constants.OPEN_MODAL_PREVIEW_AVATAR,
-        image
+        image,
+        userProfile,
+        userProfilesDispatch,
+        userProfilesAction
     }
 }

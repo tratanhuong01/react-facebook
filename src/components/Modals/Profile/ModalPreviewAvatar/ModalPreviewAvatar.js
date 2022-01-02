@@ -3,13 +3,56 @@ import ModalWrapper from '../../ModalWrapper'
 import ButtonComponent from '../../../ButtonComponent/ButtonComponent';
 import { ModalContext } from '../../../../contexts/ModalContext/ModalContext';
 import 'react-image-crop/dist/ReactCrop.css';
+import { useDispatch, useSelector } from 'react-redux';
 // import ReactCrop from 'react-image-crop';
+import * as usersAction from "../../../../actions/user/index";
+import api from '../../../../api/api';
 
 export default function ModalPreviewAvatar(props) {
-    const { image } = props;
+    const { user, headers } = useSelector((state) => {
+        return {
+            user: state.user,
+            headers: state.headers
+        }
+    })
+    const { image, userProfile: { postList }, userProfilesDispatch, userProfilesAction } = props;
     const { modalsDispatch, modalsAction } = useContext(ModalContext);
+    const dispatch = useDispatch();
     // const [crop, setCrop] = useState({ aspect: 1 / 1 });
-
+    const handleUpdateAvatar = async () => {
+        modalsDispatch(modalsAction.loadingModal(true));
+        const formData = new FormData();
+        formData.append("multipartFile", image);
+        formData.append("id", new Date().getTime());
+        formData.append("publicId", "Avatars/");
+        formData.append("typeFile", "image");
+        const post = await api(`posts`, 'POST', {
+            id: null,
+            userPost: user,
+            content: null,
+            feel: null,
+            local: null,
+            activity: null,
+            answerQuestion: null,
+            backgroundPost: null,
+            typePost: 0,
+            timeCreated: null,
+        }, headers);
+        const imageUpload = await api(`uploadFile`, 'POST', formData, headers);
+        await api(`imageVideoPosts`, 'POST', {
+            id: null,
+            postImageVideoPost: post.data,
+            src: imageUpload.data.url,
+            typeImageVideoPost: "image",
+            timeCreated: null,
+        }, { ...headers, "Content-Type": "application/json" });
+        const userUpdate = await api(`users`, 'PUT', { ...user, avatar: imageUpload.data.url }, headers);
+        dispatch(usersAction.loginUser(userUpdate.data));
+        const postNew = await api(`posts/${post.data.id}`, 'GET', {}, headers);
+        userProfilesDispatch(userProfilesAction.updateData('userProfile', userUpdate.data));
+        userProfilesDispatch(userProfilesAction.updateData('postList', [postNew.data].concat([...postList])));
+        modalsDispatch(modalsAction.closeModal());
+    }
     return (
         <ModalWrapper className="animate__rubberBand shadow-sm border-t border-b border-solid border-gray-200 bg-white absolute  
         z-50 top-1/2 left-1/2 dark:bg-dark-second rounded-lg transform -translate-x-1/2 -translate-y-1/2 py-2 w-11/12 sm:w-10/12 md:w-2/3 
@@ -35,7 +78,7 @@ export default function ModalPreviewAvatar(props) {
                     <ButtonComponent handleClick={() => modalsDispatch(modalsAction.closeModal())} className=' rounded-md px-8 py-2 font-semibold  text-white bg-black bg-opacity-20'>
                         Huỷ
                     </ButtonComponent>
-                    <ButtonComponent className=' rounded-md px-10 py-2 font-semibold bg-main text-white'>
+                    <ButtonComponent handleClick={handleUpdateAvatar} className=' rounded-md px-10 py-2 font-semibold bg-main text-white'>
                         Lưu thay đổi
                     </ButtonComponent>
                 </div>

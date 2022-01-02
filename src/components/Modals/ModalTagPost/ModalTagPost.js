@@ -1,11 +1,34 @@
-import React, { useContext } from 'react'
-import users from '../../../config/users';
+import React, { useContext, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
+import api from '../../../api/api';
 import { PostContext } from '../../../contexts/PostContext/PostContext';
 import InputComponent from '../../InputComponent/InputComponent'
 import ModalWrapperChildPost from '../ModalWrapperChildPost/ModalWrapperChildPost';
 export default function ModalTagPost() {
     //
+    const [users, setUsers] = useState([]);
+    const { user, headers } = useSelector((state) => {
+        return {
+            user: state.user,
+            headers: state.headers
+        }
+    })
     const { posts, postsDispatch, postsAction } = useContext(PostContext);
+    useEffect(() => {
+        //
+        let unmounted = false;
+        const fetch = async () => {
+            const result = await api(`userRelationships/friends?idUserMain=${user.id}&status=3&offset=0&limit=10`,
+                'GET', null, headers);
+            if (unmounted) return;
+            setUsers(result.data);
+        }
+        fetch();
+        return () => {
+            unmounted = true;
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     //
     return (
         <ModalWrapperChildPost title="Gắn thẻ bạn bè">
@@ -37,20 +60,20 @@ export default function ModalTagPost() {
                 {users.map((user) =>
                     <div onClick={() => {
                         postsDispatch(postsAction.updateData('tags',
-                            [...posts.tags].findIndex(item => item.id === user.id) === -1 ? [...posts.tags, user]
-                                : [...posts.tags].filter(item => item.id !== user.id)
+                            [...posts.tags].findIndex(item => item.id === user.userUserRelationShip.id) === -1 ? [...posts.tags, user.userUserRelationShip]
+                                : [...posts.tags].filter(item => item.id !== user.userUserRelationShip.id)
                         ))
                     }} key={user.id} className="w-full relative flex py-1.5 px-4 cursor-pointer hover:bg-gray-200 
                     rounded-lg dark:hover:bg-dark-third" >
                         <div className="text-center pr-2.5" >
                             <img className="w-12 h-12 rounded-full object-cover"
-                                src={user.avatar}
+                                src={user.userUserRelationShip.avatar}
                                 alt="" />
                         </div>
                         <div className="tac-user-2" style={{ paddingTop: "1%", paddingLeft: "2%" }}>
-                            <p className="font-bold dark:text-white">{`${user.firstName} ${user.lastName}`}</p>
+                            <p className="font-bold dark:text-white">{`${user.userUserRelationShip.firstName} ${user.userUserRelationShip.lastName}`}</p>
                         </div>
-                        {([...posts.tags].findIndex(item => item.id === user.id)) !== -1 &&
+                        {([...posts.tags].findIndex(item => item.id === user.userUserRelationShip.id)) !== -1 &&
                             <span className="absolute top-1/2 transform -translate-y-1/2 right-8">
                                 <i className="fas fa-check text-green-400 text-xl"></i>
                             </span>

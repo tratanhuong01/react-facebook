@@ -22,7 +22,10 @@ const AppReducer = (state, action) => {
                     imageVideo={action.imageVideo} />
             };
         case constants.OPEN_MODAL_PREVIEW_AVATAR:
-            return { ...state, data: <ModalPreviewAvatar image={action.image} /> };
+            return {
+                ...state, data: <ModalPreviewAvatar image={action.image} userProfile={action.userProfile}
+                    userProfilesDispatch={action.userProfilesDispatch} userProfilesAction={action.userProfilesAction} />
+            };
         default:
             return { ...state };
     }

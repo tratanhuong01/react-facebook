@@ -80,7 +80,7 @@ function ModalRegister(props) {
             gender: data.gender,
             isOnline: 0,
             isTick: 0,
-            avatar: null,
+            avatar: "https://res.cloudinary.com/ensonet-dev/image/upload/v1641124176/default-avatar_leprc2.png",
             cover: null,
             codeEmail: null,
             codePhone: null,

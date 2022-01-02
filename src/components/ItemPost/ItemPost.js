@@ -1,65 +1,37 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 import FooterItemPost from './FooterItemPost/FooterItemPost';
-import AvatarPost from './AvatarPost/AvatarPost';
 import TypeCommentInput from '../Comment/TypeCommentInput/TypeCommentInput';
 import ItemComment from '../Comment/ItemComent/ItemComment';
+import ItemPostTop from './ItemPostTop/ItemPostTop';
+import ContentPost from './ContentPost/ContentPost';
 
 export default function ItemPost(props) {
     //
-    const { post } = props;
+    const { postDetail } = props;
     const [dataComment, setDataComment] = useState({ value: null, content: "", type: -1 });
     //
     return (
-        post && <div className="w-full bg-white dark:bg-dark-second my-4 shadow-lv1 py-4 px-2 rounded-lg">
-            <div className="w-full flex">
-                <div className="w-10%">
-                    <div className="w-14 h-14 relative">
-                        <Link to="">
-                            <img className="w-12 h-12 rounded-full object-cover border-4 border-solid border-gray-200"
-                                alt=""
-                                src={post.userPost.avatar} />
-                        </Link>
-                    </div>
-                </div>
-                <div className="relative ml-2 pl-3 lg:-ml-1">
-                    <p className="dark:text-gray-300 dark:text-white">
-                        <Link to="" className="font-semibold mr-2">
-                            {`${post.userPost.firstName} ${post.userPost.lastName}`}
-                        </Link>
-                        đã cập nhật ảnh đại diện của anh ấy.
-                    </p>
-                    <div className="w-full flex">
-                        <div className="text-xs pt-0.5 pr-2">
-                            <ul className="flex items-center dark:text-gray-300 text-sm text-gray-600">
-                                <li className="">
-                                    <Link to="" className="mr-1">
-                                        {post.timeCreated}
-                                    </Link>
-                                </li>
-                                <li className="" >
-                                    ·<i className="cursor-pointer ml-1 text-sm fas fa-globe-europe"></i>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div className="text-center relative w-10%">
-                    <i className='bx bx-dots-horizontal-rounded mt-0 -mr-3 text-3xl text-gray-800 
-                cursor-pointer' ></i>
-                </div>
-            </div>
-            <div className="w-full mx-0 my-2.5">
-                <p className="dark:text-white"></p>
-            </div>
-            <AvatarPost />
+        postDetail ? <div className="w-full bg-white dark:bg-dark-second my-4 shadow-lv1 py-4 px-2 rounded-lg">
+            <ItemPostTop postDetail={postDetail} />
+            {postDetail.post.content && !postDetail.post.backgroundPost && <p className='my-1 w-full p-1'>
+                {postDetail.post.content}
+            </p>}
+            <ContentPost postDetail={postDetail} />
             <div className="w-full my-4 mx-0">
-                <FooterItemPost />
+                <FooterItemPost postDetail={postDetail} />
             </div>
             <div className="w-full">
-                <ItemComment />
+                {postDetail ? postDetail.commentDetailList.map((commentDetail, index) =>
+                    <>
+                        <ItemComment commentPost={commentDetail.commentPostLevel1} key={index} />
+                        <div>
+                            {postDetail.commentDetail.commentPostLevel2List.map(commentPost =>
+                                <ItemComment commentPost={commentPost} key={commentPost.id} />)}
+                        </div>
+                    </>)
+                    : ""}
             </div>
             <TypeCommentInput dataComment={dataComment} setDataComment={setDataComment} />
-        </div>
+        </div> : ""
     )
 }
