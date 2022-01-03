@@ -1,12 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import stories from '../../../config/stories'
 import { PAGE_CREATE_STORY } from '../../../constants/Config'
 import WritePost from '../../WritePost/WritePost'
 import HomePostList from './HomePostList/HomePostList'
-import ItemStory from './ItemStory/ItemStory'
 import MeetRom from './MeetRom/MeetRom'
+import StoryList from './StoryList/StoryList'
 
 export default function HomeCenter() {
     //
@@ -29,9 +28,7 @@ export default function HomeCenter() {
                         <p className="text-center text-sm font-bold pt-6 pb-0 dark:text-white">Tạo Tin</p>
                     </div>
                 </div>
-                {[...stories].slice(0, 5).map((story, index) => <ItemStory key={index} story={story}
-                    nearLast={index === 3 ? 'hidden lg:block' : ''} last={index === 4 ? 'hidden md:block' : ''}
-                    length={[...stories].slice(0, 5).length} index={index} />)}
+                <StoryList />
             </div>
             <WritePost />
             <MeetRom />

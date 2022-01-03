@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import api from '../../../../api/api';
+import { PAGE_CREATE_STORY } from '../../../../constants/Config';
 import { UserProfileContext } from '../../../../contexts/UserProfileContext/UserProfileContext';
 import ButtonComponent from '../../../ButtonComponent/ButtonComponent';
 import ButtonRelationshipUser from './ButtonRelationshipUser/ButtonRelationshipUser';
@@ -13,6 +15,7 @@ export default function RelationshipUserStatus(props) {
             headers: state.headers
         }
     });
+    const navigation = useNavigate();
     const { userProfile: { userProfile } } = useContext(UserProfileContext);
     const [userRelationship, setUserRelationship] = useState(null);
     const process = async (status) => {
@@ -86,7 +89,7 @@ export default function RelationshipUserStatus(props) {
             }
             {user.id === userProfile.id &&
                 <>
-                    <ButtonComponent className="flex items-center h-10 px-2 bg-main rounded-lg mr-2 text-white font-semibold text-sm">
+                    <ButtonComponent handleClick={() => navigation(PAGE_CREATE_STORY)} className="flex items-center h-10 px-2 bg-main rounded-lg mr-2 text-white font-semibold text-sm">
                         <div className="w-5 h-5 mr-1.5 rounded-full bg-white flex justify-center items-center 
                                 text-main"><i className="bx bx-plus"></i></div>Thêm vào tin
                     </ButtonComponent>

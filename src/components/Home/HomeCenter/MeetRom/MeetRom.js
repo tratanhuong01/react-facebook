@@ -1,11 +1,35 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import ButtonComponent from '../../../ButtonComponent/ButtonComponent'
-import users from '../../../../config/users'
 import ScrollContainer from 'react-indiana-drag-scroll'
+import api from '../../../../api/api';
+import { useSelector } from 'react-redux';
 
 export default function MeetRom() {
+    //
+    const [users, setUsers] = useState([]);
+    const { user, headers } = useSelector((state) => {
+        return {
+            user: state.user,
+            headers: state.headers
+        }
+    })
+    useEffect(() => {
+        //
+        let unmounted = false;
+        const fetch = async () => {
+            const result = await api(`users/online?idUser=${user.id}&offset=0&limit=10`, 'GET', null, headers);
+            if (unmounted) return;
+            setUsers(result.data);
+        }
+        fetch();
+        return () => {
+            unmounted = true;
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+    //
     return (
-        <div className="my-5 shadow-lv1 w-full flex items-center px-3 py-3 bg-white dark:bg-dark-third rounded-lg">
+        users.length > 0 ? <div className="my-5 shadow-lv1 w-full flex items-center px-3 py-3 bg-white dark:bg-dark-third rounded-lg">
             <ButtonComponent className="text-blue-500 text-sm rounded-full border border-solid 
             border-gray-200 flex py-1.5 px-5 hover:bg-gray-100 font-semibold dark:hover:bg-dark-second 
             flex items-center justify-center dark:border-gray-300 w-1/2 lg:w-auto">
@@ -23,6 +47,6 @@ export default function MeetRom() {
                     )}
                 </ul>
             </ScrollContainer>
-        </div >
+        </div > : ""
     )
 }

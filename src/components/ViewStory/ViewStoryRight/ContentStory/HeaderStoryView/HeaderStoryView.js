@@ -11,26 +11,28 @@ function HeaderStoryView(props) {
         <div className="w-full py-1 px-2 absolute top-1">
             <div className="w-full pb-2">
                 <ul className="w-full flex">
-                    {current.imageList.map((item, index) => <li key={index} className={`w-${Math.floor(100 /
-                        current.imageList.length)}% bg-gray-300 mr-1 cursor-pointer`}>
-                        <div className={`bg-white py-0.5 `} style={{
-                            width: `${item.id === main.id ?
-                                100 * (timeCurrent / 10)
-                                : 0}%`
-                        }}>
-                        </div>
-                    </li>)}
+                    {current.storyList.map((item, index) =>
+                        <li key={index} className={`w-${Math.floor(100 /
+                            current.storyList.length)}% bg-gray-300 mr-1 cursor-pointer`}>
+                            <div className={`bg-white py-0.5 `} style={{
+                                width: `${item.id === main.id ?
+                                    100 * (timeCurrent / 10)
+                                    : 0}%`
+                            }}>
+                            </div>
+                        </li>)}
                 </ul>
             </div>
             <div className="w-full flex">
                 <div className="w-2/12">
-                    <img src={current.avatar}
+                    <img src={current.groupStory.userGroupStory.avatar}
                         className="w-12 h-12 object-cover rounded-full p-1" alt="" />
                 </div>
                 <div className="w-1/2 pt-1">
-                    <p className="pb-1"><Link to="" className="font-bold text-white">{current.fullName}</Link>
+                    <p className="pb-1"><Link to="" className="font-bold text-white">{`${current.groupStory.userGroupStory.firstName} 
+                    ${current.groupStory.userGroupStory.lastName}`}</Link>
                         &nbsp;<span className="text-sm text-white" >
-                            15 giờ
+                            {main.timeCreated}
                         </span></p>
                     <p className="text-white text-sm">Mod(Remix) </p>
                 </div>

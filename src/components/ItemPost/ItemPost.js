@@ -13,7 +13,7 @@ export default function ItemPost(props) {
     return (
         postDetail ? <div className="w-full bg-white dark:bg-dark-second my-4 shadow-lv1 py-4 px-2 rounded-lg">
             <ItemPostTop postDetail={postDetail} />
-            {postDetail.post.content && !postDetail.post.backgroundPost && <p className='my-1 w-full p-1'>
+            {postDetail.post.content && !postDetail.post.backgroundPost && <p className='my-1 dark:text-gray-300 w-full p-1'>
                 {postDetail.post.content}
             </p>}
             <ContentPost postDetail={postDetail} />

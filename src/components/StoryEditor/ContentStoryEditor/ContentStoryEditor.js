@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useRef } from 'react'
+import React, { forwardRef, useContext, useEffect, useRef } from 'react'
 import { StoryEditorContext } from '../../../contexts/StoryEditorContext/StoryEditorContext'
-
+import imageAsset from "../../../assets/images/51655920_280807142616755_4913279188888190976_n_aj6bex.jpeg"
 const ContentTextEdit = (props) => {
     //  
     const { storyEditor: { content, color } } = useContext(StoryEditorContext);
@@ -19,7 +19,7 @@ const ContentTextEdit = (props) => {
     )
 }
 
-export default function ContentStoryEditor() {
+export default forwardRef(function ContentStoryEditor(props, ref) {
     //
     const { storyEditor: { data, audio } } = useContext(StoryEditorContext);
     //
@@ -27,16 +27,16 @@ export default function ContentStoryEditor() {
         <div className="w-11/12 top-1 mx-auto rounded-2xl mt-6 dark:bg-dark-main bg-white relative 
                         border-2 border-solid border-gray-200 dark:border-dark-third mt-1" style={{ height: 630 }}>
             <div className="w-97per text-center relative bg-black rounded-2xl" style={{ height: 625 }}>
-                <div id="outer" className="w-1/2 relative left-1/2 rounded-lg bg-gray-300 -translate-y-1/2 
+                <div ref={ref} id="outer" className="w-1/2 relative left-1/2 rounded-lg bg-gray-300 -translate-y-1/2 
                                 dark:bg-dark-third justify-center flex top-1/2 items-center top-1/2 transform -translate-x-1/2"
                     style={{ height: 612 }}>
                     <div className="w-full h-full absolute top-0 left-0 bg-black bg-opacity-50" style={{ zIndex: -1 }} >
-                        <img src={data ? data.name ? URL.createObjectURL(data) : data.src : ""} alt="" className="w-full h-full object-cover opacity-30"
+                        <img src={data ? data.name ? URL.createObjectURL(data) : imageAsset : ""} alt="" className="w-full h-full object-cover opacity-30"
                             style={{ filter: "blur(6px)" }} />
                     </div>
                     <img id="myImage" className="w-full rounded-lg" style={data ? data.name ? { maxHeight: 612 } :
                         { maxHeight: 612, height: 612 } : { maxHeight: 612 }}
-                        src={data ? data.name ? URL.createObjectURL(data) : data.src : ""} alt="" />
+                        src={data ? data.name ? URL.createObjectURL(data) : imageAsset : ""} alt="" />
                     {audio && <div className="w-1/3 bg-white text-left flex p-1.5 absolute top-32 left-24 rounded-lg"
                         style={{ transform: "rotate(-25deg)" }}>
                         <div className="w-1/4 pr-2">
@@ -52,6 +52,6 @@ export default function ContentStoryEditor() {
             </div>
             <canvas id="myCanvas" className="hidden justify-center flex items-center" width="345"
                 height="612"></canvas>
-        </div>
+        </div >
     )
-}
+})

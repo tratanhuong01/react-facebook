@@ -1,10 +1,9 @@
 import React, { useContext } from 'react'
-import storyList from '../../../config/stories';
 import { StoryContext } from '../../../contexts/StoryContext/StoryContext';
 
 export default function ViewStoryLeft(props) {
     //
-    const { stories: { current }, storiesDispatch, storiesAction } = useContext(StoryContext);
+    const { stories: { current, main, storyList }, storiesDispatch, storiesAction } = useContext(StoryContext);
     const { fullScreen, setFullScreen } = props;
     //
     return (
@@ -34,24 +33,25 @@ export default function ViewStoryLeft(props) {
             </div>
             <hr className='my-2' />
             <p className='font-semibold my-2 dark:text-white'>Tất cả tin</p>
-            {storyList.map((story, index) =>
+            {current && main && storyList.map((story, index) =>
                 <div onClick={() => {
                     storiesDispatch(storiesAction.updateData('current', story));
                     storiesDispatch(storiesAction.updateData('timeCurrent', 0));
                     storiesDispatch(storiesAction.updateData('indexRun', 0));
                     storiesDispatch(storiesAction.updateData('indexStory', index));
-                    storiesDispatch(storiesAction.updateData('main', story.imageList[0]));
-                }} key={story.id} className={`w-full flex my-2 cursor-pointer rounded-lg p-2
-                ${story.id === current.id ? 'dark:bg-dark-third bg-gray-100' : 'dark:hover:bg-dark-third hover:bg-gray-100'}`}>
+                    storiesDispatch(storiesAction.updateData('main', story.storyList[0]));
+                }} key={index} className={`w-full flex my-2 cursor-pointer rounded-lg p-2
+                ${current.groupStory ? story.groupStory.id === current.groupStory.id ? 'dark:bg-dark-third bg-gray-100' :
+                        'dark:hover:bg-dark-third hover:bg-gray-100' : 'dark:hover:bg-dark-third hover:bg-gray-100'}`}>
                     <div className="w-23per">
-                        <img src={story.avatar}
+                        <img src={story.groupStory.userGroupStory.avatar}
                             className="rounded-full p-1 w-16 h-16 border-4 border-white object-cover border-solid" alt="" />
                     </div>
                     <div className="w-3/4">
-                        <p className="font-semibold pt-2 dark:text-white">{story.fullName}</p>
+                        <p className="font-semibold pt-2 dark:text-white">{`${story.groupStory.userGroupStory.firstName} ${story.groupStory.userGroupStory.lastName}`}</p>
                         <p className="color-word text-sm"><span className="text-blue-400">
                         </span>
-                            <span className="font0-bold text-sm">4 phút trước</span>
+                            <span className="font0-bold text-sm">{story.groupStory.timeCreated}</span>
                         </p>
                     </div>
                 </div>)}

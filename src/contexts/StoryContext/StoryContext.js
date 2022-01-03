@@ -1,16 +1,16 @@
 import { createContext, useReducer } from "react";
 import AppReducer from "./AppReducer";
 import * as actions from "./Action";
-import stories from "../../config/stories";
 
 const initialState = {
-    current: stories[0],
+    current: null,
     isPlaying: true,
     indexStory: 0,
     timeCurrent: 0,
-    main: stories[0].imageList[0],
+    main: null,
     indexRun: 0,
-    show: false
+    show: false,
+    storyList: []
 };
 
 export const StoryContext = createContext();

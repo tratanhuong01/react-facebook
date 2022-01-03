@@ -4,7 +4,7 @@ import { PAGE_STORY } from '../../../../constants/Config';
 
 export default function ItemStory(props) {
     //
-    const { last, nearLast, story, length, index } = props;
+    const { last, nearLast, story: { groupStory, storyList }, length, index } = props;
     const navigation = useNavigate();
     //
     return (
@@ -14,15 +14,15 @@ export default function ItemStory(props) {
                 <div className="relative h-full group cursor-pointer">
                     <img className="group-hover:transform group-hover:scale-110 transition-all duration-700 
                         h-full w-full object-cover "
-                        src={story.imageList[0].src}
+                        src={storyList.length > 0 ? storyList[0].src : ""}
                         alt="" />
                 </div>
                 <div className="w-full absolute text-left pl-1.5 break-all bottom-2">
-                    <b className="text-white text-sm">{story.fullName}</b>
+                    <b className="text-white text-sm">{`${groupStory.userGroupStory.firstName} ${groupStory.userGroupStory.lastName}`}</b>
                 </div>
                 <div className="w-full text-left absolute top-2 left-1">
                     <img className="w-10 h-10 rounded-full object-cover border-4 border-solid border-blue-500 "
-                        src={story.avatar}
+                        src={groupStory.userGroupStory.avatar}
                         alt="" />
                 </div>
             </div>

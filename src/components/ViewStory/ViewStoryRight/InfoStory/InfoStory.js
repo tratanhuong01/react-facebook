@@ -15,10 +15,10 @@ export default function InfoStory(props) {
                     &times;</span>
             </p>
             <ul className="flex overflow-x-hidden" style={{ maxWidth: 368 }}>
-                {current.imageList.map((item, index) =>
+                {current.storyList.map((item, index) =>
                     <li onClick={() => {
                         storiesDispatch(storiesAction.updateData('indexRun', index));
-                        storiesDispatch(storiesAction.updateData('main', current.imageList[index]));
+                        storiesDispatch(storiesAction.updateData('main', current.storyList[index]));
                     }} key={index} className="mr-2 cursor-pointer flex-shrink-0 flex items-center justify-center "
                         style={{ width: 120, height: 160 }}>
                         <img className={`${item.id === main.id ? 'w-full h-full' : 'w-5/6 h-5/6'} object-cover`} alt=''

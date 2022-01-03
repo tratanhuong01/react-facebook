@@ -21,9 +21,9 @@ export default function HeaderProfile() {
         <>
             {cover && cover.name && <UpdateCoverImage setCover={setCover} cover={cover} user={userProfile.userProfile} refLoadingCover={refLoadingCover} />}
             <div className="dark:bg-dark-second pt-10 w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">
-                <div className="w-full border-b-2 border-solid border-gray-300 relative">
+                <div className="w-full relative">
                     <div className=" relative h-60 lg:h-96 mx-auto" style={{ width: "110%", left: "-4.5%" }}>
-                        <img className="w-full h-60 bg-white object-cover lg:h-96 rounded-lg"
+                        <img className="w-full h-60 bg-white dark:bg-dark-third object-cover lg:h-96 rounded-lg"
                             src={cover ? cover.name ? URL.createObjectURL(cover) : cover : cover}
                             alt="" />
                         {user.id === userProfile.userProfile.id && <>
