@@ -40,7 +40,7 @@ export default function Profile(props) {
         <WrapperLogged>
             <UserProfileProvider>
                 <MainProfile refContainer={refContainer} id={id}>
-                    <div ref={refContainer} className='w-full h-screen overflow-y-auto overflow-x-hidden'>
+                    <div ref={refContainer} className='w-full h-screen pl-0.5 md:pl-0 overflow-y-auto overflow-x-hidden'>
                         <div className="w-full bg-white dark:bg-dark-second">
                             <HeaderProfile />
                             <div className="dark:bg-dark-second w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">
@@ -56,8 +56,9 @@ export default function Profile(props) {
                             </div>
                         </div>}
                         <div className="w-full relative bg-gray-100 dark:bg-dark-main pt-3">
-                            <div className="mx-auto relative w-full lg:flex xl:w-63% md:w-4/5 lg:w-3/4 md:mx-auto lg:flex-wrap rounded-lg">
-                                <div className="w-full lg:flex" >
+                            <div className="mx-auto relative w-full lg:flex xl:w-63% md:w-4/5 lg:w-3/4 md:mx-auto 
+                            lg:flex-wrap rounded-lg">
+                                <div className="w-full lg:flex gap-3" >
                                     <ProfileLeft />
                                     <div className="w-full mx-auto rounded-lg lg:w-7/12">
                                         <WritePost />

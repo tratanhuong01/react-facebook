@@ -1,8 +1,9 @@
 import React from 'react'
-
+import { v4 } from 'uuid';
 export default function CategoryInputComment(props) {
     //
     const { dataComment, setDataComment } = props;
+    const id = v4();
     //
     return (
         <ul className="flex absolute pr-3 transform items-center  -translate-y-1/2 top-1/2 right-0">
@@ -17,8 +18,8 @@ export default function CategoryInputComment(props) {
                         if (event.target.files.length > 0) {
                             setDataComment({ ...dataComment, value: event.target.files[0], type: 1 })
                         }
-                    }} type="file" accept="image" encType="multipart/form-data" id='2000000102fileImagess' />
-                    <label htmlFor="2000000102fileImagess">
+                    }} type="file" accept="image" encType="multipart/form-data" id={id} />
+                    <label htmlFor={id}>
                         <i className="fas fa-camera dark:text-white text-gray-600"></i>
                     </label>
                 </li>

@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { memo, useContext } from 'react'
 import { Link } from 'react-router-dom';
 import { StoryContext } from '../../../../../contexts/StoryContext/StoryContext';
@@ -32,7 +33,7 @@ function HeaderStoryView(props) {
                     <p className="pb-1"><Link to="" className="font-bold text-white">{`${current.groupStory.userGroupStory.firstName} 
                     ${current.groupStory.userGroupStory.lastName}`}</Link>
                         &nbsp;<span className="text-sm text-white" >
-                            {main.timeCreated}
+                            {moment(main.timeCreated).fromNow(true)}
                         </span></p>
                     <p className="text-white text-sm">Mod(Remix) </p>
                 </div>

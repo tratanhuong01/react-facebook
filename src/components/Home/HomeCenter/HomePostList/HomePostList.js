@@ -30,8 +30,8 @@ export default function HomePostList() {
     }, [headers])
     //
     return (
-        postDetails.length > 0 ? postDetails.map((postDetail =>
+        postDetails.length > 0 ? postDetails.map((postDetail) =>
             <ItemPost postDetail={postDetail} key={postDetail.post.id} />
-        )) : ''
+        ) : ''
     )
 }

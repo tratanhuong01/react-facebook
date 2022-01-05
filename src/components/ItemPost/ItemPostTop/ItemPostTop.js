@@ -2,24 +2,23 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 import InfoPostHeader from '../../Modals/ModalPost/TopWritePostModal/InfoPostHeader/InfoPostHeader';
-
+import moment from 'moment';
 export default function ItemPostTop(props) {
     //
     const user = useSelector((state) => state.user);
     const { postDetail: { post, tagPostList } } = props;
     //
     return (
-        <div className="w-full flex relative">
-            <div className="w-10%">
-                <div className="w-14 h-14 relative">
-                    <Link to="">
-                        <img className="w-12 h-12 rounded-full object-cover border-4 border-solid border-gray-200"
-                            alt=""
-                            src={post.userPost.avatar} />
-                    </Link>
-                </div>
+        <div className="w-full flex mb-2 relative">
+            <div className="w-12 h-12 relative">
+                <Link to="">
+                    <img className="w-12 h-12 rounded-full object-cover border-4 border-solid border-gray-200"
+                        alt=""
+                        src={post.userPost.avatar} />
+                </Link>
+                <span className="w-3 h-3 rounded-full absolute bottom-0 right-0 bg-green-500"></span>
             </div>
-            <div className="relative ml-2 pl-3 lg:-ml-1">
+            <div className="relative ml-3 pl-3 lg:-ml-1" style={{ width: "calc(100% - 56px)" }}>
                 <p className="dark:text-gray-300 dark:text-white pr-5">
                     <Link to="" className="font-semibold mr-2">
                         {`${post.userPost.firstName} ${post.userPost.lastName}`}
@@ -33,7 +32,7 @@ export default function ItemPostTop(props) {
                         <ul className="flex items-center dark:text-gray-300 text-sm text-gray-600">
                             <li className="">
                                 <Link to="" className="mr-1">
-                                    {post.timeCreated}
+                                    {moment(post.timeCreated).fromNow(true)}
                                 </Link>
                             </li>
                             <li className="" >

@@ -1,5 +1,5 @@
 import api from "../../api/api";
-import * as constants from "../../constants/ActionTypes";
+import * as constants from "../../constants/UserConstant";
 import jwt_decode from "jwt-decode";
 
 export const loginUserRequest = () => {

@@ -1,9 +1,17 @@
 import React from 'react'
-
+import { useDispatch, useSelector } from 'react-redux';
+import * as userChatsAction from "../../../../actions/userChat/index";
 
 const ItemHeaderContentMessageTop = (props) => {
+    //
+    const { handleClick } = props;
+    //
     return (
-        <li className={`${props.mini ? 'w-8 h-8' : 'w-9 h-9'} flex justify-center hover:bg-gray-200 dark:hover:bg-dark-third 
+        <li onClick={() => {
+            if (typeof handleClick === "function") {
+                handleClick();
+            }
+        }} className={`${props.mini ? 'w-8 h-8' : 'w-9 h-9'} flex justify-center hover:bg-gray-200 dark:hover:bg-dark-third 
         items-center rounded-full cursor-pointer`}>
             {props.children}
         </li>
@@ -12,7 +20,13 @@ const ItemHeaderContentMessageTop = (props) => {
 
 export default function ContentMessageTop(props) {
     //
-    const { mini } = props;
+    const { mini, item } = props;
+    const dispatch = useDispatch();
+    const { userChat: { minize, zoom } } = useSelector((state) => {
+        return {
+            userChat: state.userChat
+        }
+    })
     //
     return (
         <div className={`w-full ${mini ? 'py-1' : ' pt-3 '} flex shadow items-center`}>
@@ -20,7 +34,7 @@ export default function ContentMessageTop(props) {
                 <div className="">
                     <div className={`${mini ? 'w-9 h-9' : 'xl:w-10 xl:h-10 w-16 h-16'} my-2  object-cover rounded-full 
                         mx-auto relative `}>
-                        <img src="http://res.cloudinary.com/tratahuong01/image/upload/v1627385490/Messenger/AvatarUpdate/1000000025.jpg"
+                        <img src={item.avatar}
                             alt="" className="xl:w-10 xl:h-10 rounded-full object-cover mx-auto w-16 h-16" />
                         <span className={`${mini ? 'w-2.5 h-2.5' : 'w-3.5 h-3.5'} rounded-full bg-green-500 absolute bottom-0 
                         ${mini ? '-right-0.5' : 'right-0.5'}`}></span>
@@ -29,7 +43,7 @@ export default function ContentMessageTop(props) {
                 <div className="pl-3 flex flex-col">
                     <b className="block dark:text-white inline-block whitespace-nowrap overflow-ellipsis 
                     overflow-hidden max-w-full pr-4">
-                        Tuấn Tiền Tỉ
+                        {`${item.firstName} ${item.lastName}`}
                     </b>
                     <span className="text-gray-700 dark:text-gray-300 text-sm">Đang hoạt động</span>
                 </div>
@@ -59,12 +73,25 @@ export default function ContentMessageTop(props) {
                     </ItemHeaderContentMessageTop>
                     {mini ?
                         <>
-                            <ItemHeaderContentMessageTop mini={mini}>
+                            <ItemHeaderContentMessageTop mini={mini} handleClick={() => {
+                                if (zoom.length === 2) {
+                                    const arrayFirst = [...zoom].filter(data => data.id !== item.id);
+                                    const arraySecond = minize.length > 0 ? [minize[minize.length - 1]] : [];
+                                    dispatch(userChatsAction.updateData('zoom', [...arraySecond].concat([...arrayFirst])));
+                                    dispatch(userChatsAction.updateData('minize',
+                                        minize.length > 0 ? [...minize].filter(data => data.id !== minize[minize.length - 1].id) : [item]));
+                                }
+                                else {
+                                    dispatch(userChatsAction.updateData('minize', [item]));
+                                }
+                            }}>
                                 <svg width="28px" height="28px" viewBox="-4 -4 24 24"><line x1="2" x2="14"
                                     y1="8" y2="8" strokeLinecap="round" strokeWidth="2" stroke="#692CF2"></line>
                                 </svg>
                             </ItemHeaderContentMessageTop>
-                            <ItemHeaderContentMessageTop mini={mini}>
+                            <ItemHeaderContentMessageTop mini={mini} handleClick={() => {
+                                dispatch(userChatsAction.updateData('zoom', [...zoom].filter(data => data.id !== item.id)))
+                            }}>
                                 <svg width="26px" height="26px" viewBox="-4 -4 24 24"><line x1="2" x2="14" y1="2" y2="14"
                                     strokeLinecap="round" strokeWidth="2" stroke="#692CF2"></line><line x1="2" x2="14"
                                         y1="14" y2="2" strokeLinecap="round" strokeWidth="2" stroke="#692CF2"></line>

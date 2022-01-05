@@ -1,12 +1,12 @@
-import * as constants from "../constants/ActionTypes";
+import * as usersConstant from "../constants/UserConstant";
 
 const initialState = null;
 
 const myReducer = (state = initialState, action) => {
     switch (action.type) {
-        case constants.LOGIN:
+        case usersConstant.LOGIN:
             return action.user;
-        case constants.LOGOUT:
+        case usersConstant.LOGOUT:
             localStorage.removeItem('user');
             state = null;
             return state;

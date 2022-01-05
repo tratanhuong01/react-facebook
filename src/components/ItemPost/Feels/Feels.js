@@ -12,7 +12,7 @@ export default function Feels(props) {
         }
     })
     const { setFeel, feel, comment, setFeelLength, feelLength, post } = props;
-    const handleFeel = async (feelRe, index) => {
+    const handleFeelPost = async (feelRe, index) => {
         if (feel) {
             const result = await api(`feelPosts`, 'PUT', { ...feel, content: JSON.stringify(feelRe), typeFeelPost: index }, headers);
             setFeel(result.data);
@@ -30,13 +30,37 @@ export default function Feels(props) {
             setFeelLength(feelLength + 1);
         }
     }
+    const handleFeelComment = async (feelRe, index) => {
+        if (feel) {
+            const result = await api(`feelComments`, 'PUT', { ...feel, content: JSON.stringify(feelRe), typeFeelComment: index }, headers);
+            setFeel(result.data);
+        }
+        else {
+            const result = await api(`feelComments`, 'POST', {
+                id: null,
+                commentPostFeelComment: post,
+                userFeelComment: user,
+                content: JSON.stringify(feelRe),
+                typeFeelComment: index,
+                timeCreated: null
+            }, headers);
+            setFeel(result.data);
+        }
+    }
     //
     return (
         <div className="p-2 z-40 absolute bottom-full item__block -left-4" style={{ width: comment ? 340 : 'auto' }}>
             <ul className="flex flex-column dark:bg-dark-second bg-white rounded-full border-solid 
                         dark:border-dark-third border-gray-300 border rounded-3xl">
                 {allFeel.map((feel, index) =>
-                    <li onClick={() => handleFeel(feel, index)} key={index} className="p-1 cursor-pointer rounded-full hover:bg-gray-200 
+                    <li onClick={() => {
+                        if (comment) {
+                            handleFeelComment(feel, index)
+                        }
+                        else {
+                            handleFeelPost(feel, index)
+                        }
+                    }} key={index} className="p-1 cursor-pointer rounded-full hover:bg-gray-200 
                     dark:hover:bg-dark-third relative item__hover">
                         <span className="p-1 text-xs item__block rounded-full hidden bg-black text-white font-semibold 
                         absolute bottom-full mb-2 left-0"

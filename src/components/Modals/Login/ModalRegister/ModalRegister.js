@@ -80,13 +80,14 @@ function ModalRegister(props) {
             gender: data.gender,
             isOnline: 0,
             isTick: 0,
+            password: data.password,
             avatar: "https://res.cloudinary.com/ensonet-dev/image/upload/v1641124176/default-avatar_leprc2.png",
             cover: null,
             codeEmail: null,
             codePhone: null,
             timeCreated: null,
             description: null,
-            isDark: null,
+            isDark: 0,
             email: REGEX_EMAIL.test(data.emailOrPhone) ? data.emailOrPhone : null,
             phone: REGEX_PHONE.test(data.emailOrPhone) ? data.emailOrPhone : null
           }, {});

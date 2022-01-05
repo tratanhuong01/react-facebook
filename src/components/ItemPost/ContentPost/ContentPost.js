@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { memo } from 'react'
 import AvatarPost from '../AvatarPost/AvatarPost';
 import CoverPost from '../CoverPost/CoverPost';
 import NormalPost from '../NormalPost/NormalPost';
 
-export default function ContentPost(props) {
+export default memo(function ContentPost(props) {
     const { postDetail } = props;
     const PostData = () => {
         let data = "";
@@ -26,3 +26,4 @@ export default function ContentPost(props) {
         <PostData />
     )
 }
+)

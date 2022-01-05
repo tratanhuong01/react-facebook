@@ -4,6 +4,7 @@ import { ModalContext } from '../contexts/ModalContext/ModalContext'
 import * as usersAction from "../actions/user/index";
 import { PAGE_LOGIN } from '../constants/Config';
 import { useNavigate } from 'react-router-dom';
+import 'moment/locale/vi';
 
 export default function WrapperPage(props) {
     //

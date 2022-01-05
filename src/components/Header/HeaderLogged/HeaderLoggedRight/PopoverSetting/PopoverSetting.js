@@ -1,15 +1,18 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
 import * as usersAction from "../../../../../actions/user/index";
+import { PAGE_PROFILE } from '../../../../../constants/Config';
 
 export default function PopoverSetting() {
     //
     const user = useSelector((state) => state.user);
+    const navigation = useNavigate();
     const dispatch = useDispatch();
     //
     return (
         <div className='w-full p-2 rounded-lg'>
-            <div className='p-2 rounded-lg cursor-pointer hover:bg-gray-200 dark:hover:bg-dark-third flex w-full items-center'>
+            <div onClick={() => navigation(`${PAGE_PROFILE}/${user.id}`)} className='p-2 rounded-lg cursor-pointer hover:bg-gray-200 dark:hover:bg-dark-third flex w-full items-center'>
                 <img src={user.avatar} alt=''
                     className='w-16 h-16 rounded-full object-cover' />
                 <div className='pl-3'>

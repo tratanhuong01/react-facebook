@@ -58,7 +58,7 @@ export default function ImageVideoDisplay(props) {
                 }
                 return <ImageVideo key={index} src={element.src} style={{
                     width: (length === 1 ? width : (Math.floor(width / div(index + 1, length, true))) - (index === 1 ? 8 : 8)) + "px",
-                    height: (length === 1 ? width : (Math.floor(width / div(index + 1, length, false))) - 11) + "px",
+                    height: (length === 1 ? width + "px" : (Math.floor(width / div(index + 1, length, false))) - 11) + "px",
                 }} className={'object-cover'} />;
             });
             setData(result);

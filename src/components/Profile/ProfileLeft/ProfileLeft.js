@@ -6,13 +6,13 @@ import ProfileFriendList from './ProfileFriendList/ProfileFriendList'
 export default function ProfileLeft() {
     return (
         <div className="w-full lg:w-5/12">
-            <div className="mt-2.5 shadow-lv1 bg-white p-2.5 pt-0 rounded-lg dark:bg-dark-third" style={{ width: "95%" }}>
+            <div className="shadow-lv1 bg-white my-2 p-2.5 pt-0 rounded-lg dark:bg-dark-third">
                 <Introduction />
             </div>
-            <div className="pl-2.5 bg-white shadow-lv1 my-2.5 rounded-lg  dark:bg-dark-third" style={{ width: "95%" }}>
+            <div className="bg-white shadow-lv1 my-2 p-2.5 rounded-lg  dark:bg-dark-third">
                 <ImageUser />
             </div>
-            <div className="pl-2.5 bg-white shadow-lv1 my-2.5 rounded-lg dark:bg-dark-third" style={{ width: "95%" }} >
+            <div className="bg-white shadow-lv1 my-2 p-2.5 rounded-lg dark:bg-dark-third"  >
                 <ProfileFriendList />
             </div>
         </div>

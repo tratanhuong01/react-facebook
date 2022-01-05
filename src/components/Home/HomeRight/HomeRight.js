@@ -1,11 +1,9 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import users from '../../../config/users';
+import UserActivity from './UserActivity/UserActivity';
 
 export default function HomeRight() {
     //
-    const user = useSelector((state) => state.user);
     //  
     return (
         <div className="fixed hidden h-screen lg:block lg:w-1/3 lg:left-2/3 xl:left-7/10 xl:w-3/10">
@@ -43,41 +41,26 @@ export default function HomeRight() {
                         <p className="mx-auto py-3 dark:text-white text-center text-sm text-gray-600 my-5 dark:text-white">
                             Không có lời mời kết bạn</p>
                     </div>
-                    <div className="w-full pt-3 flex items-center">
-                        <div className="w-1/2 py-2.5 px-0">
+                    <div className="w-full pt-3 flex items-center justify-between">
+                        <div className="">
                             <p className="font-bold dark:text-white">Bạn bè</p>
                         </div>
-                        <div className="w-1/2">
-                            <ul className="flex float-right gap-4">
-                                <li className="cursor-pointer w-8 h-8 flex hover:bg-gray-200 rounded-full flex justify-center 
+                        <ul className="flex gap-4">
+                            <li className="cursor-pointer w-8 h-8 flex hover:bg-gray-200 rounded-full flex justify-center 
                                 items-center text-gray-500">
-                                    <i className="fas fa-video dark:text-white"></i>
-                                </li>
-                                <li className="cursor-pointer w-8 h-8 flex hover:bg-gray-200 rounded-full flex justify-center 
+                                <i className="fas fa-video dark:text-white"></i>
+                            </li>
+                            <li className="cursor-pointer w-8 h-8 flex hover:bg-gray-200 rounded-full flex justify-center 
                                 items-center text-gray-500">
-                                    <i className="fab fa-searchengin dark:text-white"></i>
-                                </li>
-                                <li className="cursor-pointer w-8 h-8 flex hover:bg-gray-200 rounded-full flex justify-center 
+                                <i className="fab fa-searchengin dark:text-white"></i>
+                            </li>
+                            <li className="cursor-pointer w-8 h-8 flex hover:bg-gray-200 rounded-full flex justify-center 
                                 items-center text-gray-500">
-                                    <i className="fas fa-ellipsis-h dark:text-white"></i>
-                                </li>
-                            </ul>
-                        </div>
+                                <i className="fas fa-ellipsis-h dark:text-white"></i>
+                            </li>
+                        </ul>
                     </div>
-                    {
-                        [...users.filter(item => item.id !== user.id)].map(item =>
-                            <div key={item.id} className="w-full flex p-2 items-center relative friends-online relative cursor-pointer dark:hover:bg-dark-third">
-                                <div className='w-10 h-10 relative'>
-                                    <img className="w-full h-full rounded-full object-cover"
-                                        src={item.avatar}
-                                        alt="" />
-                                    <span className="w-2.5 h-2.5 rounded-full absolute bottom-0 right-0 bg-green-500"></span>
-                                </div>
-                                <p className="font-semibold ml-3 dark:text-white">
-                                    {`${item.firstName} ${item.lastName}`}
-                                </p>
-                            </div>)
-                    }
+                    <UserActivity />
                 </div>
             </div>
         </div >
