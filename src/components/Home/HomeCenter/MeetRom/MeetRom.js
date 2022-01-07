@@ -21,12 +21,14 @@ export default function MeetRom() {
             if (unmounted) return;
             setUsers(result.data);
         }
-        fetch();
+        if (headers.Authorization) {
+            fetch();
+        }
         return () => {
             unmounted = true;
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [headers])
     //
     return (
         users.length > 0 ? <div className="my-5 shadow-lv1 w-full flex items-center px-3 py-3 bg-white dark:bg-dark-third rounded-lg">

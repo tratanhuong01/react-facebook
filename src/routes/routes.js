@@ -12,6 +12,7 @@ import ViewStory from "../pages/Story/ViewStory";
 import Watch from "../pages/Watch";
 import NotFound from "../pages/NotFound";
 import Messenger from "../pages/Messenger";
+import ViewPost from "../pages/ViewPost";
 
 const routes = [
   {
@@ -88,6 +89,11 @@ const routes = [
     path: Config.PAGE_MESSENGER,
     exact: true,
     element: <Messenger />
+  },
+  {
+    path: Config.PAGE_VIEW_POST + "/:id",
+    exact: true,
+    element: <ViewPost />
   },
   {
     path: "*",

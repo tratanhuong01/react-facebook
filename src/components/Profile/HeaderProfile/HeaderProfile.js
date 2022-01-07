@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { memo, useContext, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { ModalContext } from '../../../contexts/ModalContext/ModalContext';
 import { UserProfileContext } from '../../../contexts/UserProfileContext/UserProfileContext';
 import InfoProfile from './InfoProfile/InfoProfile';
 import UpdateCoverImage from './UpdateCoverImage/UpdateCoverImage';
 
-export default function HeaderProfile() {
+export default memo(function HeaderProfile() {
     //
     const user = useSelector((state) => state.user);
     const { userProfile, userProfilesDispatch, userProfilesAction } = useContext(UserProfileContext);
@@ -66,4 +66,4 @@ export default function HeaderProfile() {
             </div>
         </>
     )
-}
+})

@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom';
+import { PAGE_VIEW_POST } from '../../../constants/Config';
 
 export default function ImageVideoDisplay(props) {
     //
     const refContainer = useRef();
     const refLastNumber = useRef();
     const [data, setData] = useState();
-    const { imageVideo } = props;
+    const { imageVideo, idPost } = props;
     useEffect(() => {
         //
         if (refContainer.current && imageVideo.length > 0) {
@@ -17,7 +19,9 @@ export default function ImageVideoDisplay(props) {
                 if (extension === "jpg" || extension === "jpeg" || extension === "png") {
                     ImageVideo = (props) => {
                         return (
-                            <img src={props.src} style={props.style} className={props.className} alt='' />
+                            <Link to={`${PAGE_VIEW_POST}/${idPost}`}>
+                                <img src={props.src} style={props.style} className={props.className} alt='' />
+                            </Link>
                         )
                     }
                 }
@@ -25,7 +29,9 @@ export default function ImageVideoDisplay(props) {
                     if (extension === "mp4" || extension === "mov") {
                         ImageVideo = (props) => {
                             return (
-                                <video src={props.src} style={props.style} className={props.className} alt='' />
+                                <Link to={`${PAGE_VIEW_POST}/${idPost}`}>
+                                    <video src={props.src} style={props.style} className={props.className} alt='' />
+                                </Link>
                             )
                         }
                     }

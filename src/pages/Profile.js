@@ -48,7 +48,7 @@ export default function Profile(props) {
                                 <InviteProfile />
                             </div>
                         </div>
-                        {id === "oke" && <div className='w-full bg-white dark:bg-dark-main'>
+                        {<div className='w-full bg-white dark:bg-dark-main'>
                             <div className="dark:bg-dark-main bg-gray-100 w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">
                                 <div className='w-full py-2'>
                                     <FriendCanKnow />

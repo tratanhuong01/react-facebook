@@ -9,7 +9,7 @@ import PopoverSetting from './PopoverSetting/PopoverSetting';
 
 export default function HeaderLoggedRight(props) {
     //
-    const { hideMessage } = props;
+    const { hideMessage, hideImage } = props;
     const user = useSelector((state) => state.user);
     const [active, setActive] = useState(-1);
     const navigation = useNavigate();
@@ -39,7 +39,7 @@ export default function HeaderLoggedRight(props) {
     //
     return (
         <div className="w-1/2 flex sm:w-3/4 md:w-1/4">
-            <div onClick={() => navigation(PAGE_PROFILE + `/${user.id}`)} className="w-1/2 flex py-0.875 px-2.5 mx-2 mt-1 mb-1.5 p-1.5 
+            {!hideImage && <div onClick={() => navigation(PAGE_PROFILE + `/${user.id}`)} className="w-1/2 flex py-0.875 px-2.5 mx-2 mt-1 mb-1.5 p-1.5 
             hover:bg-gray-200 round-avatar dark:hover:bg-dark-third lg:mx-0">
                 <div className="w-1/3 hidden lg:block lg:w-full lg:pt-1 xl:w-auto xl:mr-2">
                     <img className="w-8 h-8 rounded-full object-cover"
@@ -49,7 +49,7 @@ export default function HeaderLoggedRight(props) {
                 <div className="w-2/3 hidden dark:text-white pt-1 text-center xl:block xl:w-auto lg:pt-2">
                     {user.lastName}
                 </div>
-            </div>
+            </div>}
             <div className="w-full pt-2 pb-2 pr-3 sm:w-full relative">
                 <ul className="flex float-right">
                     <li onClick={() => {

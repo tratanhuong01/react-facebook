@@ -2,9 +2,7 @@ import React, { useContext } from 'react'
 import ModalWrapper from '../../ModalWrapper'
 import ButtonComponent from '../../../ButtonComponent/ButtonComponent';
 import { ModalContext } from '../../../../contexts/ModalContext/ModalContext';
-import 'react-image-crop/dist/ReactCrop.css';
 import { useDispatch, useSelector } from 'react-redux';
-// import ReactCrop from 'react-image-crop';
 import * as usersAction from "../../../../actions/user/index";
 import api from '../../../../api/api';
 

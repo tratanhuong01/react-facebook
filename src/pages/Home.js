@@ -11,7 +11,7 @@ export default function Home() {
     //
     return (
         <WrapperLogged>
-            <div className="w-full flex z-10 pt-16 bg-gray-100 dark:bg-dark-main lg:w-full 
+            <div id="scroll__home" className="w-full flex z-10 pt-16 bg-gray-100 dark:bg-dark-main lg:w-full 
             lg:mx-auto xl:w-full h-screen overflow-y-auto relative" >
                 <HomeLeft />
                 <HomeCenter />

@@ -7,13 +7,14 @@ import allFeel from "../../../config/feels";
 
 export default function FooterItemPost(props) {
     //
-    const { user, headers } = useSelector((state) => {
+    const { user, headers, socket } = useSelector((state) => {
         return {
             user: state.user,
-            headers: state.headers
+            headers: state.headers,
+            socket: state.socket
         }
     });
-    const { postDetail: { feelPostList, commentLength, post } } = props;
+    const { postDetail: { feelPostList, commentLength, post }, setPostDetail } = props;
     const [feel, setFeel] = useState();
     const [feelLength, setFeelLength] = useState(feelPostList.length);
     useEffect(() => {
@@ -25,7 +26,22 @@ export default function FooterItemPost(props) {
             setFeel(result.data);
         }
         fetch();
+        const handleEvent = (data) => {
+            if (data) {
+                if (data.userFeelPost.id !== user.id) {
+                    let clone = { ...props.postDetail };
+                    if (data.unFeel)
+                        clone.feelPostList = [...clone.feelPostList].filter(item => item.id !== data.id);
+                    else
+                        clone.feelPostList = [data].concat([...clone.feelPostList]);
+                    setPostDetail({ ...clone });
+                    setFeelLength(clone.feelPostList.length);
+                }
+            }
+        }
+        socket.on(`receiveFeelPost.${post.id}`, handleEvent);
         return () => {
+            socket.off(`receiveFeelPost.${post.id}`, handleEvent);
             unmounted = true;
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -46,9 +62,11 @@ export default function FooterItemPost(props) {
                 <li className="w-1/3 dark:hover:bg-dark-third hover:bg-gray-100 item__hover">
                     <div onClick={async () => {
                         if (feel) {
+                            const idFeel = feel.id;
                             await api(`feelPosts`, 'DELETE', feel, headers);
                             setFeel();
                             setFeelLength(feelLength - 1);
+                            socket.emit(`sendFeelPost`, { unFeel: true, userFeelPost: user, postFeelPost: post, id: idFeel })
                         }
                         else {
                             const result = await api(`feelPosts`, 'POST', {
@@ -60,7 +78,9 @@ export default function FooterItemPost(props) {
                                 timeCreated: null
                             }, headers);
                             setFeel(result.data);
+                            socket.emit(`sendFeelPost`, result.data)
                         }
+
                     }} className="dark:text-gray-300 dark:hover:bg-dark-third hover:bg-gray-100 flex w-full 
                     font-semibold h-12 text-sm cursor-pointer justify-center items-center">
                         <div className="flex items-center">

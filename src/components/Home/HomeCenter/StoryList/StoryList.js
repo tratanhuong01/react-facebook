@@ -21,13 +21,15 @@ export default function StoryList() {
                 if (unmounted) return;
                 setStories(result.data);
             }
-            fetch();
+            if (headers.Authorization) {
+                fetch();
+            }
             return () => {
                 unmounted = true;
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user])
+    }, [user, headers])
     //
     return (
 

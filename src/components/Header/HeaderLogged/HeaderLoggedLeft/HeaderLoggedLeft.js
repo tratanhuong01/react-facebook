@@ -1,8 +1,6 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
-import logo from "../../../../assets/images/logo.png";
-import { PAGE_HOME } from '../../../../constants/Config';
 import InputComponent from '../../../InputComponent/InputComponent';
+import Logo from '../../../Logo/Logo';
 
 export default function HeaderLoggedLeft() {
     return (
@@ -72,8 +70,7 @@ export default function HeaderLoggedLeft() {
                 </div>
             </div>
             <div className="pt-0.5">
-                <Link to={PAGE_HOME}><img className="w-12 shadow-lv1 rounded-full sm:w-12 border border-gray-200 border-solid"
-                    src={logo} alt="" srcSet="" /></Link>
+                <Logo />
             </div>
             <div className="mt-1 pl-4">
                 <div

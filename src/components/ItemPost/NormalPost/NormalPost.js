@@ -33,7 +33,7 @@ export default function NormalPost(props) {
                         left-1/2 transform -translate-x-1/2 -translate-y-1/2 contentedit break-all text-center '>
                     {post.content}
                 </div>
-            </div> : <ImageVideoDisplay imageVideo={imageVideoPostList} />}
+            </div> : <ImageVideoDisplay imageVideo={imageVideoPostList} idPost={post.id} />}
         </>
     )
 }

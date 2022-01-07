@@ -7,7 +7,7 @@ import HomePostList from './HomePostList/HomePostList'
 import MeetRom from './MeetRom/MeetRom'
 import StoryList from './StoryList/StoryList'
 
-export default function HomeCenter() {
+export default (function HomeCenter(props) {
     //
     const navigation = useNavigate();
     const user = useSelector((state) => state.user);
@@ -35,4 +35,4 @@ export default function HomeCenter() {
             <HomePostList />
         </div>
     )
-}
+})

@@ -5,20 +5,22 @@ import allFeel from "../../../config/feels";
 
 export default function Feels(props) {
     //
-    const { user, headers } = useSelector((state) => {
+    const { user, headers, socket } = useSelector((state) => {
         return {
             user: state.user,
-            headers: state.headers
+            headers: state.headers,
+            socket: state.socket
         }
     })
     const { setFeel, feel, comment, setFeelLength, feelLength, post } = props;
     const handleFeelPost = async (feelRe, index) => {
+        let result = null;
         if (feel) {
-            const result = await api(`feelPosts`, 'PUT', { ...feel, content: JSON.stringify(feelRe), typeFeelPost: index }, headers);
+            result = await api(`feelPosts`, 'PUT', { ...feel, content: JSON.stringify(feelRe), typeFeelPost: index }, headers);
             setFeel(result.data);
         }
         else {
-            const result = await api(`feelPosts`, 'POST', {
+            result = await api(`feelPosts`, 'POST', {
                 id: null,
                 postFeelPost: post,
                 userFeelPost: user,
@@ -29,14 +31,16 @@ export default function Feels(props) {
             setFeel(result.data);
             setFeelLength(feelLength + 1);
         }
+        socket.emit(`sendFeelPost`, result.data)
     }
     const handleFeelComment = async (feelRe, index) => {
+        let result = null;
         if (feel) {
-            const result = await api(`feelComments`, 'PUT', { ...feel, content: JSON.stringify(feelRe), typeFeelComment: index }, headers);
+            result = await api(`feelComments`, 'PUT', { ...feel, content: JSON.stringify(feelRe), typeFeelComment: index }, headers);
             setFeel(result.data);
         }
         else {
-            const result = await api(`feelComments`, 'POST', {
+            result = await api(`feelComments`, 'POST', {
                 id: null,
                 commentPostFeelComment: post,
                 userFeelComment: user,

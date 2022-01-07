@@ -6,6 +6,8 @@ export const REGEX_PHONE = /^(\+91-|\+91|0)?\d{10}$/;
 //
 export const API_URL = "http://localhost:3333";
 //
+export const SERVER_NODE = "http://localhost:4444";
+//
 export const NAME_APP = "Ensonet";
 //
 export const PAGE_CALL = "/call";
@@ -37,4 +39,6 @@ export const PAGE_WATCH = "/watch";
 export const PAGE_MARKETPLACE = "/marketplace";
 //
 export const PAGE_MESSENGER = "/messenger"
+//
+export const PAGE_VIEW_POST = "/post/view";
 //

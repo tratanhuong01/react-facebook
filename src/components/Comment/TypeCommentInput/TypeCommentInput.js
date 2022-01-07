@@ -8,10 +8,11 @@ import { v4 } from 'uuid';
 export default function TypeCommentInput(props) {
     //
     const { dataComment, setDataComment, postDetail, setPostDetail, reply, commentDetail } = props;
-    const { headers, user } = useSelector((state) => {
+    const { headers, user, socket } = useSelector((state) => {
         return {
             user: state.user,
-            headers: state.headers
+            headers: state.headers,
+            socket: state.socket
         }
     });
     const refContent = useRef();
@@ -81,6 +82,7 @@ export default function TypeCommentInput(props) {
                 }
 
             }
+            socket.emit(`sendCommentPost`, result.data)
         }
     }
     //
