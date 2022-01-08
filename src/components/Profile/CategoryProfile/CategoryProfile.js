@@ -7,11 +7,6 @@ const categories = [
         link: ""
     },
     {
-        id: 1,
-        label: "Giới thiệu",
-        link: ""
-    },
-    {
         id: 2,
         label: "Bạn bè",
         link: ""
@@ -28,7 +23,7 @@ const categories = [
     },
     {
         id: 5,
-        label: "Check in",
+        label: "Stories",
         link: ""
     },
 ]

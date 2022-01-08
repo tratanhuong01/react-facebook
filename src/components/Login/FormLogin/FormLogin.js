@@ -37,6 +37,10 @@ function FormLogin(props) {
       if (result.data) {
         localStorage.setItem('user', result.data.token);
         dispatch(usersAction.loginUser(result.data.users));
+        dispatch({
+          type: "UPDATE_TOKEN",
+          token: result.data.token
+        });
       }
       else
         setUser(null);

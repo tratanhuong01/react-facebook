@@ -3,8 +3,8 @@ import { PostContext } from '../../../../contexts/PostContext/PostContext';
 import ButtonComponent from '../../../ButtonComponent/ButtonComponent';
 import backgrounds from '../../../../config/backgrounds';
 import ContentAnswerQuestion from '../../ModalAnswerQuestionPost/ContentAnswerQuestion/ContentAnswerQuestion';
-import EmojiPicker from 'emoji-picker-react';
 import { useSelector } from 'react-redux';
+import PopoverEmojii from '../../../Popovers/PopoverEmojii/PopoverEmojii';
 
 export default function CenterWritePostModal(props) {
     //
@@ -86,11 +86,14 @@ export default function CenterWritePostModal(props) {
                         }} type="button" className={`w-8 h-8 rounded-full bg-white dark:bg-dark-third flex justify-center items-center `}>
                             <i className="far fa-smile text-gray-500 text-2xl dark:text-gray-300"></i>
                         </ButtonComponent>
-                        <div className={`absolute bottom-full mb-2 left-0`} style={{ zIndex: 333, left: -150 }}>
-                            {emojiShow && <EmojiPicker pickerStyle={{ width: 300 }} onEmojiClick={(emoji) => {
-                                console.log(emoji);
-                            }} />}
-                        </div>
+
+                        {emojiShow && <div className={`absolute w-72 bg-white border-gray-200 border-solid border-2 rounded-lg 
+                        h-80 bottom-full mb-2 left-0`} style={{ zIndex: 333, left: -150 }}> <PopoverEmojii handleClick={(item) => {
+                                postsDispatch(postsAction.updateData('content', posts.content + item));
+                                refArea.current.value = posts.content + item;
+                            }} />
+                        </div>}
+
                     </div>
 
                 </div>

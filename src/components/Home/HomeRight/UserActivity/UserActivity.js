@@ -22,12 +22,14 @@ export default function UserActivity() {
             if (unmounted) return;
             setUsers(result.data);
         }
-        fetch();
+        if (headers.Authorization) {
+            fetch();
+        }
         return () => {
             unmounted = true;
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [user, headers])
     //
     return (
         [...users.filter(item => item.id !== user.id)].map(item =>

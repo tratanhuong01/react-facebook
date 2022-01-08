@@ -26,7 +26,7 @@ export default (function HomePostList(props) {
             fetch(index);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [headers, index])
+    }, [headers, index, user])
     //
     return (
         <>

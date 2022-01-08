@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import api from '../../../api/api';
 import { UserProfileContext } from '../../../contexts/UserProfileContext/UserProfileContext'
 import ItemPost from '../../ItemPost/ItemPost'
+import LoadingPost from '../../ItemPost/LoadingPost';
 
 export default function PostProfileList() {
     //
@@ -27,6 +28,8 @@ export default function PostProfileList() {
         <div className='w-full my-2'>
             {postList.map((postDetail, index) => <ItemPost key={index} postDetail={postDetail} />
             )}
+            <LoadingPost />
+            <LoadingPost />
         </div>
     )
 }

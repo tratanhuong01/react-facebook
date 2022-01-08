@@ -20,7 +20,7 @@ export default function Messenger() {
                 <div className="w-full md:w-7/12 xl:w-3/4 flex h-full border-x-2 border-solid border-gray-100 
                 dark:border-dark-second z-40">
                     <div className="w-full z-50 xl:w-2/3 h-full max-h-full overflow-hidden flex flex-col">
-                        <ContentMessageTop />
+                        <ContentMessageTop item={{ avatar: "", firstName: "Tra", lastName: "Huong" }} />
                         <MainContentMessage />
                         <ControlMessage />
                     </div>

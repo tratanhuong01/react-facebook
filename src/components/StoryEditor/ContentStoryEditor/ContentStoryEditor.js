@@ -32,7 +32,7 @@ export default forwardRef(function ContentStoryEditor(props, ref) {
                     style={{ height: 612 }}>
                     <div className="w-full h-full absolute top-0 left-0 bg-black bg-opacity-50" style={{ zIndex: -1 }} >
                         <img src={data ? data.name ? URL.createObjectURL(data) : imageAsset : ""} alt="" className="w-full h-full object-cover opacity-30"
-                            style={{ filter: "blur(6px)" }} />
+                            style={{ filter: "blur(8px)" }} />
                     </div>
                     <img id="myImage" className="w-full rounded-lg" style={data ? data.name ? { maxHeight: 612 } :
                         { maxHeight: 612, height: 612 } : { maxHeight: 612 }}

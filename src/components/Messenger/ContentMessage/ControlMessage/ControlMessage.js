@@ -1,8 +1,51 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import InputComponent from '../../../InputComponent/InputComponent'
+import PopoverEmojii from '../../../Popovers/PopoverEmojii/PopoverEmojii';
+import PopoverSticker from '../../../Popovers/PopoverSticker/PopoverSticker';
 
-export default function ControlMessage() {
+export default function ControlMessage(props) {
     //
+    const { groupMessage } = props;
+    const refContent = useRef();
+    const refPopover = useRef();
+    const [type, setType] = useState();
+    const placeCaretAtEnd = (el) => {
+        el.focus();
+        if (typeof window.getSelection != "undefined"
+            && typeof document.createRange != "undefined") {
+            var range = document.createRange();
+            range.selectNodeContents(el);
+            range.collapse(false);
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+        } else if (typeof document.body.createTextRange != "undefined") {
+            var textRange = document.body.createTextRange();
+            textRange.moveToElementText(el);
+            textRange.collapse(false);
+            textRange.select();
+        }
+    }
+    let count = 0;
+    const handleClick = (type, event) => {
+        setType(type);
+        const current = event.target;
+        if (!current) {
+            return;
+        }
+        refPopover.current.style.display = "block";
+        window.addEventListener("click", winEv)
+    }
+    const winEv = function (event) {
+        ++count;
+        if (count > 1) {
+            if (refPopover.current && !refPopover.current.contains(event.target)) {
+                refPopover.current.style.display = "none";
+                count = 0;
+                window.removeEventListener("click", winEv);
+            }
+        }
+    }
     //
     return (
         <div className="w-full bg-white dark:bg-dark-second relative z-20 pt-2 pb-3 px-1 flex items-center 
@@ -12,7 +55,7 @@ export default function ControlMessage() {
                     <div className="flex">
                         <div className="cursor-pointer fill-65676B ">
                             <div className="hover:bg-gray-200 rounded-full  dark:hover:bg-dark-third p-1 "><svg
-                                fill="#692CF2" className="a8c37x1j ms05siws hr662l2t b7h9ocf4 crt8y2ji tftn3vyl"
+                                fill={groupMessage.color} className="a8c37x1j ms05siws hr662l2t b7h9ocf4 crt8y2ji tftn3vyl"
                                 height="20px" width="20px" viewBox="0 0 24 24">
                                 <g>
                                     <polygon fill="none" points="-6,30 30,30 30,-6 -6,-6 "></polygon>
@@ -31,23 +74,24 @@ export default function ControlMessage() {
                             <svg className="a8c37x1j ms05siws hr662l2t b7h9ocf4" height="20px" width="20px"
                                 viewBox="0 -1 17 17">
                                 <g fill="gray">
-                                    <path fill="#692CF2"
+                                    <path fill={groupMessage.color}
                                         d="M2.882 13.13C3.476 4.743 3.773.48 3.773.348L2.195.516c-.7.1-1.478.647-1.478 1.647l1.092 11.419c0 .5.2.9.4 1.3.4.2.7.4.9.4h.4c-.6-.6-.727-.951-.627-2.151z">
                                     </path>
                                     <circle cx="8.5" cy="4.5" r="1.5" fill="gray"></circle>
-                                    <path fill="#692CF2"
+                                    <path fill={groupMessage.color}
                                         d="M14 6.2c-.2-.2-.6-.3-.8-.1l-2.8 2.4c-.2.1-.2.4 0 .6l.6.7c.2.2.2.6-.1.8-.1.1-.2.1-.4.1s-.3-.1-.4-.2L8.3 8.3c-.2-.2-.6-.3-.8-.1l-2.6 2-.4 3.1c0 .5.2 1.6.7 1.7l8.8.6c.2 0 .5 0 .7-.2.2-.2.5-.7.6-.9l.6-5.9L14 6.2z">
                                     </path>
-                                    <path fill="#692CF2"
+                                    <path fill={groupMessage.color}
                                         d="M13.9 15.5l-8.2-.7c-.7-.1-1.3-.8-1.3-1.6l1-11.4C5.5 1 6.2.5 7 .5l8.2.7c.8.1 1.3.8 1.3 1.6l-1 11.4c-.1.8-.8 1.4-1.6 1.3z"
-                                        stroke="#692CF2"></path>
+                                        stroke={groupMessage.color}></path>
                                 </g>
                             </svg>
                         </li>
                     </label>
                     <li
+                        onClick={(event) => handleClick(0, event)}
                         className="float-left cursor-pointer p-1 fill-65676B  hover:bg-gray-200 rounded-full  dark:hover:bg-dark-third">
-                        <svg fill="#692CF2" className="a8c37x1j ms05siws hr662l2t b7h9ocf4 crt8y2ji" height="20px"
+                        <svg fill={groupMessage.color} className="a8c37x1j ms05siws hr662l2t b7h9ocf4 crt8y2ji" height="20px"
                             width="20px" viewBox="0 0 17 16" x="0px" y="0px">
                             <g>
                                 <circle cx="5.5" cy="5.5" fill="none" r="1"></circle>
@@ -66,7 +110,7 @@ export default function ControlMessage() {
                     </li>
                     <li
                         className="float-left cursor-pointer p-1 fill-65676B hover:bg-gray-200 rounded-full  dark:hover:bg-dark-third">
-                        <svg fill="#692CF2" className="a8c37x1j ms05siws hr662l2t b7h9ocf4 crt8y2ji" height="20px"
+                        <svg fill={groupMessage.color} className="a8c37x1j ms05siws hr662l2t b7h9ocf4 crt8y2ji" height="20px"
                             width="20px" viewBox="0 0 16 16" x="0px" y="0px">
                             <path
                                 d="M.783 12.705c.4.8 1.017 1.206 1.817 1.606 0 0 1.3.594 2.5.694 1 .1 1.9.1 2.9.1s1.9 0 2.9-.1 1.679-.294 2.479-.694c.8-.4 1.157-.906 1.557-1.706.018 0 .4-1.405.5-2.505.1-1.2.1-3 0-4.3-.1-1.1-.073-1.976-.473-2.676-.4-.8-.863-1.408-1.763-1.808-.6-.3-1.2-.3-2.4-.4-1.8-.1-3.8-.1-5.7 0-1 .1-1.7.1-2.5.5s-1.417 1.1-1.817 1.9c0 0-.4 1.484-.5 2.584-.1 1.2-.1 3 0 4.3.1 1 .2 1.705.5 2.505zm10.498-8.274h2.3c.4 0 .769.196.769.696 0 .5-.247.68-.747.68l-1.793.02.022 1.412 1.252-.02c.4 0 .835.204.835.704s-.442.696-.842.696H11.82l-.045 2.139c0 .4-.194.8-.694.8-.5 0-.7-.3-.7-.8l-.031-5.631c0-.4.43-.696.93-.696zm-3.285.771c0-.5.3-.8.8-.8s.8.3.8.8l-.037 5.579c0 .4-.3.8-.8.8s-.8-.4-.8-.8l.037-5.579zm-3.192-.825c.7 0 1.307.183 1.807.683.3.3.4.7.1 1-.2.4-.7.4-1 .1-.2-.1-.5-.3-.9-.3-1 0-2.011.84-2.011 2.14 0 1.3.795 2.227 1.695 2.227.4 0 .805.073 1.105-.127V8.6c0-.4.3-.8.8-.8s.8.3.8.8v1.8c0 .2.037.071-.063.271-.7.7-1.57.991-2.47.991C2.868 11.662 1.3 10.2 1.3 8s1.704-3.623 3.504-3.623z">
@@ -77,15 +121,22 @@ export default function ControlMessage() {
             </div>
             <div className="w-9/12 relative">
                 <div className="three-exten1 w-full relative">
-                    <div className="place-input-type border-none dark:text-white bg-gray-200 dark:bg-dark-third rounded-full 
+                    <div ref={refContent} className="place-input-type border-none dark:text-white bg-gray-200 dark:bg-dark-third rounded-full 
                     pl-2 outline-none py-2 break-all w-full"
                         placeholder="Aa" contentEditable={true} style={{ minHeight: "20px" }}></div>
-                    <div className="absolute right-3 top-1/2 transform -translate-y-1/2 flex cursor-pointer z-50"><i
+                    <div onClick={(event) => handleClick(1, event)} className="absolute right-3 top-1/2 transform -translate-y-1/2 flex cursor-pointer z-50"><i
                         className="far fa-smile dark:text-white text-gray-600 text-2xl"></i></div>
+                    <div ref={refPopover} className='absolute hidden bottom-full bg-white border-2 border-solid border-gray-200 shadow-lv1 
+                    right-0 rounded-lg w-72' style={{ height: 360 }}>
+                        {type === 1 ? <PopoverEmojii handleClick={(item) => {
+                            refContent.current.innerText += item;
+                            placeCaretAtEnd(refContent.current);
+                        }} /> : <PopoverSticker />}
+                    </div>
                 </div>
             </div>
             <div className="w-12 zoom flex jusitfy-center">
-                <span className="cursor-pointer zoom text-xl flex items-center">❤️</span>
+                <span className="cursor-pointer zoom text-xl flex items-center">{groupMessage.emoji}</span>
             </div>
         </div>
     )

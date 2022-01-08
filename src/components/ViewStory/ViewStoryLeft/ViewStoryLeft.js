@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { useContext } from 'react'
 import { StoryContext } from '../../../contexts/StoryContext/StoryContext';
 
@@ -51,7 +52,7 @@ export default function ViewStoryLeft(props) {
                         <p className="font-semibold pt-2 dark:text-white">{`${story.groupStory.userGroupStory.firstName} ${story.groupStory.userGroupStory.lastName}`}</p>
                         <p className="color-word text-sm"><span className="text-blue-400">
                         </span>
-                            <span className="font0-bold text-sm">{story.groupStory.timeCreated}</span>
+                            <span className="font0-bold text-sm">{moment(story.groupStory.timeCreated).fromNow()}</span>
                         </p>
                     </div>
                 </div>)}
