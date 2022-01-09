@@ -1,11 +1,24 @@
-import React from 'react'
+import React, { memo, useEffect, useRef } from 'react'
+import { useSelector } from 'react-redux';
+import ItemMessageLeft from '../../ItemMessage/ItemMessageLeft/ItemMessageLeft';
+import ItemMessageRight from '../../ItemMessage/ItemMessageRight/ItemMessageRight';
 
-export default function MainContentMessage(props) {
+export default memo(function MainContentMessage(props) {
     //
     const { messages, item } = props;
+    const user = useSelector((state) => state.user);
+    const refContentMessage = useRef();
+    useEffect(() => {
+        //
+        if (refContentMessage.current) {
+            refContentMessage.current.scrollTop = refContentMessage.current.scrollHeight;
+        }
+        //
+    }, [refContentMessage, messages])
     //
     return (
-        <div className="w-full p-1 flex flex-1 wrapper-content-right overflow-y-auto overflow-x-hidden relative">
+        <div ref={refContentMessage} className="w-full p-1 flex-1 wrapper-content-right overflow-y-auto overflow-x-hidden
+         relative" style={{ scrollBehavior: "unset" }}>
             <div className='w-full'>
                 {messages === null ? "loading" : messages.length === 0 ?
                     <div className="w-full p-2 text-center">
@@ -21,8 +34,13 @@ export default function MainContentMessage(props) {
                             </span>
                         </p>
                     </div> :
-                    ""}
+                    messages.map(item => {
+                        if (item.userMessage.id === user.id)
+                            return <ItemMessageRight key={item.id} item={item} />;
+                        else
+                            return <ItemMessageLeft key={item.id} item={item} />;
+                    })}
             </div>
-        </div>
+        </div >
     )
-}
+})

@@ -7,15 +7,10 @@ function Call(props) {
   //
   const audio = new Audio("../../../sound/messenger.mp3");
 
-  const handelAudio = () => {
-    audio.play();
-    audio.loop = true;
-  };
-
   useEffect(() => {
     async function fetch() {
       try {
-        handelAudio();
+        audio.play();
         setTimeout(() => {
           window.close();
         }, 20000);
@@ -24,6 +19,9 @@ function Call(props) {
       }
     }
     fetch();
+    return () => {
+      audio.pause();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -1,25 +1,54 @@
 import React, { useContext, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import HeaderLogged from '../components/Header/HeaderLogged/HeaderLogged'
 import ItemChat from '../components/ItemChat/ItemChat'
 import ItemChatMinize from '../components/ItemChatMinize/ItemChatMinize'
+import { PAGE_CALL } from '../constants/Config'
 import { ModalContext } from '../contexts/ModalContext/ModalContext'
 import WrapperPage from './WrapperPage'
+// import sound from "../assets/sound/sound.mp3";
+import * as userChatsAction from "../actions/userChat/index";
 
 export default function WrapperLogged(props) {
     //
     const { hideChat, hideMessage, hideHeader } = props;
-    const { user, userChat } = useSelector((state) => {
+    const dispatch = useDispatch();
+    const { user, userChat, socket } = useSelector((state) => {
         return {
             user: state.user,
-            userChat: state.userChat
+            userChat: state.userChat,
+            socket: state.socket
         }
     });
+    const navigation = useNavigate();
     const { modalsDispatch, modalsAction } = useContext(ModalContext);
     useEffect(() => {
         modalsDispatch(modalsAction.closeModal());
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, []);
+    useEffect(() => {
+        const handleEventCallVideo = () => {
+            navigation(PAGE_CALL);
+        }
+        const handleEventMessage = (data) => {
+            if (userChat.zoom.findIndex(dt => dt.id === data.send.id) === -1) {
+                dispatch(userChatsAction.updateData('zoom', [...userChat.zoom, data.send]))
+                socket.off(`receiveMessageOnline.${user.id}`, handleEventMessage);
+            }
+        }
+        if (user) {
+            socket.on(`callVideo.${user.id}`, handleEventCallVideo);
+            socket.on(`receiveMessageOnline.${user.id}`, handleEventMessage);
+        }
+        return () => {
+            if (user) {
+                socket.off(`callVideo.${user.id}`, handleEventCallVideo);
+                socket.off(`receiveMessageOnline.${user.id}`, handleEventMessage);
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user, userChat]);
     //
     return (
         <WrapperPage>

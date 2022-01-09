@@ -1,6 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import * as userChatsAction from "../../../../actions/userChat/index";
+import { PAGE_CALL } from '../../../../constants/Config';
 
 const ItemHeaderContentMessageTop = (props) => {
     //
@@ -20,18 +22,20 @@ const ItemHeaderContentMessageTop = (props) => {
 
 export default function ContentMessageTop(props) {
     //
-    const { mini, item, groupMessage } = props;
+    const navigation = useNavigate();
+    const { mini, item, groupMessage, setShow, show } = props;
     const dispatch = useDispatch();
-    const { userChat: { minize, zoom } } = useSelector((state) => {
+    const { userChat: { minize, zoom }, socket } = useSelector((state) => {
         return {
-            userChat: state.userChat
+            userChat: state.userChat,
+            socket: state.socket
         }
     })
     //
     return (
         <div className={`w-full ${mini ? 'py-1' : ' pt-3 '} flex shadow items-center`}>
-            <div className="w-2/3 pl-3 flex items-center">
-                <div className="">
+            <div className={`w-2/3 ${mini ? 'pl-1' : 'pl-3'} flex items-center`}>
+                <div onClick={() => setShow(!show)} className="cursor-pointer">
                     <div className={`${mini ? 'w-9 h-9' : 'xl:w-10 xl:h-10 w-16 h-16'} my-2  object-cover rounded-full 
                         mx-auto relative `}>
                         <img src={item.avatar}
@@ -50,7 +54,10 @@ export default function ContentMessageTop(props) {
             </div>
             <div className="w-1/3 ml-auto">
                 <ul className="ml-auto flex float-right pr-1.5">
-                    <ItemHeaderContentMessageTop mini={mini}>
+                    <ItemHeaderContentMessageTop handleClick={() => {
+                        navigation(PAGE_CALL);
+                        socket.emit(`callVideo`, item.id);
+                    }} mini={mini}>
                         <svg
                             role="presentation" height={`${mini ? '28px' : '32px'}`} width={`${mini ? '28px' : '32px'}`} viewBox="-5 -5 30 30">
                             <path fill={groupMessage.color}
