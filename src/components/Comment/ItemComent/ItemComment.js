@@ -24,7 +24,7 @@ export default function ItemComment(props) {
         //
         let unmounted = false;
         const fetch = async () => {
-            const result = await api(`feelComments/check?idUser=${user.id}&idCommentPost=${commentPost.id}`,
+            const result = await api(`feelComments/check?idUser=${user.id}&idCommentPost=${commentPost.commentPost.id}`,
                 'GET', null, headers);
             if (unmounted) return;
             setFeel(result.data);
@@ -39,7 +39,7 @@ export default function ItemComment(props) {
     }, []);
     useEffect(() => {
         if (refFeelComment.current) {
-            if (commentPost.typeComment === 0) {
+            if (commentPost.commentPost.typeComment === 0) {
                 if (refText.current) {
                     refFeelComment.current.style.left = refText.current.offsetWidth + "px";
                 }
@@ -57,18 +57,18 @@ export default function ItemComment(props) {
         <div className="w-full mx-0 flex my-2">
             <Link to="">
                 <img className="w-12 h-12 p-0.5 mt-2 object-cover rounded-full"
-                    src={commentPost.userCommentPost.avatar}
+                    src={commentPost.commentPost.userCommentPost.avatar}
                     alt="" srcSet="" loading='lazy'
                 />
             </Link>
             <div className="relative main-comment" style={{ width: "calc(100% - 54px)" }}>
-                <div ref={refText} className={`comment-per w-max relative p-2 ${commentPost.typeComment !== 2 ? 'bg-gray-100' :
+                <div ref={refText} className={`comment-per w-max relative p-2 ${commentPost.commentPost.typeComment !== 2 ? 'bg-gray-100' :
                     ''} ml-1 relative rounded-lg`} style={{ maxWidth: "91%" }}>
                     <p><Link to="" className="font-semibold dark:text-white">
-                        {`${commentPost.userCommentPost.firstName} ${commentPost.userCommentPost.lastName}`}
+                        {`${commentPost.commentPost.userCommentPost.firstName} ${commentPost.commentPost.userCommentPost.lastName}`}
                     </Link></p>
                     {!commentPost.loading ? <>
-                        {commentPost.content && <p>{commentPost.content}</p>}
+                        {commentPost.commentPost.content && <p>{commentPost.commentPost.content}</p>}
                     </> : <i className="fas fa-circle-notch text-xs text-gray-500 mx-9 fa-spin"></i>}
                 </div>
                 {!commentPost.loading && <div className='my-0.5'>
@@ -84,7 +84,7 @@ export default function ItemComment(props) {
                             else {
                                 const result = await api(`feelComments`, 'POST', {
                                     id: null,
-                                    commentPostFeelComment: commentPost,
+                                    commentPostFeelComment: commentPost.commentPost,
                                     userFeelComment: user,
                                     content: JSON.stringify(allFeel[0]),
                                     typeFeelComment: 0,
@@ -104,14 +104,14 @@ export default function ItemComment(props) {
                     </li>
                     <li onClick={() => setReply(true)} className="pr-2 cursor-pointer">Trả lời</li>
                     <li className="pr-2 cursor-pointer" >
-                        {moment(commentPost.timeCreated).fromNow(true)}
+                        {moment(commentPost.commentPost.timeCreated).fromNow(true)}
                     </li>
                 </ul>}
-                <div ref={refFeelComment} className="absolute bottom-5 bg-white text-sm text-gray-500 flex items-center px-2 p-0.5 rounded-full">
+                {commentPost.feelCommentList.length > 0 && <div ref={refFeelComment} className="absolute bottom-5 bg-white text-sm text-gray-500 flex items-center px-2 p-0.5 rounded-full">
                     <img src="https://res.cloudinary.com/ensonet-dev/image/upload/v1639997974/Reactions/like_ebd8ws.png"
                         alt="" className="w-3.5 mr-1.5 h-3.5 rounded-full object-cover" />
                     1
-                </div>
+                </div>}
             </div>
         </div >
     )

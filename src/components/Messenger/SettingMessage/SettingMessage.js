@@ -28,7 +28,7 @@ const ItemSetting = (props) => {
     )
 }
 
-export default function SettingMessage() {
+export default function SettingMessage(props) {
     //
     //
     return (
@@ -45,7 +45,7 @@ export default function SettingMessage() {
             </div>
             <ul className="w-full py-2">
                 <WrapperItemSetting component={ItemSetting} name={`Tùy chỉnh đoạn chat`}>
-                    <SettingMessageChild />
+                    <SettingMessageChild groupMessage={props.groupMessage} setGroupMessage={props.setGroupMessage} />
                 </WrapperItemSetting>
                 <WrapperItemSetting component={ItemSetting} name={`Tệp được chia sẽ`}>
                 </WrapperItemSetting>

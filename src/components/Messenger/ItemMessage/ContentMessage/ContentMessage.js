@@ -4,27 +4,28 @@ import ChatText from '../ChatText/ChatText';
 
 export default forwardRef(function ContentMessage(props, ref) {
     //
-    const { item, margin, left } = props;
-    const DataMessage = () => {
-        let data = "";
+    const { item, margin, left, groupMessage } = props;
+    const DataMessage = (props) => {
+        let Data = "";
         switch (item.typeMessage) {
             case 0:
-                data = <ChatText item={item} margin={margin} left={left} />
+                Data = <ChatText item={item} groupMessage={props.groupMessage} margin={margin} left={left} />
                 break;
             case 1:
-                data = <img ref={ref} src={JSON.parse(item.dataMessage).value} alt={``}
+                Data = <img ref={ref} src={JSON.parse(item.dataMessage).value} alt={``}
                     className='w-80 h-56 rounded-lg object-cover' />;
                 break;
             case 2:
-                data = <ItemSticker ref={ref} sticker={JSON.parse(item.dataMessage).value} handleClick={() => ""} />
+                Data = <ItemSticker ref={ref} groupMessage={props.groupMessage}
+                    sticker={JSON.parse(item.dataMessage).value} handleClick={() => ""} />
                 break;
             default:
                 break;
         }
-        return data;
+        return Data;
     }
     //
     return (
-        <DataMessage />
+        <DataMessage groupMessage={groupMessage} />
     )
 })

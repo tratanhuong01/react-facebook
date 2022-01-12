@@ -57,3 +57,28 @@ export const openModalPreviewAvatar = (image, userProfile, userProfilesDispatch,
         userProfilesAction
     }
 }
+
+export const openModalChangeColor = (groupMessage, setGroupMessage) => {
+    return {
+        type: constants.OPEN_MODAL_CHANGE_COLOR,
+        groupMessage,
+        setGroupMessage
+    }
+}
+
+export const openModalChangeEmojii = (groupMessage, setGroupMessage) => {
+    return {
+        type: constants.OPEN_MODAL_CHANGE_EMOJII,
+        groupMessage,
+        setGroupMessage
+    }
+}
+
+export const openModalChangeNickName = (users, groupMessage, setGroupMessage) => {
+    return {
+        type: constants.OPEN_MODAL_CHANGE_NICK_NAME,
+        users,
+        groupMessage,
+        setGroupMessage
+    }
+}

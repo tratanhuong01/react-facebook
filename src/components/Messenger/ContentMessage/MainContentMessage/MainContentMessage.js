@@ -5,7 +5,7 @@ import ItemMessageRight from '../../ItemMessage/ItemMessageRight/ItemMessageRigh
 
 export default memo(function MainContentMessage(props) {
     //
-    const { messages, item } = props;
+    const { messages, item, groupMessage } = props;
     const user = useSelector((state) => state.user);
     const refContentMessage = useRef();
     useEffect(() => {
@@ -36,9 +36,9 @@ export default memo(function MainContentMessage(props) {
                     </div> :
                     messages.map(item => {
                         if (item.userMessage.id === user.id)
-                            return <ItemMessageRight key={item.id} item={item} />;
+                            return <ItemMessageRight key={item.id} item={item} groupMessage={groupMessage} />;
                         else
-                            return <ItemMessageLeft key={item.id} item={item} />;
+                            return <ItemMessageLeft key={item.id} item={item} groupMessage={groupMessage} />;
                     })}
             </div>
         </div >

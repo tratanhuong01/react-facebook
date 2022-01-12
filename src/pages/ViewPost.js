@@ -14,7 +14,7 @@ export default function ViewPost(props) {
     const [postDetail, setPostDetail] = useState();
     const [fullscreen, setFullscreen] = useState(false);
     const [index, setIndex] = useState(-1);
-    const [scale, setScale] = useState(100);
+    const [scale, setScale] = useState(75);
     useEffect(() => {
         //
         let unmounted = false;

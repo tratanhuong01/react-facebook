@@ -71,7 +71,7 @@ export default memo(function ItemPost(props) {
             </div>
             <div className="w-full">
                 {postDetail ? postDetail.commentDetailList.map((commentDetail) =>
-                    <ItemCommentPostMain key={commentDetail.commentPostLevel1.id} commentDetail={commentDetail} postDetail={postDetail}
+                    <ItemCommentPostMain key={commentDetail.commentPostLevel1.commentPost.id} commentDetail={commentDetail} postDetail={postDetail}
                         setPostDetail={setPostDetail} />
                 ) : ""}
             </div>

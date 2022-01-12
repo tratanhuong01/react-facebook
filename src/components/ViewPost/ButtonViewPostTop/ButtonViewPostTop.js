@@ -31,12 +31,12 @@ export default function ButtonViewPostTop(props) {
             </>}
             <div className='flex items-center absolute top-3 gap-5 z-50 text-3xl p-3 right-3 text-white'>
                 <i onClick={() => {
-                    if (scale === 200)
+                    if (scale === 175)
                         return;
                     setScale(scale + 20)
                 }} className='bx bx-zoom-in cursor-pointer'></i>
                 <i onClick={() => {
-                    if (scale === 100)
+                    if (scale === 75)
                         return;
                     setScale(scale - 20)
                 }} className='bx bx-zoom-out cursor-pointer'></i>

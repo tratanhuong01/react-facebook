@@ -3,7 +3,7 @@ import ContentMessage from '../ContentMessage/ContentMessage';
 
 export default function ItemMessageRight(props) {
     //
-    const { item } = props;
+    const { item, groupMessage } = props;
     //
     return (
         <div className="mess-user chat-rights z-0 w-full py-1 flex relative justify-end">
@@ -13,9 +13,9 @@ export default function ItemMessageRight(props) {
             >
                 {item.typeMessage !== 0 ?
                     <div className='ml-auto'>
-                        <ContentMessage margin="ml-auto" item={item} />
+                        <ContentMessage margin="ml-auto" item={item} groupMessage={groupMessage} />
                     </div> :
-                    <ContentMessage margin="ml-auto" item={item} />
+                    <ContentMessage margin="ml-auto" item={item} groupMessage={groupMessage} />
                 }
             </div>
             <div className=" mess-user-r2 " style={{ width: "4%" }}>

@@ -2,11 +2,11 @@ import React from "react";
 
 function ChatText(props) {
     //
-    const { left, margin, item } = props;
+    const { left, margin, item, groupMessage } = props;
     let style = {
         maxWidth: "75%",
         fontSize: "15px",
-        backgroundColor: item.groupMessageMessage.color,
+        backgroundColor: groupMessage ? groupMessage.color : "#1877f2",
         color: "white",
     };
     if (left) {

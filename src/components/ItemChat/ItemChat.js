@@ -28,7 +28,6 @@ export default function ItemChat(props) {
         }
         return string;
     }
-    console.log(generateString());
     const [show, setShow] = useState();
     const [dataMessage, setDataMessage] = useState({ type: 0, value: null, content: "" });
     useEffect(() => {
@@ -38,7 +37,7 @@ export default function ItemChat(props) {
             const groupMessage = await api(`groupMessages/check`, "POST", { string: generateString() }, headers);
             let messagesResult = { data: null };
             if (groupMessage.data) {
-                messagesResult = await api(`messages?idGroupMessage=${groupMessage.data.id}`, 'GET', null, headers);
+                messagesResult = await api(`messages?idGroupMessage=${groupMessage.data.id}&offset=0&limit=15`, 'GET', null, headers);
             }
             if (unmounted) return;
             setGroupMessage(groupMessage.data);
@@ -73,12 +72,13 @@ export default function ItemChat(props) {
             {groupMessage && <div className='w-full h-full flex flex-col'>
                 <ContentMessageTop mini={true} item={item} groupMessage={groupMessage}
                     setShow={setShow} show={show} />
-                <MainContentMessage messages={messages} item={item} />
+                <MainContentMessage messages={messages} item={item} groupMessage={groupMessage} />
                 <ControlMessage groupMessage={groupMessage} dataMessage={dataMessage} messages={messages}
                     setDataMessage={setDataMessage} mini={true} setMessages={setMessages} chatter={item} />
                 {show && <ul className='w-72 absolute top-0 right-full bg-white dark:bg-dark-third border-2 border-solid 
                 border-gray-300 dark:border-dark-second shadow-lv1 mr-0.5 rounded-lg z-50'>
-                    <SettingMessageChild hide={true} />
+                    <SettingMessageChild hide={true} item={item} groupMessage={groupMessage}
+                        setGroupMessage={setGroupMessage} />
                 </ul>}
             </div>}
         </div>

@@ -15,7 +15,7 @@ export default function MoreThanComment(props) {
             `level1?idPost=${postDetail.post.id}`}&offset=${index + 2}&limit=${2}`,
             'GET', null, headers);
         if (reply) {
-            const pos = postDetail.commentDetailList.findIndex(item => item.commentPostLevel1.id === idComment);
+            const pos = postDetail.commentDetailList.findIndex(item => item.commentPostLevel1.commentPost.id === idComment);
             if (pos !== -1) {
                 let clone = { ...postDetail };
                 clone.commentDetailList[pos].commentPostLevel2List =

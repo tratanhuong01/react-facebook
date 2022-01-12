@@ -42,7 +42,7 @@ export default function Feels(props) {
         else {
             result = await api(`feelComments`, 'POST', {
                 id: null,
-                commentPostFeelComment: post,
+                commentPostFeelComment: post.commentPost,
                 userFeelComment: user,
                 content: JSON.stringify(feelRe),
                 typeFeelComment: index,

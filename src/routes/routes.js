@@ -86,7 +86,7 @@ const routes = [
     element: <Watch />
   },
   {
-    path: Config.PAGE_MESSENGER,
+    path: Config.PAGE_MESSENGER + "/:id",
     exact: true,
     element: <Messenger />
   },

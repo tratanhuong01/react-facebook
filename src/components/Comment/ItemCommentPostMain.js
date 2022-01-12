@@ -18,10 +18,10 @@ export default function ItemCommentPostMain(props) {
                 {reply && <TypeCommentInput dataComment={dataComment} setDataComment={setDataComment}
                     postDetail={postDetail} setPostDetail={setPostDetail} reply={true} commentDetail={commentDetail} />}
                 {commentDetail.commentPostLevel2List.map(commentPost =>
-                    <ItemComment setReply={setReply} commentPost={commentPost} key={commentPost.id} />)}
+                    <ItemComment setReply={setReply} commentPost={commentPost} key={commentPost.commentPost.id} />)}
                 {commentDetail.commentLevel2Length - commentDetail.commentPostLevel2List.length > 0 &&
                     <MoreThanComment postDetail={postDetail} setPostDetail={setPostDetail} index={index}
-                        setIndex={setIndex} reply={true} idComment={commentDetail.commentPostLevel1.id} />}
+                        setIndex={setIndex} reply={true} idComment={commentDetail.commentPostLevel1.commentPost.id} />}
             </div>
         </>
     )

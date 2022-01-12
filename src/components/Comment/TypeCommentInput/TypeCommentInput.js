@@ -29,23 +29,31 @@ export default function TypeCommentInput(props) {
             dataComment: JSON.stringify(dataComment),
             typeComment: type,
             timeCreated: null,
-            replyComment: reply ? commentDetail.commentPostLevel1.id : null,
+            replyComment: reply ? commentDetail.commentPostLevel1.commentPost.id : null,
         }
         setDataComment({ value: null, content: "", type: 0 })
         if (!reply) {
             setPostDetail({
                 ...postDetail, commentDetailList: [{
-                    commentPostLevel1: { ...object, loading: true, id: id },
+                    commentPostLevel1: {
+                        commentPost: { ...object, id: id },
+                        feelCommentList: [],
+                        loading: true,
+                    },
                     commentPostLevel2List: []
                 }].concat([...postDetail.commentDetailList])
             });
         }
         else {
-            const index = postDetail.commentDetailList.findIndex(data => data.commentPostLevel1.id
-                === commentDetail.commentPostLevel1.id);
+            const index = postDetail.commentDetailList.findIndex(data => data.commentPostLevel1.commentPost.id
+                === commentDetail.commentPostLevel1.commentPost.id);
             if (index !== -1)
                 postDetail.commentDetailList[index].commentPostLevel2List =
-                    [{ ...object, loading: true, id: id }].concat([...postDetail.commentDetailList[index].commentPostLevel2List])
+                    [{
+                        commentPost: { ...object, id: id },
+                        feelCommentList: [],
+                        loading: true,
+                    }].concat([...postDetail.commentDetailList[index].commentPostLevel2List])
         }
         if (type === 1) {
             const formData = new FormData();
@@ -62,19 +70,25 @@ export default function TypeCommentInput(props) {
         if (!reply) {
             setPostDetail({
                 ...postDetail, commentDetailList: [{
-                    commentPostLevel1: result.data,
+                    commentPostLevel1: {
+                        commentPost: result.data,
+                        feelCommentList: []
+                    },
                     commentPostLevel2List: []
-                }].concat([...postDetail.commentDetailList].filter(data => data.commentPostLevel1.id !== id))
+                }].concat([...postDetail.commentDetailList].filter(data => data.commentPostLevel1.commentPost.id !== id))
             })
         }
         else {
-            const index = postDetail.commentDetailList.findIndex(data => data.commentPostLevel1.id
-                === commentDetail.commentPostLevel1.id);
+            const index = postDetail.commentDetailList.findIndex(data => data.commentPostLevel1.commentPost.id
+                === commentDetail.commentPostLevel1.commentPost.id);
             if (index !== -1) {
                 let clone = { ...postDetail };
                 clone.commentDetailList[index].commentPostLevel2List =
-                    [result.data].concat([...clone.commentDetailList[index].commentPostLevel2List].filter(
-                        data => data.id !== id
+                    [{
+                        commentPost: result.data,
+                        feelCommentList: []
+                    }].concat([...clone.commentDetailList[index].commentPostLevel2List].filter(
+                        data => data.commentPost.id !== id
                     ))
                 setPostDetail(clone);
             }
