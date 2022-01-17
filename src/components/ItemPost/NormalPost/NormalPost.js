@@ -6,7 +6,7 @@ export default function NormalPost(props) {
     const { postDetail: { imageVideoPostList, post } } = props;
     //  
     return (
-        <>
+        <div className='w-full'>
             {post.answerQuestion ? <div className={`w-2/3 mx-auto flex justify-center items-center rounded-xl relative`} style={{
                 height: 550, backgroundImage: JSON.parse(
                     post.answerQuestion
@@ -34,6 +34,6 @@ export default function NormalPost(props) {
                     {post.content}
                 </div>
             </div> : <ImageVideoDisplay imageVideo={imageVideoPostList} idPost={post.id} />}
-        </>
+        </div>
     )
 }

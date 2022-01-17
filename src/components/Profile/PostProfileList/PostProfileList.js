@@ -13,7 +13,7 @@ export default function PostProfileList() {
         //
         let unmounted = false;
         const fetch = async () => {
-            const result = await api(`posts?idUser=${userProfile.id}&offset=0&limit=2`, 'GET', {}, headers);
+            const result = await api(`posts?idUser=${userProfile.id}&offset=0&limit=30`, 'GET', {}, headers);
             if (unmounted) return;
             userProfilesDispatch(userProfilesAction.updateData('postList', result.data));
         }

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import api from '../../api/api'
-import ContentMessageTop from '../Messenger/ContentMessage/ContentMessageTop/ContentMessageTop'
-import ControlMessage from '../Messenger/ContentMessage/ControlMessage/ControlMessage'
 import MainContentMessage from '../Messenger/ContentMessage/MainContentMessage/MainContentMessage'
 import SettingMessageChild from '../Messenger/SettingMessage/SettingMessageChild/SettingMessageChild'
+import * as StringUtils from "../../utils/StringUtils";
+import WrapperItemChat from './WrapperItemChat'
+import NewChat from './NewChat'
 
 export default function ItemChat(props) {
     //
@@ -16,31 +17,24 @@ export default function ItemChat(props) {
             socket: state.socket
         }
     });
-    const [groupMessage, setGroupMessage] = useState(null);
+    const [groupMessage, setGroupMessage] = useState({ queryGroupmessage: "", color: "#ccc", emoji: "🙆‍♂️" });
     const [messages, setMessages] = useState(null);
-    const generateString = () => {
-        const array = [user.id, item.id];
-        array.sort();
-        let string = "";
-        for (let index = 1; index <= array.length; index++) {
-            const element = array[index - 1];
-            string += element + (index === array.length ? '' : '-');
-        }
-        return string;
-    }
     const [show, setShow] = useState();
     const [dataMessage, setDataMessage] = useState({ type: 0, value: null, content: "" });
     useEffect(() => {
         //
         let unmounted = false;
         const fetch = async () => {
-            const groupMessage = await api(`groupMessages/check`, "POST", { string: generateString() }, headers);
+            const groupMessage = await api(`groupMessages/check`, "POST", {
+                string:
+                    StringUtils.generateIDGroupFromListUser([item, user])
+            }, headers);
             let messagesResult = { data: null };
             if (groupMessage.data) {
                 messagesResult = await api(`messages?idGroupMessage=${groupMessage.data.id}&offset=0&limit=15`, 'GET', null, headers);
             }
             if (unmounted) return;
-            setGroupMessage(groupMessage.data);
+            setGroupMessage(groupMessage.data ? groupMessage.data : { queryGroupmessage: "", color: "#ccc", emoji: "🙆‍♂️" });
             setMessages(messagesResult.data);
         }
         fetch();
@@ -67,20 +61,16 @@ export default function ItemChat(props) {
     }, [groupMessage, messages])
     //  
     return (
-        <div className="relative bg-white m-2 dark:bg-dark-second rounded-lg dark:border-dark-third 
-        border-2 border-solid border-gray-300 ml-auto" style={{ width: 340, height: 486 }}>
-            {groupMessage && <div className='w-full h-full flex flex-col'>
-                <ContentMessageTop mini={true} item={item} groupMessage={groupMessage}
-                    setShow={setShow} show={show} />
-                <MainContentMessage messages={messages} item={item} groupMessage={groupMessage} />
-                <ControlMessage groupMessage={groupMessage} dataMessage={dataMessage} messages={messages}
-                    setDataMessage={setDataMessage} mini={true} setMessages={setMessages} chatter={item} />
-                {show && <ul className='w-72 absolute top-0 right-full bg-white dark:bg-dark-third border-2 border-solid 
+        <WrapperItemChat item={item} groupMessage={groupMessage} setShow={setShow} show={show}
+            dataMessage={dataMessage} messages={messages} setDataMessage={setDataMessage} mini={true}
+            setMessages={setMessages} chatter={item}>
+            {!item.new ? <MainContentMessage messages={messages} item={item} groupMessage={groupMessage} />
+                : <NewChat />}
+            {show && <ul className='w-72 absolute top-0 right-full bg-white dark:bg-dark-third border-2 border-solid 
                 border-gray-300 dark:border-dark-second shadow-lv1 mr-0.5 rounded-lg z-50'>
-                    <SettingMessageChild hide={true} item={item} groupMessage={groupMessage}
-                        setGroupMessage={setGroupMessage} />
-                </ul>}
-            </div>}
-        </div>
+                <SettingMessageChild hide={true} item={item} groupMessage={groupMessage}
+                    setGroupMessage={setGroupMessage} />
+            </ul>}
+        </WrapperItemChat>
     )
 }

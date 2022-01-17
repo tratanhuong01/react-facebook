@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import ImageUser from './ImageUser/ImageUser'
+import ImageVideoUser from './ImageVideoUser/ImageVideoUser'
 import Introduction from './Introduction/Introduction'
 import ProfileFriendList from './ProfileFriendList/ProfileFriendList'
 
@@ -10,7 +10,7 @@ export default memo(function ProfileLeft() {
                 <Introduction />
             </div>
             <div className="bg-white shadow-lv1 my-2 p-2.5 rounded-lg  dark:bg-dark-third">
-                <ImageUser />
+                <ImageVideoUser />
             </div>
             <div className="bg-white shadow-lv1 my-2 p-2.5 rounded-lg dark:bg-dark-third"  >
                 <ProfileFriendList />

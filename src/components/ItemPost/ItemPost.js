@@ -29,13 +29,19 @@ export default memo(function ItemPost(props) {
                         if (index !== -1) {
                             let clone = { ...postDetail };
                             clone.commentDetailList[index].commentPostLevel2List =
-                                [data].concat([...clone.commentDetailList[index].commentPostLevel2List])
+                                [{
+                                    commentPost: data,
+                                    feelCommentList: [],
+                                }].concat([...clone.commentDetailList[index].commentPostLevel2List])
                             setPostDetail(clone);
                         }
                     } else {
                         setPostDetail({
                             ...postDetail, commentDetailList: [{
-                                commentPostLevel1: data,
+                                commentPostLevel1: {
+                                    commentPost: data,
+                                    feelCommentList: [],
+                                },
                                 commentPostLevel2List: []
                             }].concat([...postDetail.commentDetailList])
                         });

@@ -1,0 +1,22 @@
+import React, { useContext, useState } from 'react'
+import { UserProfileContext } from '../../../contexts/UserProfileContext/UserProfileContext'
+import WrapperContentChildProfile from '../WrapperContentChildProfile';
+import ItemFriendList from './ItemFriendList/ItemFriendList';
+
+export default function FriendList() {
+    //
+    const { userProfile: { userProfile } } = useContext(UserProfileContext);
+    const [friends, setFriends] = useState();
+    //
+    return (
+        <WrapperContentChildProfile
+            url={`userRelationships/friends?idUserMain=${userProfile.id}&status=3&offset=0&limit=10`}
+            label='Bạn bè'
+            setData={setFriends}
+        >
+            {userProfile && friends && friends.map(item =>
+                <ItemFriendList item={item} key={item.userUserRelationShip.id} />
+            )}
+        </WrapperContentChildProfile>
+    )
+}

@@ -40,3 +40,28 @@ export const generateMessage = (typeGroupMessage, messages, userList, idUser) =>
         return "Các bạn đã là bạn bè trên facebook";
     }
 }
+
+export const generateString = (item, user) => {
+    const array = [user.id, item.id];
+    array.sort();
+    let string = "";
+    for (let index = 1; index <= array.length; index++) {
+        const element = array[index - 1];
+        string += element + (index === array.length ? '' : '-');
+    }
+    return string;
+}
+export const generateIDGroupFromListUser = (listUser) => {
+    const array = [];
+    for (let index = 0; index < listUser.length; index++) {
+        const element = listUser[index];
+        array.push(element.id);
+    }
+    array.sort();
+    let string = "";
+    for (let index = 1; index <= array.length; index++) {
+        const element = array[index - 1];
+        string += element + (index === array.length ? '' : '-');
+    }
+    return string;
+}

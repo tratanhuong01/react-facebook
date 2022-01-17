@@ -16,7 +16,8 @@ export default function ControlMessage(props) {
             socket: state.socket
         }
     })
-    const { groupMessage, dataMessage, setDataMessage, mini, messages, setMessages, chatter } = props;
+    const { dataMessage, setDataMessage, mini, messages, setMessages, chatter } = props;
+    const groupMessage = props.groupMessage ? props.groupMessage : { color: "#ccc" }
     const refContent = useRef();
     const refPopover = useRef();
     const [type, setType] = useState();

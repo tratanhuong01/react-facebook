@@ -75,7 +75,7 @@ export default function ModalPost(props) {
                         id: null,
                         postImageVideoPost: post.data,
                         src: imageUpload.data.url,
-                        typeImageVideoPost: "image",
+                        typeImageVideoPost: 0,
                         timeCreated: null,
                     }, { ...headers, "Content-Type": "application/json" });
                 }
@@ -87,8 +87,8 @@ export default function ModalPost(props) {
     //
     return (
         <ModalWrapper className="animate__rubberBand shadow-sm border-t border-b border-solid border-gray-200 bg-white absolute  
-        z-50 top-1/2 left-1/2 dark:bg-dark-second rounded-lg transform -translate-x-1/2 -translate-y-1/2 py-2 w-11/12 sm:w-10/12 md:w-2/3 
-        lg:w-2/3 xl:w-36% shadow-lv1 dark:border-dark-third dark:bg-dark-third" title={'Tạo bài viết'}>
+        z-50 top-1/2 left-1/2 dark:bg-dark-second rounded-lg transform -translate-x-1/2 -translate-y-1/2 py-2 
+        shadow-lv1 dark:border-dark-third dark:bg-dark-third" title={'Tạo bài viết'}>
             <TopWritePostModal />
             <div className={`w-full mt-2.5 wrapper-content-right ${emojiShow ? '' : 'overflow-y-auto'}`} style={{ maxHeight: 365 }}>
                 <CenterWritePostModal setEmojiShow={setEmojiShow} emojiShow={emojiShow} />

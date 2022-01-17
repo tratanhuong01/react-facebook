@@ -1,42 +1,54 @@
 import React, { useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom';
+import { PAGE_PROFILE } from '../../../constants/Config';
 
-const categories = [
-    {
-        id: 0,
-        label: "Bài viết",
-        link: ""
-    },
-    {
-        id: 2,
-        label: "Bạn bè",
-        link: ""
-    },
-    {
-        id: 3,
-        label: "Ảnh",
-        link: ""
-    },
-    {
-        id: 4,
-        label: "Video",
-        link: ""
-    },
-    {
-        id: 5,
-        label: "Stories",
-        link: ""
-    },
-]
-
-export default function CategoryProfile() {
+export default function CategoryProfile(props) {
     //
-    const [active, setActive] = useState(0);
+    const id = props.id;
+    const categories = [
+        {
+            id: 0,
+            label: "Bài viết",
+            slug: "",
+            link: `${PAGE_PROFILE}/${id}`
+        },
+        {
+            id: 1,
+            label: "Bạn bè",
+            slug: "friends",
+            link: `${PAGE_PROFILE}/${id}/friends`
+        },
+        {
+            id: 2,
+            label: "Ảnh",
+            slug: "images",
+            link: `${PAGE_PROFILE}/${id}/images`
+        },
+        {
+            id: 3,
+            label: "Video",
+            slug: "videos",
+            link: `${PAGE_PROFILE}/${id}/videos`
+        },
+        {
+            id: 4,
+            label: "Stories",
+            slug: "stories",
+            link: `${PAGE_PROFILE}/${id}/stories`
+        },
+    ];
+    const location = useLocation();
+    const navigation = useNavigate();
+    const [active, setActive] = useState(categories.findIndex(dt => location.pathname.indexOf(dt.slug)));
     //
     return (
         <div className="w-full relative">
             <ul className="w-full flex py-1">
                 {categories.map(category =>
-                    <li onClick={() => setActive(category.id)} key={category.id} className={`text-center py-4 px-4 cursor-pointer 
+                    <li onClick={() => {
+                        setActive(category.id)
+                        navigation(category.link)
+                    }} key={category.id} className={`text-center py-4 px-4 cursor-pointer 
                     border-b-4 dark:text-white font-semibold  ${active === category.id ? `text-blue-500 border-blue-500 
                     rounded-t-lg` : 'rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-dark-third border-white dark:border-dark-second'}  `}>
                         {category.label}
