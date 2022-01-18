@@ -20,7 +20,9 @@ export default function ItemMessageList(props) {
     return (
         <div onClick={() => {
             if (mini) {
-                dispatch(userChatsAction.updateData('zoom', [...userChat.zoom, {}]))
+                dispatch(userChatsAction.updateData('zoom', [...userChat.zoom,
+                itemMessage.groupMessage.typeGroupMessage === 0 ? itemMessage.usersList[0] :
+                    [...itemMessage.usersList]]))
             }
             else {
                 navigation(PAGE_MESSENGER + `/${itemMessage.groupMessage.queryGroupMessage}`)
@@ -32,9 +34,19 @@ export default function ItemMessageList(props) {
                     {itemMessage.groupMessage.typeGroupMessage === 0 ?
                         <img src={itemMessage.usersList.length > 0 ? itemMessage.usersList[0].avatar : ''}
                             alt="" className="xl:w-14 xl:h-14 rounded-full object-cover mx-auto w-16 h-16" />
-                        : <div></div>
+                        : <div className="w-14 h-14 relative mx-auto">
+                            {[...itemMessage.usersList].slice(0, 3).map((item, index) =>
+                                <img src={item.avatar}
+                                    className={`w-9 h-9 border-2 border-solid border-white rounded-full object-cover absolute ${index === 0
+                                        ? 'top-0 left-0' : (itemMessage.usersList.length === 2 && index === 1) ? 'bottom-0 right-0' :
+                                            index === 1 ? 'top-0 right-0' : 'bottom-0 transform -translate-x-1/2 left-1/2'}`}
+                                    alt="" />
+                            )}
+                        </div>
                     }
-                    <span className="w-3.5 h-3.5 rounded-full bg-green-500 absolute bottom-0 right-0.5"></span>
+                    <span className={`w-3.5 h-3.5 rounded-full bg-green-500 absolute ${itemMessage.groupMessage.typeGroupMessage === 0 ? 'bottom-0 right-0.5' :
+                        '-bottom-1.5 -right-2'
+                        }`}></span>
                 </div>
             </div>
             <div className="w-4/5 hidden md:block">

@@ -7,6 +7,7 @@ import { v4 } from 'uuid';
 import { useSelector } from 'react-redux';
 import SendImageVideo from './SendImageVideo/SendImageVideo';
 import api from '../../../../api/api';
+import * as StringUtils from "../../../../utils/StringUtils";
 export default function ControlMessage(props) {
     //
     const { user, headers, socket } = useSelector((state) => {
@@ -15,8 +16,9 @@ export default function ControlMessage(props) {
             headers: state.headers,
             socket: state.socket
         }
-    })
-    const { dataMessage, setDataMessage, mini, messages, setMessages, chatter } = props;
+    });
+    const { dataMessage, setDataMessage, mini, messages, setMessages, chatter, choose,
+        setGroupMessage, item, setChoose, setMembers } = props;
     const groupMessage = props.groupMessage ? props.groupMessage : { color: "#ccc" }
     const refContent = useRef();
     const refPopover = useRef();
@@ -43,28 +45,73 @@ export default function ControlMessage(props) {
     }
     const sendMessage = async (dataMessage) => {
         const id = v4();
+        let result = { data: null };
+        let newGroupMessage = { data: groupMessage };
+        let queryGroupMessage = "";
+        if (!groupMessage.id) {
+            queryGroupMessage = StringUtils.generateIDGroupFromListUser([...choose, user]);
+            if (choose.length >= 2) {
+                newGroupMessage = await api(`groupMessages`, 'POST', {
+                    id: null,
+                    nameGroupMessage: null,
+                    theme: null,
+                    color: "#ccc",
+                    userGroupMessage: user,
+                    emoji: "🙆‍♂️",
+                    queryGroupMessage: queryGroupMessage,
+                    typeGroupMessage: 1,
+                    timeCreated: null,
+                }, headers);
+            }
+            else {
+                newGroupMessage = await api(`groupMessages/check`, "POST", {
+                    string: queryGroupMessage
+                }, headers);
+            }
+        }
         const object = {
             id: id,
             userMessage: user,
-            groupMessageMessage: groupMessage,
+            groupMessageMessage: newGroupMessage.data,
             content: dataMessage.content,
             dataMessage: JSON.stringify(dataMessage),
             replyMessage: null,
             typeMessage: dataMessage.type,
             timeCreated: null,
         }
+        if (!groupMessage.id) {
+            setMembers([...choose].map((dt) => dt.userUserRelationShip));
+            if (choose.length >= 2) {
+                const allEl = [...choose, user];
+                for (let index = 0; index < allEl.length; index++) {
+                    const element = allEl[index];
+                    result = await api(`messages`, 'POST',
+                        {
+                            ...object, id: null, typeMessage: -1, userMessage: element.userUserRelationShip ?
+                                element.userUserRelationShip : element
+                        }, headers);
+                }
+            }
+            setChoose(null);
+        }
         setMessages([...messages, { ...object, loading: true }]);
-        const result = await api(`messages`, 'POST', { ...object, id: null }, headers);
+        result = await api(`messages`, 'POST', { ...object, id: null }, headers);
         setMessages([...messages].filter(dt => dt.id !== id).concat([result.data]));
         refContent.current.innerText = "";
         setDataMessage({ type: 0, value: null, content: "" });
-        socket.emit(`sendMessage`, result.data);
-        socket.emit(`sendMessageOnline`, { send: user, receive: chatter });
+        if (groupMessage.id) {
+            socket.emit(`sendMessage`, result.data);
+            socket.emit(`sendMessageOnline`, { send: user, receive: chatter });
+        }
+        else {
+            setGroupMessage(newGroupMessage.data);
+        }
     }
     //
     return (
-        <div className="w-full bg-white dark:bg-dark-second relative z-20 pt-2 pb-3 px-1 flex items-center 
-        dark:border-dark-third border-t-2 border-solid border-gray-300 items-end relative">
+        <div className={`w-full bg-white dark:bg-dark-second relative z-20 pt-2 pb-3 px-1 flex items-center 
+        dark:border-dark-third border-t-2 border-solid border-gray-300 items-end relative ${Array.isArray(choose) ?
+                item.new && choose.length === 0 ? 'opacity-50' : '' : ''}`}>
             {Array.isArray(dataMessage.value) ? dataMessage.value.length > 0 &&
                 <SendImageVideo dataMessage={dataMessage} setDataMessage={setDataMessage} mini={mini} /> : ""}
             <ControlMessageMain groupMessage={groupMessage} handleClick={handleClick}
@@ -100,6 +147,9 @@ export default function ControlMessage(props) {
                 <span onClick={() => sendMessage({ type: 0, value: "", content: groupMessage.emoji })}
                     className="cursor-pointer zoom text-xl flex items-center">{groupMessage.emoji}</span>
             </div>
+            {item.new && <div className='w-full absolute opacity-50 top-0 left-0 z-50' style={{ height: 66 }}>
+
+            </div>}
         </div>
     )
 }

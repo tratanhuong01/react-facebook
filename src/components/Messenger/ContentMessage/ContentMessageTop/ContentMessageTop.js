@@ -23,7 +23,7 @@ const ItemHeaderContentMessageTop = (props) => {
 export default function ContentMessageTop(props) {
     //
     const navigation = useNavigate();
-    const { mini, item, groupMessage, setShow, show } = props;
+    const { mini, item, groupMessage, setShow, show, members } = props;
     const dispatch = useDispatch();
     const { userChat: { minize, zoom }, socket } = useSelector((state) => {
         return {
@@ -34,21 +34,29 @@ export default function ContentMessageTop(props) {
     //
     return (
         <div className={`w-full ${mini ? 'py-1' : ' pt-3 '} flex shadow items-center`}>
-            {groupMessage && !item.new ? <>
+            {!item.new && groupMessage.id ? <>
                 <div className={`w-2/3 ${mini ? 'pl-1' : 'pl-3'} flex items-center`}>
-                    {<div onClick={() => setShow(!show)} className="cursor-pointer">
+                    {members.length === 1 ? <div onClick={() => setShow(!show)} className="cursor-pointer">
                         <div className={`${mini ? 'w-9 h-9' : 'xl:w-10 xl:h-10 w-16 h-16'} my-2  object-cover rounded-full 
                         mx-auto relative `}>
-                            <img src={item.avatar}
+                            <img src={members[0].avatar}
                                 alt="" className="xl:w-10 xl:h-10 rounded-full object-cover mx-auto w-16 h-16" />
                             <span className={`${mini ? 'w-2.5 h-2.5' : 'w-3.5 h-3.5'} rounded-full bg-green-500 absolute bottom-0 
                         ${mini ? '-right-0.5' : 'right-0.5'}`}></span>
                         </div>
-                    </div>}
+                    </div> : <div onClick={() => setShow(!show)} className="w-9 h-9 relative ">
+                        {[...members].slice(0, 3).map((item, index) =>
+                            <img src={item.avatar}
+                                key={item.id}
+                                className={`w-6 h-6 border-2 border-solid border-white rounded-full object-cover absolute ${index === 0
+                                    ? 'top-0 left-0' : (members.length === 2 && index === 1) ? 'bottom-0 right-0' :
+                                        index === 1 ? 'top-0 right-0' : 'bottom-0 transform -translate-x-1/2 left-1/2'}`}
+                                alt="" />
+                        )}</div>}
                     {<div className="pl-3 flex flex-col">
                         <b className="block dark:text-white inline-block whitespace-nowrap overflow-ellipsis 
                             overflow-hidden max-w-full pr-4">
-                            {`${item.firstName} ${item.lastName}`}
+                            {members.length === 1 ? `${members[0].firstName} ${members[0].lastName}` : "Nhom cua toi"}
                         </b>
                         <span className="text-gray-700 dark:text-gray-300 text-sm">Đang hoạt động</span>
                     </div>}
@@ -135,8 +143,9 @@ export default function ContentMessageTop(props) {
                                 y1="14" y2="2" strokeLinecap="round" strokeWidth="2" stroke={groupMessage.color}></line>
                         </svg>
                     </ItemHeaderContentMessageTop>
-                </div>}
+                </div>
+            }
 
-        </div>
+        </div >
     )
 }

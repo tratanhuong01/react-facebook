@@ -55,7 +55,12 @@ export const generateIDGroupFromListUser = (listUser) => {
     const array = [];
     for (let index = 0; index < listUser.length; index++) {
         const element = listUser[index];
-        array.push(element.id);
+        if (element.userUserRelationShip) {
+            array.push(element.userUserRelationShip.id);
+        }
+        else {
+            array.push(element.id);
+        }
     }
     array.sort();
     let string = "";
