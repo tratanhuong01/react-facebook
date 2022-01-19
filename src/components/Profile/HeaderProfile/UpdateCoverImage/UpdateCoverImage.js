@@ -44,7 +44,7 @@ export default function UpdateCoverImage(props) {
             id: null,
             postImageVideoPost: post.data,
             src: image.data.url,
-            typeImageVideoPost: "image",
+            typeImageVideoPost: 0,
             timeCreated: null,
         }, { ...headers, "Content-Type": "application/json" });
         const userUpdate = await api(`users`, 'PUT', { ...user, cover: image.data.url }, headers);

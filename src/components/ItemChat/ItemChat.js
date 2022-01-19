@@ -19,8 +19,8 @@ export default function ItemChat(props) {
     const item = Array.isArray(choose) ? choose.length > 0 ? choose.length === 1 ?
         { ...choose[0].userUserRelationShip } : choose.map(dt => dt.userUserRelationShip ? dt.userUserRelationShip : dt) : props.item :
         { ...props.item, new: false };
-    const [members, setMembers] = useState(!Array.isArray(item) && typeof item === "object" ? [item] :
-        [...item]);
+    const [members, setMembers] = useState(item ? item.usersList ? !Array.isArray(item.usersList) && typeof item.usersList === "object" ? [item.usersList] :
+        [...item.usersList] : [item] : [item]);
     const { user, headers, socket } = useSelector(state => {
         return {
             user: state.user,
@@ -35,9 +35,17 @@ export default function ItemChat(props) {
             const queryGroupMessage = StringUtils.generateIDGroupFromListUser(
                 Array.isArray(choose) ? choose.length > 0 ? [...choose].concat([user]) : [item, user] : [item, user]
             );
-            const groupMessage = await api(`groupMessages/check`, "POST", {
-                string: queryGroupMessage
-            }, headers);
+            let groupMessage = { data: null };
+            if (!Array.isArray(item.usersList)) {
+                groupMessage = await api(`groupMessages/check${''}`, "POST", {
+                    string: queryGroupMessage
+                }, headers);
+            }
+            else {
+                groupMessage = await api(`groupMessages/check/0`, "POST", {
+                    string: item.id
+                }, headers);
+            }
             let messagesResult = { data: [] };
             if (groupMessage.data) {
                 messagesResult = await api(`messages?idGroupMessage=${groupMessage.data.id}&offset=0&limit=15`, 'GET', null, headers);
@@ -47,7 +55,7 @@ export default function ItemChat(props) {
                 setGroupMessage(groupMessage.data ? groupMessage.data : { color: "#ccc", emoji: "🙆‍♂️" });
             setMessages(messagesResult.data);
         }
-        if (item.new && !groupMessage.id) {
+        if (!groupMessage.id) {
             if (Array.isArray(choose)) {
                 if (choose.length <= 1) {
                     fetch();
@@ -94,7 +102,7 @@ export default function ItemChat(props) {
         <WrapperItemChat item={item} groupMessage={groupMessage} setShow={setShow} show={show} setGroupMessage={setGroupMessage}
             dataMessage={dataMessage} messages={messages} setDataMessage={setDataMessage} mini={true} setChoose={setChoose}
             setMessages={setMessages} chatter={item} choose={choose} members={members} setMembers={setMembers}>
-            {(!item.new && choose === null) || (Array.isArray(item)) ?
+            {(!item.new && choose === null) || (Array.isArray(item.usersList) && choose === null) ?
                 <MainContentMessage messages={messages} item={item} groupMessage={groupMessage}
                     choose={choose} typeGroupMessage={0} />
                 : <NewChat choose={choose} setChoose={setChoose} messages={messages} item={item}

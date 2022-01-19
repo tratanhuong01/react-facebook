@@ -8,7 +8,7 @@ import 'moment/locale/vi';
 
 export default function WrapperPage(props) {
     //
-    const { white } = props;
+    const { white, login } = props;
     const { modals } = useContext(ModalContext);
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
@@ -32,10 +32,9 @@ export default function WrapperPage(props) {
             }
         }
         else {
-            navigation(PAGE_LOGIN);
+            if (!login)
+                navigation(PAGE_LOGIN);
         }
-        //
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [modals.data, user]);
     //

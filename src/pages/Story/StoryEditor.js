@@ -65,7 +65,7 @@ export default function StoryEditor(props) {
                     src: imageUpload.data.url,
                     typeStory: mode,
                     timeCreated: null
-                }, { ...headers, "Content-Typ": "application/json" })
+                }, { ...headers, "Content-Type": "application/json" })
                 navigation(PAGE_HOME);
             });
         }

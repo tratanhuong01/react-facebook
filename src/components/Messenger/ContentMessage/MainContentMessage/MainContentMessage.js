@@ -40,7 +40,7 @@ export default memo(function MainContentMessage(props) {
                         Array.isArray(choose) && choose.length > 0 && <div className="w-full p-2 text-center">
                             <div className="w-16 h-16 relative mx-auto">
                                 {[...choose].slice(0, 3).map((item, index) =>
-                                    <img src={item.avatar}
+                                    <img src={item.userUserRelationShip ? item.userUserRelationShip.avatar : item.avatar}
                                         className={`w-9 h-9 border-2 border-solid border-white rounded-full object-cover absolute ${index === 0
                                             ? 'top-0 left-0' : (choose.length === 2 && index === 1) ? 'bottom-0 right-0' :
                                                 index === 1 ? 'top-0 right-0' : 'bottom-0 transform -translate-x-1/2 left-1/2'}`}

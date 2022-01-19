@@ -8,7 +8,7 @@ export default function WrapperAuthenination(props) {
     const { hideFormLogin, title, notFound } = props;
     //
     return (
-        <WrapperPage>
+        <WrapperPage login={true}>
             <div className={`w-full h-screen ${notFound ? 'overflow-hidden' : ''}`}>
                 <HeaderSignedOut hideFormLogin={hideFormLogin} />
                 {notFound ? props.children :

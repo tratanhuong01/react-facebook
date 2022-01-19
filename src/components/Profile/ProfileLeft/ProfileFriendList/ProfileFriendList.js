@@ -20,7 +20,7 @@ export default function ProfileFriendList() {
         //
         let unmounted = false;
         const fetch = async () => {
-            const result = await api(`userRelationships/friends?idUserMain=${userProfile.id}&status=${3}&offset=${0}&limit=${9}`,
+            const result = await api(`userRelationships/friends?idUserMain=${userProfile.id}&status=${3}&offset=${0}&limit=${9}&text=`,
                 'GET', {}, headers);
             if (unmounted) return;
             setFriends(result.data);

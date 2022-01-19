@@ -10,13 +10,15 @@ export default function FriendList() {
     //
     return (
         <WrapperContentChildProfile
-            url={`userRelationships/friends?idUserMain=${userProfile.id}&status=3&offset=0&limit=10`}
+            url={`userRelationships/friends?idUserMain=${userProfile.id}&status=3&offset=0&limit=10&text=`}
             label='Bạn bè'
             setData={setFriends}
         >
-            {userProfile && friends && friends.map(item =>
-                <ItemFriendList item={item} key={item.userUserRelationShip.id} />
-            )}
+            <div className='w-full flex flex-wrap gap-2'>
+                {userProfile && friends && friends.map(item =>
+                    <ItemFriendList item={item} key={item.userUserRelationShip.id} />
+                )}
+            </div>
         </WrapperContentChildProfile>
     )
 }

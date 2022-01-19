@@ -41,7 +41,7 @@ export default function ModalPreviewAvatar(props) {
             id: null,
             postImageVideoPost: post.data,
             src: imageUpload.data.url,
-            typeImageVideoPost: "image",
+            typeImageVideoPost: 0,
             timeCreated: null,
         }, { ...headers, "Content-Type": "application/json" });
         const userUpdate = await api(`users`, 'PUT', { ...user, avatar: imageUpload.data.url }, headers);

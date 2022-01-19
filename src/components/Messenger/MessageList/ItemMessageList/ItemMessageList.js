@@ -22,7 +22,7 @@ export default function ItemMessageList(props) {
             if (mini) {
                 dispatch(userChatsAction.updateData('zoom', [...userChat.zoom,
                 itemMessage.groupMessage.typeGroupMessage === 0 ? itemMessage.usersList[0] :
-                    [...itemMessage.usersList]]))
+                    { id: itemMessage.groupMessage.id, usersList: [...itemMessage.usersList] }]))
             }
             else {
                 navigation(PAGE_MESSENGER + `/${itemMessage.groupMessage.queryGroupMessage}`)

@@ -36,7 +36,7 @@ export default function ContentMessageTop(props) {
         <div className={`w-full ${mini ? 'py-1' : ' pt-3 '} flex shadow items-center`}>
             {!item.new && groupMessage.id ? <>
                 <div className={`w-2/3 ${mini ? 'pl-1' : 'pl-3'} flex items-center`}>
-                    {members.length === 1 ? <div onClick={() => setShow(!show)} className="cursor-pointer">
+                    {groupMessage.typeGroupMessage === 0 && members.length === 1 ? <div onClick={() => setShow(!show)} className="cursor-pointer">
                         <div className={`${mini ? 'w-9 h-9' : 'xl:w-10 xl:h-10 w-16 h-16'} my-2  object-cover rounded-full 
                         mx-auto relative `}>
                             <img src={members[0].avatar}
@@ -56,7 +56,8 @@ export default function ContentMessageTop(props) {
                     {<div className="pl-3 flex flex-col">
                         <b className="block dark:text-white inline-block whitespace-nowrap overflow-ellipsis 
                             overflow-hidden max-w-full pr-4">
-                            {members.length === 1 ? `${members[0].firstName} ${members[0].lastName}` : "Nhom cua toi"}
+                            {members.length === 1 && groupMessage.typeGroupMessage === 0 ?
+                                `${members[0].firstName} ${members[0].lastName}` : "Nhom cua toi"}
                         </b>
                         <span className="text-gray-700 dark:text-gray-300 text-sm">Đang hoạt động</span>
                     </div>}

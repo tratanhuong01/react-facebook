@@ -32,14 +32,13 @@ export default function WrapperContentChildProfile(props) {
             clearTimeout(timeOut);
             unmounted = true;
         }
-        //
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user, location.pathname, props.setData])
     return (
         <>
-            <div className="py-2 px-4 text-center border-b-2 border-solid border-main text-main" >
+            <div className="py-2 px-4 mb-2 text-center border-b-2 border-solid border-main text-main" >
                 {props.label}
             </div>
-
             {<div className='my-2 w-full flex flex-wrap' style={{ display: loading ? 'none' : 'flex' }}>
                 {props.children}
             </div>}
