@@ -18,7 +18,7 @@ export default function ModalTagPost() {
         //
         let unmounted = false;
         const fetch = async () => {
-            const result = await api(`userRelationships/friends?idUserMain=${user.id}&status=3&offset=0&limit=10`,
+            const result = await api(`userRelationships/friends?idUserMain=${user.id}&status=3&offset=0&limit=10&text=`,
                 'GET', null, headers);
             if (unmounted) return;
             setUsers(result.data);

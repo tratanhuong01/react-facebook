@@ -14,13 +14,15 @@ function FormLogin(props) {
   //
   const [user, setUser] = useState("");
   const dispatch = useDispatch();
-  const validationSchema = Yup.object().shape({
-    emailOrPhone: Yup.string().required(
-      "Email hoặc số điện thoại không được để trống !!"
-    ),
-    password: Yup.string().required("Mật khẩu không được để trống !!"),
-  });
+  const [rememberAccount, setRememberAccount] = useState(false);
   const { remember, loginFast } = props;
+  const validationObject = { password: Yup.string().required("Mật khẩu không được để trống !!") }
+  const validationSchema = Yup.object().shape(
+    !loginFast ? {
+      ...validationObject, emailOrPhone: Yup.string().required(
+        "Email hoặc số điện thoại không được để trống !!"
+      )
+    } : rememberAccount ? {} : validationObject);
   const {
     handleSubmit,
     register,
@@ -31,11 +33,37 @@ function FormLogin(props) {
   return (
     <form className="w-full bg-white p-2.5" onSubmit={handleSubmit(async (data) => {
       const result = await api(`users/check/login`, 'POST', {
-        emailOrPhone: data.emailOrPhone,
+        emailOrPhone: loginFast ? loginFast.emailOrPhone : data.emailOrPhone,
         password: data.password
       }, {});
-      if (result.data) {
+      if (result.data.users) {
         localStorage.setItem('user', result.data.token);
+        let accountList = [];
+        if (localStorage && localStorage.getItem("accountList")) {
+          if (Array.isArray(JSON.parse(localStorage.getItem("accountList")))) {
+            accountList = JSON.parse(localStorage.getItem("accountList"));
+          }
+        }
+        const index = [...accountList].findIndex(dt => dt.id === result.data.users.id);
+        if (index === -1) {
+          localStorage.setItem("accountList", JSON.stringify([...accountList, {
+            avatar: result.data.users.avatar, id: result.data.users.id, emailOrPhone: data.emailOrPhone,
+            firstName: result.data.users.firstName, lastName: result.data.users.lastName, token: result.data.token
+          }]));
+          localStorage.setItem("saveInHome", true);
+        }
+        if (rememberAccount) {
+          let rememberAccountList = [];
+          if (localStorage && localStorage.getItem("rememberAccountList")) {
+            if (Array.isArray(JSON.parse(localStorage.getItem("rememberAccountList")))) {
+              rememberAccountList = JSON.parse(localStorage.getItem("rememberAccountList"));
+            }
+          }
+          localStorage.setItem("rememberAccountList", JSON.stringify([...rememberAccountList, {
+            avatar: result.data.users.avatar, id: result.data.users.id, emailOrPhone: data.emailOrPhone,
+            firstName: result.data.users.firstName, lastName: result.data.users.lastName, token: result.data.token
+          }]));
+        }
         dispatch(usersAction.loginUser(result.data.users));
         dispatch({
           type: "UPDATE_TOKEN",
@@ -47,11 +75,13 @@ function FormLogin(props) {
     })} >
       {loginFast ? <div className="w-full flex flex-col justify-center p-3">
         <img
-          src="http://res.cloudinary.com/tratahuong01/image/upload/v1623289152/Avatar/d5peo862j01zy9btpuee.jpg"
+          src={loginFast.avatar}
           className="w-48 mx-auto object-cover h-48 rounded-full"
           alt=""
         />
-        <p className="font-semibold text-xl text-center mt-2">Trà Hưởng</p>
+        <p className="font-semibold text-xl text-center mt-2">
+          {`${loginFast.firstName} ${loginFast.lastName}`}
+        </p>
       </div> :
         <InputComponent
           type="text"
@@ -68,12 +98,14 @@ function FormLogin(props) {
         placeholder="Mật Khẩu"
         className={`border rounded-md p-3 my-2 ${errors.emailOrPhone ? "border-red-500 text-red-500" : "border-gray-200 "}`}
         register={register}
-        error={errors['emailOrPhone']}
+        error={errors['password']}
       />
       {user === null ? <p className="text-red-500 py-2 text-sm">Tài khoản hoặc mật khẩu không chính xác!!</p> : ''}
       {remember &&
         <div className="w-full my-3 px-3 flex items-center">
-          <input type="checkbox" className="transform scale-130 mr-2" />
+          <input type="checkbox" checked={rememberAccount} onChange={(event) => {
+            setRememberAccount(event.target.checked)
+          }} className="transform scale-130 mr-2" />
           <span>Nhớ tài khoản</span>
         </div>
       }

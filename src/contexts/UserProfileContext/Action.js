@@ -2,7 +2,7 @@ import api from "../../api/api";
 import * as constants from "./Constant";
 
 export const loadUserProfileRequest = async (dispatch, actions, id) => {
-    const result = await api(`users?id=${id}`, 'GET', null, {});
+    const result = await api(`users/id?id=${id}`, 'GET', null, {});
     if (result.data) {
         dispatch(actions.updateData("userProfile", result.data));
     }

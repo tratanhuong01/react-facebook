@@ -17,8 +17,8 @@ export default function ControlMessage(props) {
             socket: state.socket
         }
     });
-    const { dataMessage, setDataMessage, mini, messages, setMessages, chatter, choose,
-        setGroupMessage, item, setChoose, setMembers } = props;
+    const { dataMessage, setDataMessage, mini, messages, setMessages, choose,
+        setGroupMessage, item, setChoose, setMembers, members } = props;
     const groupMessage = props.groupMessage ? props.groupMessage : { color: "#ccc" }
     const refContent = useRef();
     const refPopover = useRef();
@@ -100,11 +100,17 @@ export default function ControlMessage(props) {
         refContent.current.innerText = "";
         setDataMessage({ type: 0, value: null, content: "" });
         if (groupMessage.id) {
-            socket.emit(`sendMessage`, result.data);
-            socket.emit(`sendMessageOnline`, { send: user, receive: chatter });
+            for (let index = 0; index < members.length; index++) {
+                socket.emit(`sendMessage`, result.data);
+                socket.emit(`sendMessageOnline`, { send: user, receive: members[index] });
+            }
         }
         else {
             setGroupMessage(newGroupMessage.data);
+            for (let index = 0; index < members.length; index++) {
+                socket.emit(`sendMessage`, result.data);
+                socket.emit(`sendMessageOnline`, { send: user, receive: members[index] });
+            }
         }
     }
     //

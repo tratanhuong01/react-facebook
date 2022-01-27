@@ -16,7 +16,8 @@ export default function WrapperItemChat(props) {
                 {props.children}
                 <ControlMessage groupMessage={groupMessage} dataMessage={dataMessage} messages={messages} setMembers={setMembers}
                     setDataMessage={setDataMessage} mini={mini} setMessages={setMessages} chatter={item}
-                    choose={choose} setGroupMessage={setGroupMessage} item={item} setChoose={setChoose} />
+                    choose={choose} setGroupMessage={setGroupMessage} item={item} setChoose={setChoose}
+                    members={members} />
             </div>
         </div>
     )

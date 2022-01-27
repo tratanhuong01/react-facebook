@@ -5,6 +5,9 @@ import ItemAccount from "./ItemAccount/ItemAccount";
 AccountIsset.propTypes = {};
 
 function AccountIsset(props) {
+  //
+  const { list, setList } = props;
+  //
   return (
     <div className="w-full">
       <span className="text-3xl font-semibold text-1877F2">
@@ -16,7 +19,7 @@ function AccountIsset(props) {
           Nhấp vào ảnh của bạn hoặc thêm tài khoản.
         </p>
         <div className="w-full flex flex-wrap">
-          <ItemAccount />
+          {list.map((item, index) => <ItemAccount item={item} key={index} setList={setList} list={list} />)}
           <AddAccount />
         </div>
       </div>

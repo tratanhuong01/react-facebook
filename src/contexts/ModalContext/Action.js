@@ -28,7 +28,7 @@ export const loadingModal = (status) => {
 export const openModalLogin = (loginFast) => {
     return {
         type: constants.OPEN_MODAL_LOGIN,
-        loginFast
+        loginFast,
     }
 }
 

@@ -28,11 +28,11 @@ export default function WrapperPage(props) {
                 if (ref.current) {
                     ref.current.classList = "";
                 }
-                dispatch(usersAction.loginUserRequest());
+                dispatch(usersAction.loginUserRequest(null, navigation));
             }
         }
         else {
-            if (!login)
+            if (!login || user === false)
                 navigation(PAGE_LOGIN);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
