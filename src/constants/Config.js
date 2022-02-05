@@ -4,9 +4,9 @@ export const REGEX_EMAIL = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0
 export const REGEX_PHONE = /^(\+91-|\+91|0)?\d{10}$/;
 
 //
-export const API_URL = "http://localhost:3333";
+export const API_URL = "https://api-react-facebook.herokuapp.com";
 //
-export const SERVER_NODE = "http://localhost:4444";
+export const SERVER_NODE = "https://server-react-facebook.herokuapp.com";
 //
 export const NAME_APP = "Ensonet";
 //
