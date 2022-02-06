@@ -78,7 +78,7 @@ function ModalRegister(props) {
             lastName: data.lastName,
             birthday: '2021-12-29 14:57:49.728',
             gender: data.gender,
-            isOnline: 0,
+            isOnline: 1,
             isTick: 0,
             password: data.password,
             avatar: "https://res.cloudinary.com/ensonet-dev/image/upload/v1641124176/default-avatar_leprc2.png",
@@ -94,7 +94,8 @@ function ModalRegister(props) {
           if (result.data) {
             const id = result.data.id;
             const emailOrPhone = REGEX_EMAIL.test(data.emailOrPhone) ? 'email' : 'phone';
-            result = await api(`send/code/${emailOrPhone}?${emailOrPhone}=${data.emailOrPhone}`, 'POST', null, {});
+            const main = emailOrPhone === "phone" ? `+84${data.emailOrPhone.substring(1)}` : data.emailOrPhone;
+            result = await api(`send/code/${emailOrPhone}?${emailOrPhone}=${main}`, 'POST', null, {});
             result = await api(`users/generate/jwt`, 'POST', {
               emailOrPhone: data.emailOrPhone,
               time: 3600,

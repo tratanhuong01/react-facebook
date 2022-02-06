@@ -1,11 +1,10 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import HeaderLogged from '../components/Header/HeaderLogged/HeaderLogged'
 import ItemChat from '../components/ItemChat/ItemChat'
 import ItemChatMinize from '../components/ItemChatMinize/ItemChatMinize'
 import { PAGE_CALL } from '../constants/Config'
-import { ModalContext } from '../contexts/ModalContext/ModalContext'
 import WrapperPage from './WrapperPage'
 // import sound from "../assets/sound/sound.mp3";
 import * as userChatsAction from "../actions/userChat/index";
@@ -22,11 +21,6 @@ export default function WrapperLogged(props) {
         }
     });
     const navigation = useNavigate();
-    const { modalsDispatch, modalsAction } = useContext(ModalContext);
-    useEffect(() => {
-        modalsDispatch(modalsAction.closeModal());
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
     useEffect(() => {
         const handleEventCallVideo = () => {
             navigation(PAGE_CALL);

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function ButtonComponent(props) {
     //
-    const { link, className, type, disabled, handleClick, bgColor } = props;
+    const { link, className, type, disabled, handleClick, bgColor, loading } = props;
     const ref = useRef();
     useEffect(() => {
         //
@@ -22,10 +22,14 @@ export default function ButtonComponent(props) {
                 {props.children}
             </Link>)
             :
-            (<button type={type} onClick={() => typeof handleClick === "function" && !disabled ? handleClick() :
-                ""} className={`${className} border-solid cursor-pointer 
+            (<button type={type} onClick={() => {
+                if (typeof handleClick === "function" && !disabled) {
+                    handleClick();
+                }
+            }} className={`${className} border-solid cursor-pointer 
             ${disabled ? 'cursor-not-allowed bg-gray-500 text-gray-100' : bgColor} `} disabled={disabled}>
-                {props.children}
+                {loading ? <span className='text-white bx bx-shape-circle fa-spin'></span>
+                    : props.children}
             </button>)
     )
 }

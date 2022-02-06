@@ -1,39 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent'
 import InputComponent from '../../components/InputComponent/InputComponent'
-import { PAGE_LOGIN, REGEX_EMAIL } from '../../constants/Config'
+import { PAGE_LOGIN, PAGE_TYPE_NEW_PASSWORD, REGEX_EMAIL } from '../../constants/Config'
 import WrapperAuthenination from '../WrapperAuthenination'
-import jwt_decode from "jwt-decode";
 import api from '../../api/api'
 import { useDispatch } from 'react-redux'
 import * as usersAction from "../../actions/user/index";
+import useAuthenication from '../../hooks/useAuthenication'
 
 export default function VerifyCodeAccount(props) {
     //
     const dispatch = useDispatch();
-    const navigation = useNavigate();
     const { verifyAccountNew } = props;
-    const [token, setToken] = useState();
-    const params = new URLSearchParams(window.location.search);
     const [code, setCode] = useState("");
     const [error, setError] = useState(null);
-    useEffect(() => {
-        //
-        try {
-            const token = params.get("token");
-            const tokenParse = jwt_decode(token);
-            if (tokenParse.exp < (new Date()).getTime()) {
-                setToken(tokenParse);
-            }
-            else {
-                navigation(PAGE_LOGIN)
-            }
-        } catch (error) {
-            navigation(PAGE_LOGIN)
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    const [loading, setLoading] = useState(false);
+    const { token, tokenPrevious } = useAuthenication();
+    const navigation = useNavigate();
     //
     return (
         <WrapperAuthenination title={verifyAccountNew ? 'Xác thực tài khoản' : "Đặt lại mật khẩu của bạn"} hideFormLogin={true}>
@@ -61,37 +45,48 @@ export default function VerifyCodeAccount(props) {
                     Bạn chưa có mã?
                 </Link>
                 <div className="">
-                    <ButtonComponent link={""} className="px-4 font-semibold mr-3 py-2.5 rounded-lg bg-gray-300 text-gray-800">
+                    <ButtonComponent link={PAGE_LOGIN} className="px-4 font-semibold mr-3 py-2.5 rounded-lg bg-gray-300 text-gray-800">
                         Huỷ
                     </ButtonComponent>
-                    <ButtonComponent handleClick={async () => {
-                        if (code === "") {
-                            setError("Mã xác nhận không được trống !!");
-                        }
-                        else if (code !== token.aud) {
-                            setError("Mã xác nhận không chính xác !!");
-                        }
-                        else {
-                            setError(null);
-                            if (token) {
-                                let result = await api(`users?id=${token.jti}`, "GET", {}, {});
-                                if (result.data) {
-                                    if (REGEX_EMAIL.test(token.sub)) {
-                                        result.data.codeEmail = token.aud;
-                                    }
-                                    else {
-                                        result.data.codePhone = token.aud;
-                                    }
-                                    await api(`users`, 'PUT', result.data, {});
-                                    result = await api(`users/generate/login/id/jwt?id=${token.jti}`, 'POST', null, {});
+                    <ButtonComponent
+                        loading={loading} disabled={loading} handleClick={async () => {
+                            let unmounted = false;
+                            setLoading(true);
+                            if (code === "")
+                                setError("Mã xác nhận không được trống !!");
+
+                            else if (code !== token.aud)
+                                setError("Mã xác nhận không chính xác !!");
+                            else {
+                                setError(null);
+                                if (token) {
+                                    let result = await api(`users/id?id=${token.jti}`, "GET", {}, {});
                                     if (result.data) {
-                                        localStorage.setItem('user', result.data.token);
-                                        dispatch(usersAction.loginUserRequest());
+                                        if (verifyAccountNew) {
+                                            if (REGEX_EMAIL.test(token.sub)) {
+                                                result.data.codeEmail = token.aud;
+                                            }
+                                            else {
+                                                result.data.codePhone = token.aud;
+                                            }
+                                            await api(`users`, 'PUT', result.data, {});
+                                            result = await api(`users/generate/login/id/jwt?id=${token.jti}`, 'POST', null, {});
+                                            if (result.data) {
+                                                localStorage.setItem('user', result.data.token);
+                                                dispatch(usersAction.loginUserRequest(result.data.token));
+                                            }
+                                        }
+                                        else {
+                                            navigation(PAGE_TYPE_NEW_PASSWORD + `?token=${tokenPrevious}`);
+                                        }
                                     }
                                 }
                             }
-                        }
-                    }} className="px-4 py-2 mr-5 rounded-lg bg-main text-white">
+                            if (!unmounted) setLoading(false);
+                            return () => {
+                                unmounted = true;
+                            }
+                        }} className="px-4 py-2 mr-5 rounded-lg bg-main text-white">
                         Tiếp tục
                     </ButtonComponent>
                 </div>

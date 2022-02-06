@@ -9,7 +9,7 @@ import 'moment/locale/vi';
 export default function WrapperPage(props) {
     //
     const { white, login } = props;
-    const { modals } = useContext(ModalContext);
+    const { modals, modalsDispatch, modalsAction } = useContext(ModalContext);
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
     const ref = useRef();
@@ -37,6 +37,11 @@ export default function WrapperPage(props) {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [modals.data, user]);
+    useEffect(() => {
+        //
+        modalsDispatch(modalsAction.closeModal());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     //
     return (
         <div className='' id='main__logged' ref={ref}>

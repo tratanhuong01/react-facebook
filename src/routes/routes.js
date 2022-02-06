@@ -36,6 +36,11 @@ const routes = [
     element: <RecoverAccount />
   },
   {
+    path: Config.PAGE_RECOVER_ACCOUNT_VERIFY,
+    exact: true,
+    element: <RecoverAccount verify={true} />
+  },
+  {
     path: Config.PAGE_VERIFY_CODE_ACCOUNT_RECOVER,
     exact: true,
     element: <VerifyCodeAccount verifyAccountNew={false} />

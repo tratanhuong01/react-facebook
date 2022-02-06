@@ -6,6 +6,7 @@ import { PAGE_CREATE_STORY } from '../../../../constants/Config';
 import { UserProfileContext } from '../../../../contexts/UserProfileContext/UserProfileContext';
 import ButtonComponent from '../../../ButtonComponent/ButtonComponent';
 import ButtonRelationshipUser from './ButtonRelationshipUser/ButtonRelationshipUser';
+import * as StringUtils from "../../../../utils/StringUtils";
 
 export default function RelationshipUserStatus(props) {
     //
@@ -46,6 +47,36 @@ export default function RelationshipUserStatus(props) {
                 'PUT', null, headers);
             await api(`userRelationships?idUserProfile=${user.id}&idUserMain=${userProfile.id}&status=${status}`,
                 'PUT', null, headers);
+            const idGroupMessage = StringUtils.generateString(user, userProfile);
+            const checkGroupIsset = await api(`groupMessages/check`, 'POST', { string: idGroupMessage }, headers);
+            if (checkGroupIsset.data) {
+
+            }
+            else {
+                const groupMessage = await api("groupMessages", 'POST', {
+                    id: null,
+                    nameGroupMessage: null,
+                    theme: null,
+                    color: "#ccc",
+                    userGroupMessage: user,
+                    emoji: "🙆‍♂️",
+                    queryGroupMessage: idGroupMessage,
+                    typeGroupMessage: 0,
+                    timeCreated: null,
+                }, headers);
+                const object = {
+                    id: null,
+                    userMessage: null,
+                    groupMessageMessage: groupMessage.data,
+                    content: null,
+                    dataMessage: JSON.stringify({}),
+                    replyMessage: null,
+                    typeMessage: -1,
+                    timeCreated: null,
+                }
+                await api(`messages`, 'POST', { ...object, userMessage: user }, headers);
+                await api(`messages`, 'POST', { ...object, userMessage: userProfile }, headers);
+            }
             setUserRelationship({ ...userRelationship, status });
         }
     }
