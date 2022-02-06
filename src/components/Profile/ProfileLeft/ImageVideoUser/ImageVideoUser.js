@@ -26,8 +26,8 @@ export default function ImageVideoUser() {
         return () => {
             unmounted = true;
         }
-        //
-    }, [user, setImageVideos])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user, setImageVideos, headers])
     //
     return (
         <>

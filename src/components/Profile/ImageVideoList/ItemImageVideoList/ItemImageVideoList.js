@@ -11,7 +11,7 @@ export default function ItemImageVideoList(props) {
             case 0:
                 data = <>
                     <img src={imageVideo.src}
-                        className="w-full max-h-148 h-full object-cover" />
+                        className="w-full max-h-148 h-full object-cover" alt='' />
                 </>
                 break;
             case 1:

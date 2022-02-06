@@ -16,7 +16,7 @@ export default function WrapperAuthenination(props) {
         if (user) {
             navigation(PAGE_HOME);
         }
-        //
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user])
     //
     return (
