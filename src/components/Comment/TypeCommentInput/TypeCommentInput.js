@@ -102,7 +102,7 @@ export default function TypeCommentInput(props) {
             <div className="w-full mx-0 my-2 flex relative">
                 <img className="w-12 h-12 p-0.5 object-cover rounded-full border-2 border-solid"
                     src={user.avatar}
-                    alt="" srcSet="" />
+                    alt="" />
                 <div className=" ml-2 relative bg-gray-100 dark:bg-dark-third overflow-hidden rounded-full" style={{ width: "calc(100% - 54px)" }}>
                     <div ref={refContent} onInput={(event) => {
                         setDataComment({ ...dataComment, content: event.currentTarget.textContent })
