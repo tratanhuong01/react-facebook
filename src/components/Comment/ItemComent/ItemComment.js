@@ -58,7 +58,7 @@ export default function ItemComment(props) {
             <Link to="">
                 <img className="w-12 h-12 p-0.5 mt-2 object-cover rounded-full"
                     src={commentPost.commentPost.userCommentPost.avatar}
-                    alt="" srcSet="" loading='lazy'
+                    alt="" loading='lazy'
                 />
             </Link>
             <div className="relative main-comment" style={{ width: "calc(100% - 54px)" }}>

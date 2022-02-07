@@ -50,7 +50,7 @@ export default function HeaderLoggedLeft() {
             {show && <div className="w-11/12 dark:bg-dark-second bg-gray-100 absolute -top-1 -left-3 flex z-30
             flex-wrap shadow-lg" >
                 <div className="w-full h-16 flex">
-                    <div handleClick={() => setShow(false)} className="w-11 h-11 rounded-full text-center items-center pt-1 mt-1 cursor-pointer ml-1 ">
+                    <div onClick={() => setShow(false)} className="w-11 h-11 rounded-full text-center items-center pt-1 mt-1 cursor-pointer ml-1 ">
                         <i className="bx bxs-left-arrow-alt text-3xl dark:text-gray-300"></i>
                     </div>
                     <div className="mt-1 pl-1">

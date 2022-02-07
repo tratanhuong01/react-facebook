@@ -124,6 +124,7 @@ function FormLogin(props) {
       }
       <ButtonComponent
         loading={loading}
+        disabled={loading}
         className="mx-auto w-full p-3 my-2.5 border-none rounded-md bg-main text-sm text-white font-semibold"
         type="submit"
       >
