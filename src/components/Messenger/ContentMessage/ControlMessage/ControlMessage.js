@@ -153,7 +153,7 @@ export default function ControlMessage(props) {
                 <span onClick={() => sendMessage({ type: 0, value: "", content: groupMessage.emoji })}
                     className="cursor-pointer zoom text-xl flex items-center">{groupMessage.emoji}</span>
             </div>
-            {item.new && <div className='w-full absolute opacity-50 top-0 left-0 z-50' style={{ height: 66 }}>
+            {item && item.new && <div className='w-full absolute opacity-50 top-0 left-0 z-50' style={{ height: 66 }}>
 
             </div>}
         </div>

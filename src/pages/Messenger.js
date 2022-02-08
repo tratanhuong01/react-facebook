@@ -12,6 +12,7 @@ import WrapperLogged from './WrapperLogged'
 
 const WrapperMessenger = (props) => {
     //
+    const { loadMessage } = props;
     const { user, headers } = useSelector((state) => {
         return {
             user: state.user,
@@ -73,11 +74,21 @@ const WrapperMessenger = (props) => {
             </div>
             <div className="w-full md:w-7/12 xl:w-3/4 flex h-full border-x-2 border-solid border-gray-100 
             dark:border-dark-second z-40">
-                {right && groupMessage && usersList && <>
-                    <ContentChat />
+                {right && groupMessage && usersList ? <>
+                    <ContentChat loadMessage={loadMessage} />
                     <SettingMessage groupMessage={groupMessage} setGroupMessage={(groupMessage) =>
-                        messengersDispatch(messengersAction.updateData('groupMessage', groupMessage))} />
-                </>}
+                        messengersDispatch(messengersAction.updateData('groupMessage', groupMessage))}
+                        usersList={usersList} />
+                </> :
+                    <div className={`w-full h-full flex justify-center items-center`}>
+                        <div className='w-11/12 md:w-2/3 lg:w-5/12 xl:w-30% text-center mx-auto'>
+                            <img src="https://static.xx.fbcdn.net/rsrc.php/yN/r/MnQWcWb6SrY.svg" alt=''
+                                className='w-32 object-cover mx-auto' />
+                            <p className='font-bold text-xl'>
+                                Chạm để xem tin nhắn
+                            </p>
+                        </div>
+                    </div>}
             </div>
         </div>
     )
@@ -91,7 +102,7 @@ const ContentChat = (props) => {
     //
     return (
         <div className="w-full z-50 xl:w-2/3 h-full max-h-full overflow-hidden flex flex-col">
-            <ContentMessageTop item={usersList[0]} groupMessage={groupMessage} />
+            <ContentMessageTop item={usersList[0]} groupMessage={groupMessage} members={usersList} />
             <MainContentMessage messages={right} item={usersList[0]} groupMessage={groupMessage} />
             <ControlMessage groupMessage={groupMessage} dataMessage={dataMessage} messages={right}
                 setDataMessage={setDataMessage} setMessages={(right) =>
@@ -102,11 +113,12 @@ const ContentChat = (props) => {
 
 export default function Messenger(props) {
     //
+    const { loadMessage } = props;
     //
     return (
         <WrapperLogged hideChat={true} hideMessage={true}>
             <MessengerProvider>
-                <WrapperMessenger>
+                <WrapperMessenger loadMessage={loadMessage}>
 
                 </WrapperMessenger>
             </MessengerProvider>

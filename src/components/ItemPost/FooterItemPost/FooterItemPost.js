@@ -25,7 +25,9 @@ export default function FooterItemPost(props) {
             if (unmounted) return;
             setFeel(result.data);
         }
-        fetch();
+        if (headers.Authorization) {
+            fetch();
+        }
         const handleEvent = (data) => {
             if (data) {
                 if (data.userFeelPost.id !== user.id) {
@@ -45,7 +47,7 @@ export default function FooterItemPost(props) {
             unmounted = true;
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [headers])
     //
     return (
         <>

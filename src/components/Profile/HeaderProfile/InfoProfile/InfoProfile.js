@@ -19,8 +19,8 @@ export default function InfoProfile(props) {
                 <span className='mx-1'>•</span>
                 <span></span>
             </p>
-            <div className="w-full flex justify-between items-center">
-                <div className="flex pl-2 my-1">
+            <div className="w-full flex flex-col md:flex-row justify-between items-center">
+                <div className="flex pl-2 my-1 w-full md:w-auto">
                     <img className="w-10 h-10 border-2 border-solid border-white dark:border-dark-third 
                                     relative z-30 -ml-2 rounded-full object-cover"
                         src="http://res.cloudinary.com/tratahuong01/image/upload/v1638973763/Avatar/kxqbimjteg5ka9cbqh6y.jpg"

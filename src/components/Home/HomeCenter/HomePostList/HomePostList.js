@@ -18,7 +18,7 @@ export default (function HomePostList(props) {
         //
         let unmounted = false;
         const fetch = async (index) => {
-            const result = await api(`posts/home/${user.id}?offset=${index}&limit=2`, "GET", null, headers);
+            const result = await api(`posts/home/${user.id}?offset=${index}&limit=10`, "GET", null, headers);
             if (unmounted) return;
             setPostDetais([...postDetails].concat(result.data));
         }

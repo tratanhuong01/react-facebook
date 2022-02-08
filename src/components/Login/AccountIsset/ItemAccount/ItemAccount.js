@@ -64,7 +64,7 @@ function ItemAccount(props) {
   //
   return (
     <div
-      className="w-1/4 mr-5 mt-5 relative border border-solid relative border-gray-300 hover:shadow-main cursor-pointer"
+      className="w-1/3 md:w-1/4 mr-5 mt-5 relative border border-solid relative border-gray-300 hover:shadow-main cursor-pointer"
     >
       <img
         ref={refMain}

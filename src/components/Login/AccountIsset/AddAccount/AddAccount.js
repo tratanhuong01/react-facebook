@@ -10,7 +10,7 @@ function AddAccount(props) {
   return (
     <div
       onClick={() => modalsDispatch(modalsAction.openModalLogin())}
-      className="w-1/4 mr-5 relative border mt-5 border-solid border-gray-200 
+      className="w-1/3 md:w-1/4 mr-5 relative border mt-5 border-solid border-gray-200 
     hover:shadow-main cursor-pointer"
     >
       <div className="w-full mx-auto relative h-40 bg-gray-200">

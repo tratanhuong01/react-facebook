@@ -34,7 +34,7 @@ export default function ContentMessageTop(props) {
     //
     return (
         <div className={`w-full ${mini ? 'py-1' : ' pt-3 '} flex shadow items-center`}>
-            {!item.new && groupMessage.id ? <>
+            {!item.new && groupMessage.id && members ? <>
                 <div className={`w-2/3 ${mini ? 'pl-1' : 'pl-3'} flex items-center`}>
                     {groupMessage.typeGroupMessage === 0 && members.length === 1 ? <div onClick={() => setShow(!show)} className="cursor-pointer">
                         <div className={`${mini ? 'w-9 h-9' : 'xl:w-10 xl:h-10 w-16 h-16'} my-2  object-cover rounded-full 

@@ -30,17 +30,23 @@ const ItemSetting = (props) => {
 
 export default function SettingMessage(props) {
     //
+    const { groupMessage, usersList } = props;
     //
     return (
         <div className="w-1/3 hidden xl:block pr-2 wrapper-content-right shadow-xl h-full overflow-y-auto">
             <div className="w-full mt-2">
-                <div className="xl:w-16 xl:h-16 my-2  object-cover rounded-full 
-                mx-auto relative w-16 h-16">
-                    <img src="http://res.cloudinary.com/tratahuong01/image/upload/v1627385490/Messenger/AvatarUpdate/1000000025.jpg"
-                        alt="" className="xl:w-16 xl:h-16 rounded-full object-cover mx-auto w-16 h-16" />
-                    <span className="w-3.5 h-3.5 rounded-full bg-green-500 absolute bottom-0 right-0.5"></span>
-                </div>
-                <p className="font-semibold text-center dark:text-white">Tuấn Tiền Tỉ</p>
+                {usersList.length > 0 && groupMessage.typeGroupMessage === 1 ? "loading" :
+                    <>
+                        <div className="xl:w-16 xl:h-16 my-2  object-cover rounded-full 
+                        mx-auto relative w-16 h-16">
+                            <img src={usersList[0].avatar}
+                                alt="" className="xl:w-16 xl:h-16 rounded-full object-cover mx-auto w-16 h-16" />
+                            <span className="w-3.5 h-3.5 rounded-full bg-green-500 absolute bottom-0 right-0.5"></span>
+                        </div>
+                        <p className="font-semibold text-center dark:text-white">
+                            {`${usersList[0].firstName} ${usersList[0].lastName}`}
+                        </p>
+                    </>}
                 <p className="font-semibold text-center text-sm text-gray-600 dark:text-gray-300">Đang hoạt động</p>
             </div>
             <ul className="w-full py-2">

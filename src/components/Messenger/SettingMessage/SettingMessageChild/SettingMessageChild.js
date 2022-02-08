@@ -1,15 +1,20 @@
 import React, { useContext } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { PAGE_MESSENGER } from '../../../../constants/Config';
 import { ModalContext } from '../../../../contexts/ModalContext/ModalContext';
 
 export default function SettingMessageChild(props) {
     //
+    const navigation = useNavigate();
     const { hide, item, groupMessage, setGroupMessage } = props;
     const { modalsDispatch, modalsAction } = useContext(ModalContext);
     //
     return (
         <li className="w-full py-1 ">
             <ul className="w-full">
-                {hide && <li className="w-full py-2.5 px-4 rounded-lg hover:bg-gray-200 dark:hover:bg-dark-third 
+                {hide && <li onClick={() => {
+                    navigation(`${PAGE_MESSENGER}/${groupMessage ? groupMessage.queryGroupMessage : ""}`)
+                }} className="w-full py-2.5 px-4 rounded-lg hover:bg-gray-200 dark:hover:bg-dark-third 
                 py-2 px-2 font-semibold cursor-pointer dark:text-white flex">
                     <div className="flex justity-center w-8">
                         <span className="bx bxl-messenger text-xm dark:text-white flex items-center"></span>

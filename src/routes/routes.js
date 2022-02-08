@@ -96,6 +96,11 @@ const routes = [
     element: <Messenger />
   },
   {
+    path: Config.PAGE_MESSENGER,
+    exact: true,
+    element: <Messenger loadMessage={false} />
+  },
+  {
     path: Config.PAGE_VIEW_POST + "/:id",
     exact: true,
     element: <ViewPost />

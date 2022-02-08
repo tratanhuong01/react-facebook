@@ -20,7 +20,7 @@ export default function ModalWrapper(props) {
     }, [refContainer, refLoading, modals.loading])
     //
     return (
-        <div ref={refContainer} className={`${className} shadow-lv1 `} style={{ width: 512 }}>
+        <div ref={refContainer} className={`${className} shadow-lv1 border-2 border-solid border-gray-200 `} style={{ width: 480 }}>
             <div className='w-full relative'>
                 <p className="text-2xl font-bold p-2.5 -mt-1.5 text-center dark:text-white">
                     {title}

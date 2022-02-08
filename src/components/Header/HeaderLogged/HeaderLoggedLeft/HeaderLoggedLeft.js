@@ -67,7 +67,7 @@ export default function HeaderLoggedLeft() {
                 <hr className="my-2" />
                 <div className="w-full">
                     <div className="w-full py-1">
-                        <div className="w-full hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer">
+                        <div className="w-full cursor-pointer">
                             {loading ? <div className='w-full flex items-center justify-center h-12'>
                                 <i className="fas fa-circle-notch text-2xl text-gray-500 mx-9 fa-spin"></i>
                             </div> :

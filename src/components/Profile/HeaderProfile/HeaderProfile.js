@@ -31,15 +31,15 @@ export default memo(function HeaderProfile() {
                             bg-black flex justify-center items-center" style={{ display: 'none' }}>
                                 <i className="fas fa-spinner fa-pulse text-5xl text-main"></i>
                             </div>
-                            <div className="z-40 p-1.5 bg-gray-50 absolute text-center rounded-lg bottom-3 right-3">
+                            <div className="z-40 p-1.5 bg-gray-50 absolute text-center rounded-lg bottom-3 right-10 md:right-3">
                                 <input type={'file'} className='hidden' id='changeCover' onChange={(event) => {
                                     if (event.target.files.length > 0) {
                                         setCover(event.target.files[0]);
                                     }
                                 }} />
                                 <label htmlFor="changeCover" className="flex items-center">
-                                    <i className="fas fa-camera text-2xl pl-1"></i>
-                                    <span className="hidden lg:inline pt-1 ml-2 text-sm font-semibold">Chỉnh sửa ảnh bìa</span>
+                                    <i className="fas fa-camera text-2xl md:pl-1"></i>
+                                    <span className="hidden lg:inline pt-1 lg:ml-2 text-sm font-semibold">Chỉnh sửa ảnh bìa</span>
                                 </label>
                             </div>
                         </>}

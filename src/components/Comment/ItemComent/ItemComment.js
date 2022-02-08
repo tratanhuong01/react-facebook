@@ -62,16 +62,16 @@ export default function ItemComment(props) {
                 />
             </Link>
             <div className="relative main-comment" style={{ width: "calc(100% - 54px)" }}>
-                <div ref={refText} className={`comment-per w-max relative p-2 ${commentPost.commentPost.typeComment !== 2 ? 'bg-gray-100' :
+                <div ref={refText} className={`comment-per dark:bg-dark-third w-max relative p-2 ${commentPost.commentPost.typeComment !== 2 ? 'bg-gray-100' :
                     ''} ml-1 relative rounded-lg`} style={{ maxWidth: "91%" }}>
                     <p><Link to="" className="font-semibold dark:text-white">
                         {`${commentPost.commentPost.userCommentPost.firstName} ${commentPost.commentPost.userCommentPost.lastName}`}
                     </Link></p>
                     {!commentPost.loading ? <>
-                        {commentPost.commentPost.content && <p>{commentPost.commentPost.content}</p>}
+                        {commentPost.commentPost.content && <p className='dark:text-gray-300'>{commentPost.commentPost.content}</p>}
                     </> : <i className="fas fa-circle-notch text-xs text-gray-500 mx-9 fa-spin"></i>}
                 </div>
-                {!commentPost.loading && <div className='my-0.5'>
+                {!commentPost.loading && <div className='my-0.5 '>
                     <ContentComment ref={refContentComment} commentPost={commentPost} />
                 </div>}
                 {!commentPost.loading && <ul className="flex pl-2 items-center font-semibold text-gray-800 dark:text-white text-xs">

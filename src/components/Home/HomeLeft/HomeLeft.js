@@ -2,9 +2,12 @@ import React, { useState } from 'react'
 import ItemHomeLeft from './ItemHomeLeft/ItemHomeLeft'
 import categories from './categories'
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { PAGE_PROFILE } from '../../../constants/Config';
 
 export default function HomeLeft() {
     //
+    const navigation = useNavigate();
     const [loading, setLoading] = useState(false);
     const user = useSelector((state) => state.user);
     const [length, setLength] = useState(Math.floor(categories.length / 2) + 1);
@@ -14,7 +17,7 @@ export default function HomeLeft() {
             <div className="pl-1.5 h-full w-4/6 overflow-x-hidden overflow-y-auto 
                 xl:w-full">
                 <ul className="w-full left-category">
-                    <li className="cursor-pointer flex p-2.5 hover:bg-gray-200 font-bold 
+                    <li onClick={() => navigation(`${PAGE_PROFILE}/${user.id}`)} className="cursor-pointer flex p-2.5 hover:bg-gray-200 font-bold 
                     cursor-pointer dark:hover:bg-dark-third rounded-lg">
                         <img className="w-11 h-11 rounded-full object-cover mr-4"
                             src={user.avatar}
@@ -25,7 +28,7 @@ export default function HomeLeft() {
                     </li>
                     {categories.slice(0, length).map(
                         (category) => (<ItemHomeLeft image={category.image} label={category.label}
-                            key={category.id} />)
+                            key={category.id} link={category.link} />)
                     )}
                     <li onClick={() => {
                         setLoading(true);

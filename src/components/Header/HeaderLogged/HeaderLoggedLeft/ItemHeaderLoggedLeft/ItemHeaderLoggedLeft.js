@@ -7,7 +7,8 @@ export default function ItemHeaderLoggedLeft(props) {
     const navigation = useNavigate();
     const { item } = props;
     //
-    return <ul onClick={() => navigation(PAGE_PROFILE + "/" + item.id)} className="w-full relative flex py-2">
+    return <ul onClick={() => navigation(PAGE_PROFILE + "/" + item.id)}
+        className="w-full relative flex py-2 hover:bg-gray-200 dark:hover:bg-dark-third">
         <li className="pl-3">
             <img className="w-11 h-11 object-cover rounded-full p-0.5"
                 src={item.avatar} alt="" />

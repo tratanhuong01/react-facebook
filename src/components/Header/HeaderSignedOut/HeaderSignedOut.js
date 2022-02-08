@@ -15,7 +15,7 @@ export default function HeaderSignedOut(props) {
                 Facebook <br />
             </span>
             {!hideFormLogin &&
-                <div className="w-2/3 gap-3 items-center flex justify-end mr-5">
+                <div className="hidden w-2/3 gap-3 items-center lg:flex justify-end mr-5">
                     <InputComponent type="text" name="emailOrPhone" className="p-2 border border-gray-300 rounded-lg"
                         width={"w-48"} placeholder={`Email hoặc điện thoại`} />
                     <InputComponent type="password" name="password" className="p-2 border border-gray-300 rounded-lg"

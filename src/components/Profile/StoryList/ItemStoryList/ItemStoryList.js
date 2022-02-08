@@ -6,7 +6,7 @@ export default function ItemStoryList(props) {
     const { story } = props;
     //
     return (
-        <div className="w-1/5 relative story-picVid">
+        <div className="w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 relative story-picVid">
             <div className="p-2.5 my-2" style={{ height: 284 }}>
                 <Link to="">
                     <img className="bg-gray-300"

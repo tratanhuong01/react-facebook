@@ -33,7 +33,7 @@ export default forwardRef(function CategoryInputComment(props, ref) {
     //
     return (
         <>
-            <div className="absolute pr-3 transform -translate-y-1/2 top-1/2 right-0">
+            <div className="absolute transform -translate-y-1/2 top-1/2 mr-3 right-2">
                 <ul className="flex relative items-center">
                     <li onClick={(event) => handleClick(1, event)} className=" w-9 h-9 rounded-full hover:bg-gray-200 dark:hover:bg-dark-second cursor-pointer 
                     flex items-center justify-center -ml-1.5">
@@ -55,7 +55,8 @@ export default forwardRef(function CategoryInputComment(props, ref) {
                         flex items-center justify-center -ml-1.5">
                             <i className="fas fa-radiation dark:text-white text-gray-600"></i>
                         </li>
-                        <li onClick={(event) => handleClick(0, event)} className="w-9 h-9 rounded-full hover:bg-gray-200 dark:hover:bg-dark-second cursor-pointer 
+                        <li onClick={(event) => handleClick(0, event)}
+                            className="w-9 h-9 rounded-full hover:bg-gray-200 dark:hover:bg-dark-second cursor-pointer 
                         flex items-center justify-center -ml-1.5">
                             <i className="far fa-sticky-note dark:text-white text-gray-600"></i>
                         </li>

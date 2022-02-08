@@ -19,7 +19,7 @@ function AccountIsset(props) {
           Nhấp vào ảnh của bạn hoặc thêm tài khoản.
         </p>
         <div className="w-full flex flex-wrap">
-          {list.map((item, index) => <ItemAccount item={item} key={index} setList={setList} list={list} />)}
+          {list.slice(0, 5).map((item, index) => <ItemAccount item={item} key={index} setList={setList} list={list} />)}
           <AddAccount />
         </div>
       </div>

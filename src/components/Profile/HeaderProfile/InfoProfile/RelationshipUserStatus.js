@@ -98,7 +98,7 @@ export default function RelationshipUserStatus(props) {
     }, [userProfile]);
     //
     return (
-        <div className="flex justify-end items-center">
+        <div className="flex md:justify-end justify-start items-center w-full md:w-auto">
             {((!userRelationship && userProfile.id !== user.id)) && <>
                 <ButtonRelationshipUser handleClick={(status) => process(status)} status={1} blue={false}
                     icon="bx bxs-user-plus" label={"Thêm bạn bè"} show={true} >

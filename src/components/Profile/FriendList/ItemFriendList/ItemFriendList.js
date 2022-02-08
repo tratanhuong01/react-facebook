@@ -7,7 +7,7 @@ export default function ItemFriendList(props) {
     //
     return (
         <div className="relative flex p-2 border-2 border-solid dark:border-dark-second  
-        border-gray-200 rounded-lg" style={{ width: "calc(50% - 18px)" }}>
+        border-gray-200 rounded-lg item__friend__list w-full" >
             <div className="w-1/4">
                 <img className="w-24 h-24 rounded-lg object-cover" src={item.userUserRelationShip.avatar} alt="" />
             </div>

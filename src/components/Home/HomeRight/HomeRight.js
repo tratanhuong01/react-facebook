@@ -6,7 +6,7 @@ export default function HomeRight() {
     //
     //  
     return (
-        <div className="fixed hidden h-screen lg:block lg:w-1/3 lg:left-2/3 xl:left-7/10 xl:w-3/10">
+        <div className="fixed hidden h-screen lg:block lg:w-1/3 lg:left-2/3 xl:left-3/4 xl:w-1/4">
             <div className="w-full flex h-full pb-4">
                 <div className="w-1/5 hidden sm:hidden xl:block">
                 </div>
