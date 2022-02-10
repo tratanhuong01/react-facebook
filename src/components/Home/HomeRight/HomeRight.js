@@ -1,5 +1,6 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import AdsHome from './AdsHome/AdsHome';
+import InviteFriend from './InviteFriend/InviteFriend';
 import UserActivity from './UserActivity/UserActivity';
 
 export default function HomeRight() {
@@ -12,35 +13,9 @@ export default function HomeRight() {
                 </div>
                 <div className="content-right wrapper-content-right w-4/5 overflow-y-auto py-0 
                     px-2.5 lg:w-full xl:w-4/5">
-                    <div className="w-full">
-                        <p className="font-bold dark:text-white pt-2.5">Được tài trợ</p>
-                        <div className="w-full flex mx-0 my-4">
-                            <img className="w-32 h-32 object-contain rounded-lg"
-                                src="https://res.cloudinary.com/tratahuong01/image/upload/v1620001760/Avatar/p5vqncs5a5wdc1tv4kl9.jpg" alt="" />
-                            <div className="block my-9 mx-2.5">
-                                <span><Link to="" className="dark:text-white font-bold">Didongviet</Link></span> <br />
-                                <span><Link className="text-xs dark:text-white" to="">didongviet.vn</Link></span>
-                            </div>
-                        </div>
-                        <div className="w-full flex mx-0 my-4">
-                            <img className="w-32 h-32 object-contain rounded-lg"
-                                src="https://res.cloudinary.com/tratahuong01/image/upload/v1620001760/Avatar/p5vqncs5a5wdc1tv4kl9.jpg" alt="" />
-                            <div className="block my-9 mx-2.5">
-                                <span><Link to="" className="dark:text-white font-bold">Didongviet</Link></span> <br />
-                                <span><Link className="text-xs dark:text-white" to="">didongviet.vn</Link></span>
-                            </div>
-                        </div>
-                    </div>
+                    <AdsHome />
                     <hr className="my-3 mx-auto w-full" />
-                    <div className="w-full flex items-center justify-between">
-                        <p className="font-semibold dark:text-white">Lời mời kết bạn</p>
-                        <Link to="" className="font-semibold dark:text-white">
-                            Xem tất cả</Link>
-                    </div>
-                    <div className="w-full" id="loiMoi">
-                        <p className="mx-auto py-3 dark:text-white text-center text-sm text-gray-600 my-5 dark:text-white">
-                            Không có lời mời kết bạn</p>
-                    </div>
+                    <InviteFriend />
                     <div className="w-full pt-3 flex items-center justify-between">
                         <div className="">
                             <p className="font-bold dark:text-white">Bạn bè</p>

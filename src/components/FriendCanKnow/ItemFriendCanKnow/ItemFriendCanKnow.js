@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import api from '../../../api/api';
@@ -14,23 +14,23 @@ export default function ItemFriendCanKnow(props) {
             headers: state.headers
         }
     });
-    useEffect(() => {
-        //
-        let unmounted = false;
-        const fetch = async () => {
-            const result = await api(`userRelationships/check/relationship?idUserProfile=${item.id}&idUserMain=${user.id}`,
-                'GET', null, headers);
-            if (unmounted) return;
-            if (result.data) {
-                setUsers([...users].filter(dt => dt.id !== item.id));
-            }
-        }
-        fetch();
-        return () => {
-            unmounted = true;
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    // useEffect(() => {
+    //     //
+    //     let unmounted = false;
+    //     const fetch = async () => {
+    //         const result = await api(`userRelationships/check/relationship?idUserProfile=${item.id}&idUserMain=${user.id}`,
+    //             'GET', null, headers);
+    //         if (unmounted) return;
+    //         if (result.data) {
+    //             setUsers([...users].filter(dt => dt.id !== item.id));
+    //         }
+    //     }
+    //     fetch();
+    //     return () => {
+    //         unmounted = true;
+    //     }
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, []);
     //
     return <div key={item.id} className='w-40 justify-center rounded-t-lg flex flex-shrink-0 border-2 border-solid 
     border-gray-200 shadow-lv1 dark:border-dark-third'>
@@ -62,7 +62,7 @@ export default function ItemFriendCanKnow(props) {
                         status: 2,
                     }, headers);
                     setUsers([...users].filter(dt => dt.id !== item.id))
-                }} className='w-full justify-center p-0.5 my-2 rounded-md text-main bg-blue-100 
+                }} disabled={true} className='w-full justify-center p-0.5 my-2 rounded-md text-main bg-blue-100 
                 flex items-center hover:bg-blue-200 font-semibold'>
                     <i className='bx bx-user-plus text-2xl mr-1' ></i> Thêm bạn bè
                 </ButtonComponent>

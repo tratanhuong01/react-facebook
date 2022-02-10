@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { PAGE_CREATE_STORY } from '../../../constants/Config'
@@ -12,11 +12,11 @@ export default (function HomeCenter(props) {
     //
     const navigation = useNavigate();
     const user = useSelector((state) => state.user);
+    const refWrapper = useRef();
     //
     return (
-        <div className="center-content relative left-0 px-2 w-full sm:mx-auto md:w-3/4 lg:mx-0 
+        <div ref={refWrapper} className="center-content relative left-0 px-2 w-full sm:mx-auto md:w-3/4 lg:mx-0 
             lg:w-4/6 lg:left-0! xl:w-1/2 xl:px-8 xl:left-1/4">
-
             <div className="flex my-4 relative gap-1">
                 <div onClick={() => navigation(PAGE_CREATE_STORY)} className="flex-shrink-0 w-1/4 md:w-1/6 px-1 pl-0 relative text-center h-44 cursor-pointer">
                     <img className="w-full rounded-t-lg object-cover" style={{ height: 125 }}

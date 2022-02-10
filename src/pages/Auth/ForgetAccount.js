@@ -46,7 +46,7 @@ export default function ForgetAccount() {
                         navigation(`${PAGE_RECOVER_ACCOUNT}?token=${result.data.token}`);
                     }
                     setLoading(false);
-                }} disabled={keyword.length > 0 ? false : true} loading={loading} className="px-4 mr-5 py-2  rounded-lg bg-1877F2 text-white">
+                }} disabled={keyword.length > 0 && !loading ? false : true} loading={loading} className="px-4 mr-5 py-2  rounded-lg bg-1877F2 text-white">
                     Tìm kiếm
                 </ButtonComponent>
             </div>

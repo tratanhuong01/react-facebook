@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux';
 import answerQuestion from '../../../../config/answerQuestion';
 import { PostContext } from '../../../../contexts/PostContext/PostContext';
 
@@ -6,6 +7,7 @@ export default function ContentAnswerQuestion(props) {
     //
     const { postsDispatch, postsAction } = useContext(PostContext);
     const refInput = useRef();
+    const user = useSelector((state) => state.user);
     const { edit, current, setCurrent, input, setInput, content } = props;
     const [show, setShow] = useState("Hi! Mình có góc hỏi đáp nè. Bạn hỏi đi...");
     useEffect(() => {
@@ -21,7 +23,7 @@ export default function ContentAnswerQuestion(props) {
     //
     return (
         <div className={`w-full rounded-${edit ? 'lg' : 'xl'} relative`} style={{ height: 550, backgroundImage: current.data }}>
-            <img src={`http://res.cloudinary.com/tratahuong01/image/upload/v1638973763/Avatar/kxqbimjteg5ka9cbqh6y.jpg`}
+            <img src={user.avatar}
                 alt='' className='w-48 h-48 rounded-full object-cover shadow-lv1 mx-auto transform translate-y-9 
             shadow-lg' />
             <div className='w-full px-4'>
