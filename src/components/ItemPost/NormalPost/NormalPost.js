@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { memo } from 'react'
 import ImageVideoDisplay from '../ImageVideoDisplay/ImageVideoDisplay';
 
-export default function NormalPost(props) {
+export default memo(function NormalPost({ imageVideoPostList, post }) {
     //
-    const { postDetail: { imageVideoPostList, post } } = props;
     //  
     return (
         <div className='w-full'>
@@ -36,4 +35,4 @@ export default function NormalPost(props) {
             </div> : <ImageVideoDisplay imageVideo={imageVideoPostList} idPost={post.id} />}
         </div>
     )
-}
+})

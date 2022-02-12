@@ -6,6 +6,7 @@ import HeaderLoggedRight from '../components/Header/HeaderLogged/HeaderLoggedRig
 import ItemPost from '../components/ItemPost/ItemPost'
 import ButtonViewPostTop from '../components/ViewPost/ButtonViewPostTop/ButtonViewPostTop'
 import WrapperLogged from './WrapperLogged'
+import * as StringUtils from "../utils/StringUtils";
 
 export default function ViewPost(props) {
     //
@@ -45,10 +46,16 @@ export default function ViewPost(props) {
                         <>
                             <div className='w-full h-full flex justify-center items-center max-w-full 
                             max-h-full relative z-0 overflow-hidden'>
-                                <img src={postDetail.imageVideoPostList[index].src} alt=''
-                                    className='object-cover' style={{
-                                        transform: `scale(${(scale) / 100})`
-                                    }} />
+                                {StringUtils.checkImageOrVideoToString(postDetail.imageVideoPostList[index].src) === "image" ?
+                                    <img src={postDetail.imageVideoPostList[index].src} alt=''
+                                        className='object-cover' style={{
+                                            transform: `scale(${(scale) / 100})`
+                                        }} /> :
+                                    <video src={postDetail.imageVideoPostList[index].src}
+                                        controls
+                                        className='w-11/12 object-cover' style={{
+                                            transform: `scale(${(scale) / 100})`
+                                        }} />}
                             </div>
                         </>
                     }

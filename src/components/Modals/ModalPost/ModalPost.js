@@ -9,6 +9,7 @@ import ModalWrapper from '../ModalWrapper'
 import BottomWritePostModal from './BottomWritePostModal/BottomWritePostModal'
 import CenterWritePostModal from './CenterWritePostModal/CenterWritePostModal'
 import TopWritePostModal from './TopWritePostModal/TopWritePostModal'
+import * as StringUtils from "../../../utils/StringUtils";
 
 export default function ModalPost(props) {
     //
@@ -69,13 +70,13 @@ export default function ModalPost(props) {
                     formData.append("multipartFile", imageVideo);
                     formData.append("id", new Date().getTime());
                     formData.append("publicId", "Posts/");
-                    formData.append("typeFile", "image");
+                    formData.append("typeFile", StringUtils.checkImageOrVideoToString(imageVideo.name));
                     const imageUpload = await api(`uploadFile`, 'POST', formData, headers);
                     await api(`imageVideoPosts`, 'POST', {
                         id: null,
                         postImageVideoPost: post.data,
                         src: imageUpload.data.url,
-                        typeImageVideoPost: 0,
+                        typeImageVideoPost: StringUtils.checkImageOrVideoToNumber(imageVideo.name),
                         timeCreated: null,
                     }, { ...headers, "Content-Type": "application/json" });
                 }

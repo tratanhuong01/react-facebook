@@ -5,23 +5,24 @@ import NormalPost from '../NormalPost/NormalPost';
 
 export default memo(function ContentPost(props) {
     const { postDetail } = props;
-    const PostData = () => {
-        let data = "";
+    const PostData = memo(() => {
+        let Data = "";
         switch (postDetail.post.typePost) {
             case 0:
-                data = <AvatarPost postDetail={postDetail} />
+                Data = <AvatarPost postDetail={postDetail} />
                 break;
             case 1:
-                data = <CoverPost postDetail={postDetail} />
+                Data = <CoverPost postDetail={postDetail} />
                 break;
             case 2:
-                data = <NormalPost postDetail={postDetail} />
+                Data = <NormalPost imageVideoPostList={postDetail.imageVideoPostList}
+                    post={postDetail.post} />
                 break;
             default:
                 break;
         }
-        return data;
-    }
+        return Data;
+    })
     return (
         <PostData />
     )

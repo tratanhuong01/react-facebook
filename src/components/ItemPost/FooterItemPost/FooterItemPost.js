@@ -16,14 +16,29 @@ export default function FooterItemPost(props) {
     });
     const { postDetail: { feelPostList, commentLength, post }, setPostDetail } = props;
     const [feel, setFeel] = useState();
+    const [feelList, setFeelList] = useState();
     const [feelLength, setFeelLength] = useState(feelPostList.length);
     useEffect(() => {
         //
         let unmounted = false;
         const fetch = async () => {
             const result = await api(`feelPosts/check?idPost=${post.id}&idUser=${user.id}`, 'GET', null, headers);
+            const resultList = await api(`feelPosts?idPost=${post.id}`, 'GET', null, headers);
             if (unmounted) return;
             setFeel(result.data);
+            if (resultList.data.length > 0) {
+                const generateListIconFeel = () => {
+                    let arrNew = [];
+                    [...resultList.data].forEach(element => {
+                        const index = arrNew.findIndex(dt => dt.typeFeelPost === element.typeFeelPost);
+                        if (index === -1) {
+                            arrNew.push(element);
+                        }
+                    });
+                    return arrNew;
+                }
+                setFeelList(generateListIconFeel())
+            }
         }
         if (headers.Authorization) {
             fetch();
@@ -53,9 +68,14 @@ export default function FooterItemPost(props) {
         <>
             <div className="w-full flex text-sm text-gray-700 dark:text-gray-300 justify-between items-center my-1.5">
                 <div className="flex items-center">
-                    <div className="flex gap-1.5 mr-2">
-                        {feel && <img src={JSON.parse(feel.content).image} alt="" className="w-4 h-4 rounded-full object-cover" />}
-                    </div>
+                    {feelList ? <div className="flex mx-2">
+                        {feelList.map(item => <img key={item.id}
+                            src={JSON.parse(item.content).image} alt=""
+                            className="w-5 h-5 transform scale-90 -ml-1 rounded-full object-cover" />)}
+                    </div> : <div className="flex mr-2">
+                        {feel && <img src={JSON.parse(feel.content).image} alt=""
+                            className="w-5 h-5 transform scale-90 -ml-1 rounded-full object-cover" />}
+                    </div>}
                     {feelLength > 0 && <span className="font-semibold ">{feelLength}</span>}
                 </div>
                 {commentLength > 0 && <span>{commentLength} bình luận</span>}
@@ -101,7 +121,7 @@ export default function FooterItemPost(props) {
                 </li>
                 <li className="dark:text-gray-300 dark:hover:bg-dark-third hover:bg-gray-200 w-1/3 font-semibold 
                 h-12 text-sm cursor-pointer justify-center items-center flex">
-                    <i className="far fa-comment-alt dark:text-gray-300"></i> &nbsp; Bình Luận
+                    <i className="fas fa-comment-alt dark:text-gray-300"></i> &nbsp; Bình Luận
                 </li>
                 <ButtonShare />
             </ul>

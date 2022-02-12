@@ -62,7 +62,7 @@ export default function ItemInviteFriend(props) {
   }
   //
   return (
-    <div className='w-full flex relative p-2 bg-white dark:bg-dark-third my-2'>
+    <div className='w-full flex relative p-2 bg-white rounded-lg dark:bg-dark-third my-2'>
       <img src={item.userUserRelationShip.avatar} alt=''
         className='w-14 h-14 rounded-full object-cover mr-1' />
       <div className='ml-1' style={{ width: "calc(100% - 64px)" }}>

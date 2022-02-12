@@ -40,7 +40,7 @@ export default function WritePost() {
                     <label htmlFor="uploadFileS" className="w-1/2 md:w-1/3 xl:w-1/3 cursor-pointer text-center 
                     dark:hover:bg-dark-third hover:bg-gray-100 rounded-lg">
                         <div className="py-2 w-full flex items-center justify-center  rounded-lg">
-                            <span className="far fa-image mr-1 text-2xl" style={{ color: '#41B35D' }}></span>
+                            <span className="fas fa-image mr-1 text-2xl" style={{ color: '#41B35D' }}></span>
                             <span>Ảnh / video</span>
                         </div>
                     </label>

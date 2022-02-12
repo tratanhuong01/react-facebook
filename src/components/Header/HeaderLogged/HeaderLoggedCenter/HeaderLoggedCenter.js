@@ -1,12 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useLocation, useNavigate } from 'react-router-dom';
+import { PAGE_HOME, PAGE_WATCH } from '../../../../constants/Config';
 
 export default function HeaderLoggedCenter() {
     //
-    const [active, setActive] = useState(0);
+    const location = useLocation();
+    const navigation = useNavigate();
+    const active = location.pathname;
     //
     return (
         <ul className="list-icon-header md:w-full">
-            <li onClick={() => setActive(0)} className={`${active === 0 ? 'active' : ""} dark:hover:bg-dark-third 
+            <li onClick={() => navigation(PAGE_HOME)} className={`${active === "/" ? 'active' : ""} dark:hover:bg-dark-third 
             cursor-pointer`}>
                 <svg viewBox="0 0 28 28" className="a8c37x1j ms05siws hwsy1cff b7h9ocf4 aaxa7vy3"
                     height="28" width="28">
@@ -15,7 +19,7 @@ export default function HeaderLoggedCenter() {
                     </path>
                 </svg>
             </li>
-            <li onClick={() => setActive(1)} className={`${active === 1 ? 'active' : ""} dark:hover:bg-dark-third 
+            <li onClick={() => navigation(PAGE_WATCH)} className={`${active === PAGE_WATCH ? 'active' : ""} dark:hover:bg-dark-third 
             cursor-pointer`}>
                 <svg viewBox="0 0 28 28" className="a8c37x1j ms05siws hwsy1cff b7h9ocf4 em6zcovv"
                     height="28" width="28">
@@ -24,7 +28,7 @@ export default function HeaderLoggedCenter() {
                     </path>
                 </svg>
             </li>
-            <li onClick={() => setActive(2)} className={`${active === 2 ? 'active' : ""} dark:hover:bg-dark-third 
+            <li onClick={() => navigation(2)} className={`${active === 2 ? 'active' : ""} dark:hover:bg-dark-third 
             cursor-pointer`}>
                 <svg viewBox="0 0 28 28" className="a8c37x1j ms05siws hwsy1cff b7h9ocf4 em6zcovv"
                     height="28" width="28">
@@ -33,7 +37,7 @@ export default function HeaderLoggedCenter() {
                     </path>
                 </svg>
             </li>
-            <li onClick={() => setActive(3)} className={`${active === 3 ? 'active' : ""} dark:hover:bg-dark-third 
+            <li onClick={() => navigation(3)} className={`${active === 3 ? 'active' : ""} dark:hover:bg-dark-third 
             cursor-pointer`}>
                 <svg viewBox="0 0 28 28" className="a8c37x1j ms05siws hwsy1cff b7h9ocf4 em6zcovv"
                     height="28" width="28">
@@ -42,7 +46,7 @@ export default function HeaderLoggedCenter() {
                     </path>
                 </svg>
             </li>
-            <li onClick={() => setActive(4)} className={`${active === 4 ? 'active' : ""} dark:hover:bg-dark-third 
+            <li onClick={() => navigation(4)} className={`${active === 4 ? 'active' : ""} dark:hover:bg-dark-third 
             cursor-pointer`}>
                 <svg viewBox="0 0 28 28" className="a8c37x1j ms05siws hwsy1cff b7h9ocf4 em6zcovv"
                     height="28" width="28">

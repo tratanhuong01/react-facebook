@@ -23,6 +23,7 @@ export default function PostProfileList() {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userProfile])
+    console.log(postList);
     //
     return (
         <div className='w-full my-2'>

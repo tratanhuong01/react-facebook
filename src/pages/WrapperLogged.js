@@ -54,9 +54,10 @@ export default function WrapperLogged(props) {
                         {userChat.minize.map((item, index) => <ItemChatMinize item={item} key={index} />)}
                         <div onClick={() => {
                             dispatch(userChatsAction.updateData('zoom', [...userChat.zoom, { id: "new", new: true }]))
-                        }} className="cursor-pointer shadow-lv1 rounded-full shadow-xl">
-                            <i className="far fa-edit text-2xl py-2 px-3 pr-2 rounded-full bg-white dark:bg-dark-second 
-                            dark:text-white"></i>
+                        }} className="cursor-pointer shadow-lv1 rounded-full shadow-xl rounded-full bg-white dark:bg-dark-second 
+                        dark:text-white w-12 h-12 border-2 border-solid border-gray-200 dark:border-dark-third flex 
+                        items-center justify-center ">
+                            <i className="fas fa-plus text-2xl"></i>
                         </div>
                     </div>
                 </div>}

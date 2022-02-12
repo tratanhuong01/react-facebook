@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import api from '../../../../api/api';
 import { PAGE_VIEW_POST } from '../../../../constants/Config';
+import * as StringUtils from "../../../../utils/StringUtils";
 
 export default function ImageVideoUser() {
     //
@@ -44,10 +45,21 @@ export default function ImageVideoUser() {
                     <div onClick={() => {
                         navigation(PAGE_VIEW_POST + `/${imageVideo.postImageVideoPost.id}`)
                     }} className="fr-us cursor-pointer" key={imageVideo.id}>
-                        <img
-                            className="object-cover rounded-lg"
-                            src={imageVideo.src}
-                            alt="" />
+                        {StringUtils.checkImageOrVideoToString(imageVideo.src) === "image" ?
+                            <img
+                                className="object-cover rounded-lg"
+                                src={imageVideo.src}
+                                alt="" /> :
+                            <div className=' relative'>
+                                <video
+                                    className="object-cover rounded-lg"
+                                    src={imageVideo.src} />
+                                <div className='fr-us__front bg-black bg-opacity-50 flex items-center 
+                                justify-center text-2xl'>
+                                    <span className='fas fa-play text-white'></span>
+                                </div>
+                            </div>
+                        }
                     </div>
                 )}
             </div>

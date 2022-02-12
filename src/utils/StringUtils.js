@@ -70,3 +70,15 @@ export const generateIDGroupFromListUser = (listUser) => {
     }
     return string;
 }
+
+export const checkImageOrVideoToString = (nameFile) => {
+    const extension = nameFile.split('.')[nameFile.split('.').length - 1].toLowerCase();
+    return extension === "jpg" || extension === "jpeg" || extension === "png" ?
+        "image" : extension === "mp4" || extension === "mov" ? "video" : "image"
+}
+
+export const checkImageOrVideoToNumber = (nameFile) => {
+    const extension = nameFile.split('.')[nameFile.split('.').length - 1].toLowerCase();
+    return extension === "jpg" || extension === "jpeg" || extension === "png" ?
+        0 : extension === "mp4" || extension === "mov" ? 1 : 0
+}

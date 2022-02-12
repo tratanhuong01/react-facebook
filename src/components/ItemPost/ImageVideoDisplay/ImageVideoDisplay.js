@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import React, { memo, useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { PAGE_VIEW_POST } from '../../../constants/Config';
+import * as StringUtils from "../../../utils/StringUtils";
 
-export default function ImageVideoDisplay(props) {
+export default memo(function ImageVideoDisplay(props) {
     //
     const refContainer = useRef();
     const refLastNumber = useRef();
@@ -31,9 +32,9 @@ export default function ImageVideoDisplay(props) {
                     if (extension === "mp4" || extension === "mov") {
                         ImageVideo = (props) => {
                             return (
-                                <Link to={`${PAGE_VIEW_POST}/${idPost}`}>
-                                    <video src={props.src} style={props.style} className={props.className} alt='' />
-                                </Link>
+                                // <Link to={`${PAGE_VIEW_POST}/${idPost}`}>
+                                <video src={props.src} style={props.style} className={props.className} controls />
+                                // </Link>
                             )
                         }
                     }
@@ -72,7 +73,8 @@ export default function ImageVideoDisplay(props) {
                 }
                 return <ImageVideo key={index} src={element.src} style={{
                     width: length === 1 ? "100%" : `calc(${(divWidth(index + 1, length) / 3) * 100 + "%"} - 5px)`,
-                    height: length === 1 ? "100%" : `${divHeight(index + 1, length)}%`,
+                    height: length === 1 ? StringUtils.checkImageOrVideoToString(element.src) === "image" ?
+                        "100%" : "50%" : `${divHeight(index + 1, length)}%`,
                     maxHeight: height,
                     cursor: "pointer"
                 }} className={'object-cover'} />;
@@ -84,11 +86,13 @@ export default function ImageVideoDisplay(props) {
     //
     return (
         <div ref={refContainer} className='w-full gap-1.5 flex flex-wrap relative'
-            style={imageVideo.length > 0 ? { height: height } : {}}>
+            style={imageVideo.length > 0 ?
+                imageVideo.length === 1 && StringUtils.checkImageOrVideoToString(imageVideo[0].src) === "video" ?
+                    {} : { height: height } : {}}>
             {data}
             {imageVideo.length > 5 && <div className='' ref={refLastNumber}>
                 {`+${imageVideo.length - 5}`}
             </div>}
         </div>
     )
-}
+})

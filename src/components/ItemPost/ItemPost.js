@@ -49,12 +49,12 @@ export default memo(function ItemPost(props) {
                 }
             }
         }
-        if (props.postDetail) {
-            socket.on(`receiveCommentPost.${props.postDetail.post.id}`, handleEvent);
+        if (postDetail) {
+            socket.on(`receiveCommentPost.${postDetail.post.id}`, handleEvent);
         }
         return () => {
             if (props.postDetail) {
-                socket.off(`receiveCommentPost.${props.postDetail.post.id}`, handleEvent);
+                socket.off(`receiveCommentPost.${postDetail.post.id}`, handleEvent);
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -62,7 +62,7 @@ export default memo(function ItemPost(props) {
     useEffect(() => {
         setPostDetail(props.postDetail);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.postDetail])
+    }, [props.postDetail]);
     //
     return (
         postDetail ? <div className={`w-full bg-white dark:bg-dark-second shadow-lv1 ${props.margin ? 'my-4' : ''} 
@@ -71,7 +71,7 @@ export default memo(function ItemPost(props) {
             {postDetail.post.content && !postDetail.post.backgroundPost && <p className='my-1 dark:text-gray-300 w-full p-1'>
                 {postDetail.post.content}
             </p>}
-            {!props.hideContent && <ContentPost postDetail={postDetail} />}
+            {!props.hideContent && <ContentPost postDetail={props.postDetail} />}
             <div className="w-full mb-4 mx-0">
                 <FooterItemPost postDetail={postDetail} setPostDetail={setPostDetail} />
             </div>

@@ -134,7 +134,7 @@ export default function ControlMessage(props) {
                         }}
                         style={{ minHeight: "20px" }} onInput={event => setDataMessage({ ...dataMessage, content: event.currentTarget.textContent })}></div>
                     <div onClick={(event) => handleClick(1, event)} className="absolute right-3 top-1/2 transform -translate-y-1/2 flex cursor-pointer z-50"><i
-                        className="far fa-smile dark:text-white text-gray-600 text-2xl"></i></div>
+                        className="fas fa-smile dark:text-white text-gray-600 text-2xl"></i></div>
                     <div ref={refPopover} className='absolute hidden bottom-full bg-white border-2 border-solid border-gray-200 shadow-lv1 
                     right-0 rounded-lg w-72' style={{ height: 360 }}>
                         {type === 1 ? <PopoverEmojii handleClick={(item) => {

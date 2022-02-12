@@ -5,7 +5,7 @@ export const REGEX_PHONE = /^(\+91-|\+91|0)?\d{10}$/;
 
 //
 export const API_URL = "https://api-react-facebook.herokuapp.com";
-// export const API_URL = "http://localhost:3333";
+//export const API_URL = "http://localhost:3333";
 //
 export const SERVER_NODE = "https://server-react-facebook.herokuapp.com";
 //

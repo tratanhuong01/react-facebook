@@ -27,7 +27,7 @@ export const loginUserRequest = (token, navigation) => {
             }
         }
         else {
-            alert("oke")
+
         }
         if (typeof navigation === "function") {
             localStorage.removeItem("user");

@@ -107,10 +107,10 @@ export default function ItemComment(props) {
                         {moment(commentPost.commentPost.timeCreated).fromNow(true)}
                     </li>
                 </ul>}
-                {commentPost.feelCommentList.length > 0 && <div ref={refFeelComment} className="absolute bottom-5 bg-white text-sm text-gray-500 flex items-center px-2 p-0.5 rounded-full">
-                    <img src="https://res.cloudinary.com/ensonet-dev/image/upload/v1639997974/Reactions/like_ebd8ws.png"
-                        alt="" className="w-3.5 mr-1.5 h-3.5 rounded-full object-cover" />
-                    1
+                {commentPost.feelCommentList.length > 0 && <div ref={refFeelComment} className="absolute bottom-5 pl-1 bg-white text-sm text-gray-500 flex items-center px-2 p-0.5 rounded-full">
+                    {commentPost.feelCommentList.map(item => <img key={item.id}
+                        src={JSON.parse(item.content).image} alt="" className="w-3.5 -mr-1 h-3.5 rounded-full object-cover" />)}
+                    &nbsp;{" " + commentPost.feelCommentList.length}
                 </div>}
             </div>
         </div >
