@@ -5,7 +5,7 @@ export const REGEX_PHONE = /^(\+91-|\+91|0)?\d{10}$/;
 
 //
 export const API_URL = "https://api-react-facebook.herokuapp.com";
-//export const API_URL = "http://localhost:3333";
+// export const API_URL = "http://localhost:3333";
 //
 export const SERVER_NODE = "https://server-react-facebook.herokuapp.com";
 //
@@ -44,4 +44,6 @@ export const PAGE_MARKETPLACE = "/marketplace";
 export const PAGE_MESSENGER = "/messenger"
 //
 export const PAGE_VIEW_POST = "/post/view";
+//
+export const AVATAR_DEFAULT = "https://res.cloudinary.com/ensonet-dev/image/upload/v1641124176/default-avatar_leprc2.png";
 //

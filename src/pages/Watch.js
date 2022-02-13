@@ -27,7 +27,7 @@ export default function Watch() {
                 <div className='w-full md:w-1/3 lg:w-1/4 relative xl:w-1/5 flex 
                 flex-col h-auto lg:h-full px-5'>
                     <div className='w-full flex flex-col items-start'>
-                        <div className='w-full flex items-center justify-between py-2'>
+                        <div className='w-full dark:text-gray-300 flex items-center justify-between py-2'>
                             <span className='text-2xl font-bold'>Watch</span>
                             <span className='fas fa-cog w-10 h-10 rounded-full bg-gray-200 dark:bg-dark-third 
                             md:flex items-center hidden justify-center text-xl hover:bg-gray-300 dark:hover:bg-dark-second'></span>

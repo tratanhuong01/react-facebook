@@ -3,6 +3,7 @@ import ModalRegister from "../../components/Modals/Login/ModalRegister/ModalRegi
 import ModalChangeColor from "../../components/Modals/Messages/ModalChangeColor/ModalChangeColor";
 import ModalChangeEmojii from "../../components/Modals/Messages/ModalChangeEmojii/ModalChangeEmojii";
 import ModalChangeNickName from "../../components/Modals/Messages/ModalChangeNickName/ModalChangeNickName";
+import ModalWarning from "../../components/Modals/ModalWarning/ModalWarning";
 import ModalWrapperPost from "../../components/Modals/ModalWrapperPost/ModalWrapperPost";
 import ModalPreviewAvatar from "../../components/Modals/Profile/ModalPreviewAvatar/ModalPreviewAvatar";
 import * as constants from "./Constant";
@@ -44,6 +45,11 @@ const AppReducer = (state, action) => {
                 ...state, data: <ModalChangeNickName groupMessage={action.groupMessage} users={action.users}
                     setGroupMessage={action.setGroupMessage} />
             };
+        case constants.OPEN_MODAL_DELETE_POST:
+            return {
+                ...state, data: <ModalWarning title={action.title} content={action.content}
+                    handleEvent={action.handleEvent} button={action.button} />
+            }
         default:
             return { ...state };
     }

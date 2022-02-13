@@ -6,10 +6,10 @@ import ContentComment from './ContentComment/ContentComment';
 import moment from 'moment';
 import api from '../../../api/api';
 import { useSelector } from 'react-redux';
+import EditOrDeleteComment from './EditOrDeleteComment/EditOrDeleteComment';
 
-export default function ItemComment(props) {
+export default function ItemComment({ commentPost, setReply, setPostDetail, postDetail, level }) {
     //
-    const { commentPost, setReply } = props;
     const { user, headers } = useSelector((state) => {
         return {
             user: state.user,
@@ -61,7 +61,7 @@ export default function ItemComment(props) {
                     alt="" loading='lazy'
                 />
             </Link>
-            <div className="relative main-comment" style={{ width: "calc(100% - 54px)" }}>
+            <div className="relative main-comment item__hover" style={{ width: "calc(100% - 54px)" }}>
                 <div ref={refText} className={`comment-per dark:bg-dark-third w-max relative p-2 ${commentPost.commentPost.typeComment !== 2 ? 'bg-gray-100' :
                     ''} ml-1 relative rounded-lg`} style={{ maxWidth: "91%" }}>
                     <p><Link to="" className="font-semibold dark:text-white">
@@ -112,6 +112,8 @@ export default function ItemComment(props) {
                         src={JSON.parse(item.content).image} alt="" className="w-3.5 -mr-1 h-3.5 rounded-full object-cover" />)}
                     &nbsp;{" " + commentPost.feelCommentList.length}
                 </div>}
+                <EditOrDeleteComment user={user} commentPost={commentPost.commentPost} level={level}
+                    ref={refText} setPostDetail={setPostDetail} postDetail={postDetail} />
             </div>
         </div >
     )

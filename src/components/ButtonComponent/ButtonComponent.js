@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom';
 
-export default function ButtonComponent(props) {
+export default function ButtonComponent({
+    link, className, type, disabled, handleClick, bgColor, loading, children }) {
     //
-    const { link, className, type, disabled, handleClick, bgColor, loading } = props;
     const ref = useRef();
     useEffect(() => {
         //
@@ -19,7 +19,7 @@ export default function ButtonComponent(props) {
         link
             ?
             (<Link ref={ref} to={link} className={`${className} border-solid`}>
-                {props.children}
+                {children}
             </Link>)
             :
             (<button type={type} onClick={() => {
@@ -29,7 +29,7 @@ export default function ButtonComponent(props) {
             }} className={`${className} border-solid cursor-pointer 
             ${disabled ? 'cursor-not-allowed bg-gray-500 text-gray-100' : bgColor} `} disabled={disabled}>
                 {loading ? <span className='text-white bx bx-shape-circle fa-spin'></span>
-                    : props.children}
+                    : children}
             </button>)
     )
 }

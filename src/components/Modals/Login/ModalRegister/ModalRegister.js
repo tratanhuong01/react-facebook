@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import InputComponent from "../../../InputComponent/InputComponent";
 import LabelGender from "./LabelGender";
 import ModalWrapper from "../../ModalWrapper";
-import { PAGE_VERIFY_CODE_ACCOUNT_REGISTER, REGEX_EMAIL, REGEX_PHONE } from "../../../../constants/Config";
+import { AVATAR_DEFAULT, PAGE_VERIFY_CODE_ACCOUNT_REGISTER, REGEX_EMAIL, REGEX_PHONE } from "../../../../constants/Config";
 import api from "../../../../api/api";
 import { ModalContext } from "../../../../contexts/ModalContext/ModalContext";
 import { useNavigate } from "react-router-dom";
@@ -81,7 +81,7 @@ function ModalRegister(props) {
             isOnline: 1,
             isTick: 0,
             password: data.password,
-            avatar: "https://res.cloudinary.com/ensonet-dev/image/upload/v1641124176/default-avatar_leprc2.png",
+            avatar: AVATAR_DEFAULT,
             cover: null,
             codeEmail: null,
             codePhone: null,

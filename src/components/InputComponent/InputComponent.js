@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 
-export default function InputComponent(props) {
+export default function InputComponent({ register, wrapper, error, type, name, placeholder, className, search,
+    borderValidation, handleChange, disabled, label, width, handleClick }) {
     //
-    const { register, wrapper, error, type, name, placeholder, className, search,
-        borderValidation, handleChange, disabled, label, width, handleClick } = props;
     const [show, setShow] = useState(false);
     const Field = typeof register === "function" ? register(name) : () => "";
     //  

@@ -82,3 +82,13 @@ export const openModalChangeNickName = (users, groupMessage, setGroupMessage) =>
         setGroupMessage
     }
 }
+
+export const openModalDeletePost = (title, content, button, handleEvent) => {
+    return {
+        type: constants.OPEN_MODAL_DELETE_POST,
+        title,
+        content,
+        button,
+        handleEvent
+    }
+}

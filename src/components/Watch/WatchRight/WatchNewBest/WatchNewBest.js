@@ -16,7 +16,7 @@ export default function WatchNewBest({ images }) {
     //
     return (
         <div className='w-full p-5 rounded-lg'>
-            <p className='font-bold text-xl'>
+            <p className='font-bold text-xl dark:text-gray-300'>
                 Mới dành cho bạn
             </p>
             <div ref={refContainer} className='w-full relative'>

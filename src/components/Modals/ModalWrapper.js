@@ -3,12 +3,11 @@ import { ModalContext } from '../../contexts/ModalContext/ModalContext';
 import useOutSideClick from '../../hooks/useOutSideClick';
 import CloseModal from '../CloseModal/CloseModal';
 
-export default function ModalWrapper(props) {
+export default function ModalWrapper({ className, title, children }) {
     //
     const refContainer = useRef();
     const refLoading = useRef();
     const { modals } = useContext(ModalContext);
-    const { className, title } = props;
     useOutSideClick(refContainer);
     useEffect(() => {
         //
@@ -26,7 +25,7 @@ export default function ModalWrapper(props) {
                     {title}
                 </p>
                 <CloseModal />
-                {props.children}
+                {children}
             </div>
             {<div ref={refLoading} className={modals.loading ? `absolute top-0 left-0 bg-white bg-opacity-50 z-30 
             flex justify-center items-center` : 'hidden'}>

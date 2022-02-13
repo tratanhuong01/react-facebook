@@ -1,25 +1,27 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import api from '../../../../api/api';
 import { PAGE_VIEW_POST } from '../../../../constants/Config';
+import { UserProfileContext } from '../../../../contexts/UserProfileContext/UserProfileContext';
 import * as StringUtils from "../../../../utils/StringUtils";
 
 export default function ImageVideoUser() {
     //
-    const { user, headers } = useSelector(state => {
+    const { headers } = useSelector(state => {
         return {
             user: state.user,
             headers: state.headers
         }
     })
+    const { userProfile: { userProfile } } = useContext(UserProfileContext);
     const navigation = useNavigate();
     const [imageVideos, setImageVideos] = useState();
     useEffect(() => {
         //
         let unmounted = false;
         const fetch = async () => {
-            const result = await api(`imageVideoPosts?idUser=${user.id}&offset=0&limit=9&type=-1`, 'GET', null, headers);
+            const result = await api(`imageVideoPosts?idUser=${userProfile.id}&offset=0&limit=9&type=-1`, 'GET', null, headers);
             if (unmounted) return;
             setImageVideos(result.data);
         }
@@ -28,7 +30,7 @@ export default function ImageVideoUser() {
             unmounted = true;
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user, setImageVideos, headers])
+    }, [userProfile, setImageVideos, headers])
     //
     return (
         <>

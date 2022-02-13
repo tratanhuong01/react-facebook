@@ -19,7 +19,7 @@ export default function ListItemWatchLeft({ images }) {
                 </div>
                 <hr className='border-gray-300 my-2 hidden md:flex' />
                 <div className='w-full hidden md:flex justify-between items-center'>
-                    <span className='font-bold'>Đang theo dõi</span>
+                    <span className='font-bold dark:text-gray-300'>Đang theo dõi</span>
                     <span className='text-main'>Quản lí</span>
                 </div>
                 <div className='my-2 hidden md:block'>
