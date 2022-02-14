@@ -4,6 +4,7 @@ import * as actions from "./Action";
 import ModalPost from "../../components/Modals/ModalPost/ModalPost";
 
 const initialState = {
+    id: null,
     tags: [],
     local: null,
     feel: null,
@@ -16,7 +17,8 @@ const initialState = {
     answerQuestion: null,
     background: null,
     imageVideoUpload: false,
-    usingBackground: null
+    usingBackground: null,
+    edit: null,
 };
 
 export const PostContext = createContext();

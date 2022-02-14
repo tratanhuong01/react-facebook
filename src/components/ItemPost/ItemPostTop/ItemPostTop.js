@@ -28,7 +28,7 @@ export default function ItemPostTop(props) {
                     {post.typePost === 0 ? `đã cập nhật ảnh đại diện của ${post.userPost.gender === "Nam" ? 'anh' :
                         post.userPost.gender === "Nữ" ? 'cô' : 'bạn'} ấy.` : post.typePost === 1 ?
                         'đã cập nhật ảnh bìa của anh ấy.' : <InfoPostHeader post={post} user={post.userPost}
-                            tagList={tagPostList} hideName={true} tagMain={true} />}
+                            tagList={tagPostList} hideName={true} tagMain={true} itemPost={true} />}
                 </p>
                 <div className="w-full flex">
                     <div className="text-xs pt-0.5 pr-2">

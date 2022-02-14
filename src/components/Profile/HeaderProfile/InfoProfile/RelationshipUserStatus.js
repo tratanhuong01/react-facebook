@@ -17,7 +17,7 @@ export default function RelationshipUserStatus(props) {
         }
     });
     const navigation = useNavigate();
-    const { userProfile: { userProfile } } = useContext(UserProfileContext);
+    const { userProfile: { userProfile }, userProfilesDispatch, userProfilesAction } = useContext(UserProfileContext);
     const [userRelationship, setUserRelationship] = useState(null);
     const process = async (status) => {
         if (status === 1) {
@@ -87,6 +87,9 @@ export default function RelationshipUserStatus(props) {
             const result = await api(`userRelationships/check/relationship?idUserProfile=${userProfile.id}&idUserMain=${user.id}`,
                 'GET', null, headers);
             if (unmounted) return;
+            if (result.data.status === 3) {
+                userProfilesDispatch(userProfilesAction.updateData('isFriend', true));
+            }
             setUserRelationship(result.data);
         }
         if (user.id !== userProfile.id)

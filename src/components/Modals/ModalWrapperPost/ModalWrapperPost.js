@@ -1,22 +1,23 @@
 import React, { useContext, useEffect } from 'react'
 import { PostContext, PostProvider } from '../../../contexts/PostContext/PostContext'
 
-export default function ModalWrapperPost(props) {
+export default function ModalWrapperPost({ feel, imageVideo, id }) {
     //
-    const { feel, imageVideo } = props;
     //
     return (
         <PostProvider>
-            <ContainerModalPost feel={feel} imageVideo={imageVideo} />
+            <ContainerModalPost feel={feel} imageVideo={imageVideo} id={id} />
         </PostProvider>
     )
 }
 
-const ContainerModalPost = (props) => {
+const ContainerModalPost = ({ feel, imageVideo, id }) => {
     const { posts, postsDispatch, postsAction } = useContext(PostContext);
-    const { feel, imageVideo } = props;
     useEffect(() => {
         //
+        if (id) {
+            postsDispatch(postsAction.updateData('id', id));
+        }
         if (feel) {
             postsDispatch(postsAction.openModalFeel());
         }
@@ -27,7 +28,7 @@ const ContainerModalPost = (props) => {
             }
         }
         //
-    }, [feel, postsDispatch, postsAction, imageVideo]);
+    }, [feel, postsDispatch, postsAction, imageVideo, id]);
     return (
         posts.component
     )

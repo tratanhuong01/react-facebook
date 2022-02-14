@@ -1,4 +1,4 @@
-import { PAGE_MESSENGER, PAGE_PROFILE } from "../../../constants/Config";
+import { PAGE_MESSENGER, PAGE_PROFILE, PAGE_WATCH } from "../../../constants/Config";
 
 const categories = [
     {
@@ -17,7 +17,7 @@ const categories = [
         id: 2,
         image: "https://res.cloudinary.com/ensonet-dev/image/upload/v1639967677/ImageHomeLeft/FhOLTyUFKwf_kp6e9o.png",
         label: "Watch",
-        link: null
+        link: () => PAGE_WATCH
     },
     {
         id: 3,

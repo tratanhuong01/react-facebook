@@ -20,33 +20,37 @@ export default function PostTopRight({ user, post }) {
         if (typeof setData === "function")
             setData();
         await api(`posts?idPost=${post.id}`, 'DELETE', null, headers);
+        let dataUser;
         switch (post.typePost) {
             case 0:
-                const formData = new FormData();
-                formData.append("multipartFile", null);
-                formData.append("id", new Date().getTime());
-                formData.append("publicId", "Avatars/");
-                formData.append("typeFile", "image");
-                await api(`deleteFile`, 'POST', formData, headers);
-                const dataUser = await api('users', 'PUT', { ...user, avatar: AVATAR_DEFAULT }, headers);
-                dispatch({
-                    type: "UPDATE_DATA_POST_LIST",
-                    key: "list",
-                    value: [...list].filter(dt => dt.post.id !== post.id)
-                });
+                // const formData = new FormData();
+                // formData.append("multipartFile", null);
+                // formData.append("id", new Date().getTime());
+                // formData.append("publicId", "Avatars/");
+                // formData.append("typeFile", "image");
+                // await api(`deleteFile`, 'POST', formData, headers);
+                dataUser = await api('users', 'PUT', { ...user, avatar: AVATAR_DEFAULT }, headers);
                 dispatch(usersAction.loginUser(dataUser.data));
                 break;
-
+            case 1:
+                dataUser = await api('users', 'PUT', { ...user, cover: null }, headers);
+                dispatch(usersAction.loginUser(dataUser.data));
+                break;
             default:
                 break;
         }
+        dispatch({
+            type: "UPDATE_DATA_POST_LIST",
+            key: "list",
+            value: [...list].filter(dt => dt.post.id !== post.id)
+        });
         modalsDispatch(modalsAction.closeModal());
     }
     //
     return (
         user.id === post.userPost.id ? <>
             {post.typePost === 2 && <span onClick={() => {
-                modalsDispatch(modalsAction.openModalDeletePost(""))
+                modalsDispatch(modalsAction.openModalPost(post.id, null, null, null))
             }} className='bx bx-edit-alt absolute top-0 right-8 text-xl text-gray-800 hover:text-main 
             cursor-pointer dark:text-gray-300' ></span>}
             <span onClick={() => {

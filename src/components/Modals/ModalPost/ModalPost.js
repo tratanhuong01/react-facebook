@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useContext, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import api from '../../../api/api'
 import { ModalContext } from '../../../contexts/ModalContext/ModalContext'
 import { PostContext } from '../../../contexts/PostContext/PostContext'
@@ -13,46 +13,47 @@ import * as StringUtils from "../../../utils/StringUtils";
 
 export default function ModalPost(props) {
     //
-    const { posts } = useContext(PostContext);
-    const { user, headers } = useSelector((state) => {
+    const { posts, postsAction, postsDispatch } = useContext(PostContext);
+    const { user, headers, posts: { list, add } } = useSelector((state) => {
         return {
             user: state.user,
-            headers: state.headers
+            headers: state.headers,
+            posts: state.posts
         }
     })
     const [emojiShow, setEmojiShow] = useState(false);
     const { modalsDispatch, modalsAction } = useContext(ModalContext);
+    const dispatch = useDispatch();
     const hanlePost = async () => {
         modalsDispatch(modalsAction.loadingModal(true));
-        const postNew = {
-            activity: posts.activity,
+        let postNew = {
+            activity: JSON.stringify(posts.activity),
             answerQuestion: null,
             backgroundPost: null,
             content: posts.content,
-            feel: posts.feel,
-            id: null,
-            local: posts.local,
-            timeCreated: null,
+            feel: JSON.stringify(posts.feel),
+            id: posts.id,
+            local: JSON.stringify(posts.local),
+            timeCreated: posts.edit ? posts.edit.timeCreated : posts.edit,
             typePost: 2,
             userPost: user
         }
-        let post = null;
         let uploadImage = false;
         if (posts.background) {
-            post = await api(`posts`, 'POST', { ...postNew, backgroundPost: JSON.stringify(posts.background) }, headers);
+            postNew = { ...postNew, backgroundPost: JSON.stringify(posts.background) }
         }
         else if (posts.answerQuestion) {
-            post = await api(`posts`, 'POST', {
+            postNew = {
                 ...postNew, answerQuestion: JSON.stringify({
                     ...posts.answerQuestion,
                     contentAnswerQuestion: posts.contentAnswerQuestion
                 })
-            }, headers);
+            }
         }
         else {
-            post = await api(`posts`, 'POST', postNew, headers);
             uploadImage = true;
         }
+        let post = await api(`posts`, posts.id ? 'PUT' : 'POST', postNew, headers);
         if (post.data) {
             for (let index = 0; index < posts.tags.length; index++) {
                 const tag = posts.tags[index];
@@ -81,15 +82,75 @@ export default function ModalPost(props) {
                     }, { ...headers, "Content-Type": "application/json" });
                 }
             }
-        }
-        modalsDispatch(modalsAction.closeModal());
+            const handle = async () => {
+                post = await api(`posts/${post.data.id}`, 'GET', null, headers);
+                let data;
+                if (posts.id) {
+                    let index = [...list].findIndex(dt => dt.post.id = posts.id);
+                    if (index !== -1) {
+                        let listClone = [...list];
+                        listClone[index] = post.data;
+                        data = listClone;
+                    }
+                }
+                else {
+                    data = [post.data, ...list];
+                }
+                dispatch({
+                    type: "UPDATE_DATA_POST_LIST",
+                    key: "list",
+                    value: data
+                })
+            }
+            if (add && !posts.id) handle()
+            if (posts.id && posts.edit) {
+                handle();
+            }
+            modalsDispatch(modalsAction.closeModal());
+        };
     }
-
+    useEffect(() => {
+        //
+        let unmounted = false;
+        const checkNull = (data) => {
+            return data ? JSON.parse(data) : null
+        }
+        const fetch = async () => {
+            if (posts.id) {
+                modalsDispatch(modalsAction.loadingModal(true));
+                const result = await api(`posts/${posts.id}`, 'GET', null, headers);
+                if (unmounted) return;
+                postsDispatch(postsAction.updateDataFull({
+                    ...posts, tags: result.data.tagPostList,
+                    feel: checkNull(result.data.post.feel),
+                    activity: checkNull(result.data.post.activity),
+                    content: result.data.post.content,
+                    background: checkNull(result.data.post.backgroundPost),
+                    contentAnswerQuestion: "",
+                    imageVideoUpload: result.data.imageVideoPostList.length > 0 ? true : false,
+                    usingBackground: checkNull(result.data.post.backgroundPost),
+                    answerQuestion: checkNull(result.data.post.answerQuestion),
+                    imageVideo: result.data.imageVideoPostList,
+                    edit: result.data.post,
+                    local: checkNull(result.data.post.local),
+                    save: true,
+                }))
+                modalsDispatch(modalsAction.loadingModal(false));
+            }
+        }
+        if (!posts.save) {
+            fetch();
+        }
+        return () => {
+            unmounted = true;
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [posts.id, posts.save])
     //
     return (
         <ModalWrapper className="animate__rubberBand shadow-sm border-t border-b border-solid border-gray-200 bg-white absolute  
-        z-50 top-1/2 left-1/2 dark:bg-dark-second rounded-lg transform -translate-x-1/2 -translate-y-1/2 py-2 
-        shadow-lv1 dark:border-dark-third dark:bg-dark-third" title={'Tạo bài viết'}>
+            z-50 top-1/2 left-1/2 dark:bg-dark-second rounded-lg transform -translate-x-1/2 -translate-y-1/2 py-2 
+            shadow-lv1 dark:border-dark-third dark:bg-dark-third" title={`${posts.id ? `Sửa` : `Tạo`} bài viết`}>
             <TopWritePostModal />
             <div className={`w-full mt-2.5 wrapper-content-right ${emojiShow ? '' : 'overflow-y-auto'}`} style={{ maxHeight: 365 }}>
                 <CenterWritePostModal setEmojiShow={setEmojiShow} emojiShow={emojiShow} />
@@ -103,7 +164,7 @@ export default function ModalPost(props) {
                     disabled={posts.content.length > 0 || posts.activity || posts.imageVideo.length > 0
                         || posts.tags.length > 0 || posts.feel || posts.local || posts.background || posts.answerQuestion
                         ? false : true}>
-                    Đăng
+                    {posts.id ? 'Sửa' : 'Đăng'}
                 </ButtonComponent>
             </div>
         </ModalWrapper >

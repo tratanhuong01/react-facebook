@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { ModalContext } from '../../contexts/ModalContext/ModalContext'
 
-export default function WritePost() {
+export default function WritePost({ view }) {
     //
     const { modalsDispatch, modalsAction } = useContext(ModalContext);
     const user = useSelector((state) => state.user);
@@ -19,8 +19,13 @@ export default function WritePost() {
                     </Link>
                 </div>
                 <div style={{ width: "calc(100% - 60px)" }}>
-                    <input onClick={() => modalsDispatch(modalsAction.openModalPost())} className="w-full rounded-full p-3 border-none outline-none bg-gray-100 
-                    dark:bg-dark-third"  type="text" placeholder={`${user.lastName} ơi bạn đang nghĩ gì đó ?`} />
+                    <input onClick={() => modalsDispatch(modalsAction.openModalPost(
+                        null, null, null, view))}
+                        className="w-full rounded-full p-3 border-none outline-none bg-gray-100 
+                         dark:bg-dark-third"  type="text"
+                        placeholder={!view ? `${user.lastName} ơi bạn đang nghĩ gì đó ?`
+                            : view.id === user.id ? `${user.lastName} ơi bạn đang nghĩ gì đó ?` :
+                                `Viết gì đó cho ${view.firstName} ${view.lastName}`} />
                 </div>
             </div>
             <hr className='dark:border-dark-third' />

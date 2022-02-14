@@ -4,7 +4,7 @@ import * as actions from "./Action";
 
 const initialState = {
     userProfile: null,
-    postList: [],
+    isFriend: false
 };
 
 export const UserProfileContext = createContext();

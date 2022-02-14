@@ -24,7 +24,7 @@ const ItemActivityChildPost = (props) => {
     //
     return (
         <div onClick={() => {
-            postsDispatch(postsAction.updateData('activity', JSON.stringify({ ...item, name: activity.label, idActivity: activity.id })));
+            postsDispatch(postsAction.updateData('activity', { ...item, name: activity.label, idActivity: activity.id }));
             postsDispatch(postsAction.updateData('feel', null));
             postsDispatch(postsAction.returnModalPost());
         }} className={`tac-user-clone pl-4 flex items-center dark:hover:bg-dark-third rounded-lg cursor-pointer 

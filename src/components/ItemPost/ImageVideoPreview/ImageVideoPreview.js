@@ -13,7 +13,8 @@ export default function ImageVideoPreview(props) {
         //
         if (refContainer.current && posts.imageVideo.length > 0) {
             const result = Array.from(posts.imageVideo).slice(0, 5).map((element, index) => {
-                const extension = element.name.split('.')[element.name.split('.').length - 1].toLowerCase();
+                const extension = element.id ? element.src.split('.')[element.src.split('.').length - 1].toLowerCase() :
+                    element.name.split('.')[element.name.split('.').length - 1].toLowerCase();
                 let ImageVideo = () => {
                     return ("");
                 };
@@ -59,7 +60,7 @@ export default function ImageVideoPreview(props) {
                         font-bold absolute bottom-0 shadow-lv1 text-white right-1.5`
                     }
                 }
-                return <ImageVideo key={index} src={URL.createObjectURL(element)} style={{
+                return <ImageVideo key={index} src={element.id ? element.src : URL.createObjectURL(element)} style={{
                     width: (length === 1 ? width : (Math.floor(width / div(index + 1, length, true))) - (index === 1 ? 20 : 13)) + "px",
                     height: (length === 1 ? width : (Math.floor(width / div(index + 1, length, false))) - 13) + "px",
 

@@ -16,6 +16,17 @@ export default function WrapperPage(props) {
     const navigation = useNavigate();
     useEffect(() => {
         //
+        if (user) {
+            const main__logged = document.getElementById('main__logged')
+            if (main__logged) {
+                if (user.isDark) {
+                    main__logged.classList.add('dark');
+                }
+                else {
+                    main__logged.classList.remove('dark');
+                }
+            }
+        }
         if (modals.data) {
             document.getElementsByTagName('body')[0].classList = "overflow-hidden";
         }

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { PAGE_MESSENGER } from '../../../../constants/Config';
 import * as StringUtils from "../../../../utils/StringUtils";
 import * as userChatsAction from "../../../../actions/userChat/index";
+import moment from 'moment';
 
 export default function ItemMessageList(props) {
     //
@@ -52,7 +53,10 @@ export default function ItemMessageList(props) {
             <div className="w-4/5 hidden md:block">
                 <div className="w-full text-left">
                     <span className="w-full font-semibold dark:text-gray-300 inline-block whitespace-nowrap 
-                    overflow-ellipsis overflow-hidden max-w-full pr-4">Huong Dev</span>
+                    overflow-ellipsis overflow-hidden max-w-full pr-4">{
+                            itemMessage.groupMessage.typeGroupMessage === 0 ?
+                                `${itemMessage.usersList[0].firstName} ${itemMessage.usersList[0].lastName}` : 'Group'
+                        }</span>
                 </div>
                 <div className="w-full flex py-1 text-sm flex  md:pr-3 xl:pr-0">
                     <div className="w-full flex text-left  dark:text-gray-300 text-gray-500  font-semibold">
@@ -63,7 +67,7 @@ export default function ItemMessageList(props) {
                         </div>
                         <div
                             className="w-1/4 flex pr-3 inline-block whitespace-nowrap overflow-ellipsis overflow-hidden">
-                            · 1 tuần
+                            · {moment(itemMessage.messages.timeCreated).fromNow(true)}
                         </div>
                     </div>
                 </div>

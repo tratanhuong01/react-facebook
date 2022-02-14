@@ -1,16 +1,24 @@
 import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { PAGE_PROFILE } from '../../../../constants/Config';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PopoverHeaderRightWrapper from './PopoverHeaderRightWrapper';
 import PopoverMessage from './PopoverMessage/PopoverMessage';
 import PopoverNotification from './PopoverNotification/PopoverNotification';
 import PopoverSetting from './PopoverSetting/PopoverSetting';
+import api from '../../../../api/api';
+import * as usersAction from "../../../../actions/user/index";
 
 export default function HeaderLoggedRight(props) {
     //
     const { hideMessage, hideImage } = props;
-    const user = useSelector((state) => state.user);
+    const { user, headers } = useSelector((state) => {
+        return {
+            user: state.user,
+            headers: state.headers
+        }
+    });
+    const dispatch = useDispatch();
     const [active, setActive] = useState(-1);
     const navigation = useNavigate();
     let count = 0;
@@ -52,16 +60,9 @@ export default function HeaderLoggedRight(props) {
             </div>}
             <div className="w-full pt-2 pb-2 pr-3 sm:w-full relative">
                 <ul className="flex float-right">
-                    <li onClick={() => {
-                        const main__logged = document.getElementById('main__logged')
-                        if (main__logged) {
-                            if (main__logged.classList.contains('dark')) {
-                                main__logged.classList.remove('dark');
-                            }
-                            else {
-                                main__logged.classList.add('dark');
-                            }
-                        }
+                    <li onClick={async () => {
+                        const dataUser = await api(`users`, 'PUT', { ...user, isDark: user.isDark === 0 ? 1 : 0 }, headers);
+                        dispatch(usersAction.loginUser(dataUser.data));
                     }} className="cursor-pointer relative h-10 ml-1 mr-1 w-10 bg-gray-200 
                     dark:bg-dark-third dark:text-white text-center rounded-full flex justify-center items-center">
                         <i className="bx bx-plus text-xl hidden"></i>

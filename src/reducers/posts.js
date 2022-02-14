@@ -1,6 +1,7 @@
 const initialState = {
     list: [],
-    index: 0
+    index: 0,
+    add: false
 }
 
 const myReducer = (state = initialState, action) => {

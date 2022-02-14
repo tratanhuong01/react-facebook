@@ -25,6 +25,8 @@ const AppReducer = (state, action) => {
             return { ...state, component: <ModalEditImageVideo /> };
         case constants.OPEN_MODAL_ANSWER_QUESTION:
             return { ...state, component: <ModalAnswerQuestionPost /> };
+        case constants.UPDATE_DATA_FULL:
+            return { ...action.data };
         default:
             return { ...state };
     }

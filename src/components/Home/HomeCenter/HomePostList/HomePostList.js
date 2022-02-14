@@ -32,6 +32,11 @@ export default forwardRef(function HomePostList(props, ref) {
                 key: "list",
                 value: result.data
             })
+            dispatch({
+                type: "UPDATE_DATA_POST_LIST",
+                key: "add",
+                value: true
+            })
         }
         if (headers.Authorization) {
             fetch(index);

@@ -7,6 +7,12 @@ export const updateData = (key, value) => {
         value
     }
 }
+export const updateDataFull = (data) => {
+    return {
+        type: constants.UPDATE_DATA_FULL,
+        data
+    }
+}
 
 export const openModalFeel = () => {
     return {

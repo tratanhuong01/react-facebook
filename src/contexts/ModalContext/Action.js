@@ -32,12 +32,13 @@ export const openModalLogin = (loginFast) => {
     }
 }
 
-export const openModalPost = (id, feel, imageVideo) => {
+export const openModalPost = (id, feel, imageVideo, view) => {
     return {
         type: constants.OPEN_MODAL_POST,
         id,
         feel,
-        imageVideo
+        imageVideo,
+        view
     }
 }
 

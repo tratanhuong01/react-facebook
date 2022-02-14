@@ -66,7 +66,7 @@ export default function ItemInviteFriend(props) {
       <img src={item.userUserRelationShip.avatar} alt=''
         className='w-14 h-14 rounded-full object-cover mr-1' />
       <div className='ml-1' style={{ width: "calc(100% - 64px)" }}>
-        <p className='font-semibold cursor-pointer'>
+        <p className='font-semibold cursor-pointer dark:text-white'>
           <Link to={PAGE_PROFILE + "/" + item.userUserRelationShip.id}>
             {`${item.userUserRelationShip.firstName} ${item.userUserRelationShip.lastName}`}
           </Link>

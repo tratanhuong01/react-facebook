@@ -7,10 +7,11 @@ import LoadingPost from '../../ItemPost/LoadingPost';
 
 export default function PostProfileList() {
     //
-    const { headers, posts: { list } } = useSelector((state) => {
+    const { headers, posts: { list }, user } = useSelector((state) => {
         return {
             headers: state.headers,
-            posts: state.posts
+            posts: state.posts,
+            user: state.user
         }
     });
     const dispatch = useDispatch();
@@ -32,6 +33,11 @@ export default function PostProfileList() {
                 key: "list",
                 value: (result.data)
             })
+            dispatch({
+                type: "UPDATE_DATA_POST_LIST",
+                key: "add",
+                value: userProfile.id === user.id
+            })
         }
         fetch();
         return () => {
@@ -42,10 +48,10 @@ export default function PostProfileList() {
     //
     return (
         <div className='w-full my-2'>
-            {list.map((postDetail, index) => <ItemPost key={index} postDetail={postDetail}
-                setPostDetails={list => {
-
-                }} />
+            {list.map((postDetail) =>
+                <ItemPost key={postDetail.post.id} postDetail={postDetail}
+                    setPostDetails={list => {
+                    }} />
             )}
             <LoadingPost />
             <LoadingPost />

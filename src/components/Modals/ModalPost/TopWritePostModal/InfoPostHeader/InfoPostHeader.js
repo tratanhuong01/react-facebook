@@ -1,11 +1,13 @@
 import React from 'react'
 
-export default function InfoPostHeader(props) {
+export default function InfoPostHeader({ user, post, tagList, hideName, tagMain, itemPost }) {
     //
-    const { user, post, tagList, hideName, tagMain } = props
-    const feel = post.feel ? JSON.parse(post.feel) : null;
-    const activity = post.activity ? JSON.parse(post.activity) : null;
-    const local = post.local ? JSON.parse(post.local) : null;
+    const checkNull = (data) => {
+        return itemPost ? data ? JSON.parse(data) : null : data;
+    }
+    const feel = checkNull(post.feel);
+    const activity = checkNull(post.activity);
+    const local = checkNull(post.local);
     //
     return (
         <>
