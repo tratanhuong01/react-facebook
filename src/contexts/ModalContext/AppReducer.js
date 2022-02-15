@@ -5,6 +5,8 @@ import ModalChangeEmojii from "../../components/Modals/Messages/ModalChangeEmoji
 import ModalChangeNickName from "../../components/Modals/Messages/ModalChangeNickName/ModalChangeNickName";
 import ModalWarning from "../../components/Modals/ModalWarning/ModalWarning";
 import ModalWrapperPost from "../../components/Modals/ModalWrapperPost/ModalWrapperPost";
+import ModalEditInformation from "../../components/Modals/Profile/ModalEditInformation/ModalEditInformation";
+import ModalFavorite from "../../components/Modals/Profile/ModalFavorite/ModalFavorite";
 import ModalPreviewAvatar from "../../components/Modals/Profile/ModalPreviewAvatar/ModalPreviewAvatar";
 import * as constants from "./Constant";
 
@@ -50,6 +52,10 @@ const AppReducer = (state, action) => {
                 ...state, data: <ModalWarning title={action.title} content={action.content}
                     handleEvent={action.handleEvent} button={action.button} />
             }
+        case constants.OPEN_MODAL_FAVORITE:
+            return { ...state, data: <ModalFavorite updateUserProfile={action.updateUserProfile} /> }
+        case constants.OPEN_MODAL_EDIT_INFORMATION:
+            return { ...state, data: <ModalEditInformation updateUserProfile={action.updateUserProfile} /> }
         default:
             return { ...state };
     }

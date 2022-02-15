@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { forwardRef, useState } from 'react'
 
-export default function InputComponent({ register, wrapper, error, type, name, placeholder, className, search,
-    borderValidation, handleChange, disabled, label, width, handleClick }) {
+export default forwardRef(function InputComponent({ register, wrapper, error, type, name, placeholder, className, search,
+    borderValidation, handleChange, disabled, label, width, handleClick }, ref) {
     //
     const [show, setShow] = useState(false);
     const Field = typeof register === "function" ? register(name) : () => "";
@@ -11,7 +11,7 @@ export default function InputComponent({ register, wrapper, error, type, name, p
             {label && <p className="font-semibold mb-2">{label}</p>}
             {type === "password" || search ?
                 <div className={`${wrapper} ${width ? width : 'w-full'} relative`}>
-                    <input onClick={() => {
+                    <input ref={ref} onClick={() => {
                         if (typeof handleClick === "function") {
                             handleClick();
                         }
@@ -30,7 +30,7 @@ export default function InputComponent({ register, wrapper, error, type, name, p
                     if (typeof handleClick === "function") {
                         handleClick();
                     }
-                }} type={type} placeholder={placeholder} className={`${width ? width : 'w-full'} ${className} ${borderValidation} focus:border-blue-600 
+                }} type={type} ref={ref} placeholder={placeholder} className={`${width ? width : 'w-full'} ${className} ${borderValidation} focus:border-blue-600 
                 border-solid focus:shadow-sm rounded-sm border-gray-200 dark:border-dark-third`}
                     {...Field} spellCheck={false} onChange={(event) => {
                         if (typeof handleChange === "function") handleChange(event.target.value);
@@ -43,4 +43,4 @@ export default function InputComponent({ register, wrapper, error, type, name, p
 
         </>
     )
-}
+})

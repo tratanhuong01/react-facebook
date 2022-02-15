@@ -93,3 +93,17 @@ export const openModalDeletePost = (title, content, button, handleEvent) => {
         handleEvent
     }
 }
+
+export const openModalFavorite = (updateUserProfile) => {
+    return {
+        type: constants.OPEN_MODAL_FAVORITE,
+        updateUserProfile
+    }
+}
+
+export const openModalEditInformation = (updateUserProfile) => {
+    return {
+        type: constants.OPEN_MODAL_EDIT_INFORMATION,
+        updateUserProfile
+    }
+}

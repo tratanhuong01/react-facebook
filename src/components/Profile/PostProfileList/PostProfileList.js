@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import api from '../../../api/api';
 import { UserProfileContext } from '../../../contexts/UserProfileContext/UserProfileContext'
@@ -14,6 +14,7 @@ export default function PostProfileList() {
             user: state.user
         }
     });
+    const [loading, setLoading] = useState(true);
     const dispatch = useDispatch();
     const { userProfilesDispatch, userProfilesAction, userProfile: { userProfile } } = useContext(UserProfileContext);
     useEffect(() => {
@@ -38,23 +39,28 @@ export default function PostProfileList() {
                 key: "add",
                 value: userProfile.id === user.id
             })
+            setLoading(false);
         }
         fetch();
         return () => {
             unmounted = true;
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userProfile])
+    }, [userProfile.id])
     //
     return (
         <div className='w-full my-2'>
-            {list.map((postDetail) =>
+            {list.length > 0 ? list.map((postDetail) =>
                 <ItemPost key={postDetail.post.id} postDetail={postDetail}
                     setPostDetails={list => {
                     }} />
-            )}
-            <LoadingPost />
-            <LoadingPost />
+            ) : <p className='my-4 text-center text-gray-600 font-semibold dark:text-gray-300'>
+                Không có bất kì bài viết nào.
+            </p>}
+            {loading ? <>
+                <LoadingPost />
+                <LoadingPost />
+            </> : ''}
         </div>
     )
 }

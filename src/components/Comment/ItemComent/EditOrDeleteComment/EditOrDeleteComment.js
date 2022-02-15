@@ -37,11 +37,12 @@ export default forwardRef(function EditOrDeleteComment(
         }
         modalsDispatch(modalsAction.closeModal());
     }
-    console.log(postDetail);
     const refControl = useRef();
     useEffect(() => {
         //  
-        refControl.current.style.left = `${ref.current.offsetWidth}px`
+        if (refControl.current) {
+            refControl.current.style.left = `${ref.current.offsetWidth}px`
+        }
         //
     }, [ref, refControl]);
     //
