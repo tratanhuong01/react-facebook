@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import HeaderLogged from '../components/Header/HeaderLogged/HeaderLogged'
@@ -6,7 +6,7 @@ import ItemChat from '../components/ItemChat/ItemChat'
 import ItemChatMinize from '../components/ItemChatMinize/ItemChatMinize'
 import { PAGE_CALL } from '../constants/Config'
 import WrapperPage from './WrapperPage'
-// import sound from "../assets/sound/sound.mp3";
+import sound from "../assets/sound/sound.mp3";
 import * as userChatsAction from "../actions/userChat/index";
 
 export default function WrapperLogged(props) {
@@ -20,6 +20,7 @@ export default function WrapperLogged(props) {
             socket: state.socket
         }
     });
+    const ref = useRef();
     const navigation = useNavigate();
     useEffect(() => {
         const handleEventCallVideo = () => {
@@ -27,6 +28,8 @@ export default function WrapperLogged(props) {
         }
         const handleEventMessage = (data) => {
             if (userChat.zoom.findIndex(dt => dt.id === data.send.id) === -1) {
+                ref.current.muted = false;
+                ref.current.play();
                 dispatch(userChatsAction.updateData('zoom', [...userChat.zoom, data.send]))
                 socket.off(`receiveMessageOnline.${user.id}`, handleEventMessage);
             }
@@ -46,6 +49,7 @@ export default function WrapperLogged(props) {
     //
     return (
         <WrapperPage>
+            <audio ref={ref} src={sound} muted className='hidden'></audio>
             {user && <div className="w-full bg-gray-100 dark:bg-dark-main h-screen overflow-hidden relative" >
                 {!hideHeader && <HeaderLogged hideMessage={hideMessage} />}
                 {props.children}

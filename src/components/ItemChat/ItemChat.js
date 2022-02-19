@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import api from '../../api/api'
 import MainContentMessage from '../Messenger/ContentMessage/MainContentMessage/MainContentMessage'
@@ -6,10 +6,12 @@ import SettingMessageChild from '../Messenger/SettingMessage/SettingMessageChild
 import * as StringUtils from "../../utils/StringUtils";
 import WrapperItemChat from './WrapperItemChat'
 import NewChat from './NewChat'
+import sound from "../../assets/sound/sound.mp3";
 
 export default function ItemChat(props) {
     //
     const newItem = props.item.new;
+    const ref = useRef();
     const [groupMessage, setGroupMessage] = useState({ color: "#ccc", emoji: "🙆‍♂️" });
     const [messages, setMessages] = useState([]);
     const [show, setShow] = useState();
@@ -80,18 +82,29 @@ export default function ItemChat(props) {
     useEffect(() => {
         const handleEvent = (data) => {
             if (user.id !== data.userMessage.id) {
+                ref.current.muted = false;
+                ref.current.play();
                 setMessages([...messages, data]);
+            }
+        }
+        const handleChangeControl = (data) => {
+            if (user.id !== data.userMessage.id) {
+                setGroupMessage(data.groupMessageMessage);
             }
         }
         if (groupMessage) {
             if (groupMessage.id) {
                 socket.on(`receiveMessage.${groupMessage.id}`, handleEvent);
+                socket.on(`receiveChangeBackground.${groupMessage.id}`, handleChangeControl);
+                socket.on(`receiveChangeEmojii.${groupMessage.id}`, handleChangeControl);
             }
         }
         return () => {
             if (groupMessage) {
                 if (groupMessage.id) {
                     socket.off(`receiveMessage.${groupMessage.id}`, handleEvent);
+                    socket.off(`receiveChangeBackground.${groupMessage.id}`, handleChangeControl);
+                    socket.off(`receiveChangeEmojii.${groupMessage.id}`, handleChangeControl);
                 }
             }
         }
@@ -102,6 +115,7 @@ export default function ItemChat(props) {
         <WrapperItemChat item={item} groupMessage={groupMessage} setShow={setShow} show={show} setGroupMessage={setGroupMessage}
             dataMessage={dataMessage} messages={messages} setDataMessage={setDataMessage} mini={true} setChoose={setChoose}
             setMessages={setMessages} chatter={item} choose={choose} members={members} setMembers={setMembers}>
+            <audio ref={ref} muted src={sound} className="hidden"></audio>
             {(!item.new && choose === null) || (Array.isArray(item.usersList) && choose === null) ?
                 <MainContentMessage messages={messages} item={item} groupMessage={groupMessage}
                     choose={choose} typeGroupMessage={0} />

@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { PAGE_MESSENGER } from '../../../../constants/Config';
 import { ModalContext } from '../../../../contexts/ModalContext/ModalContext';
@@ -6,8 +7,24 @@ import { ModalContext } from '../../../../contexts/ModalContext/ModalContext';
 export default function SettingMessageChild(props) {
     //
     const navigation = useNavigate();
+    const { socket, user } = useSelector((state) => {
+        return {
+            user: state.user,
+            socket: state.socket
+        }
+    });
     const { hide, item, groupMessage, setGroupMessage } = props;
     const { modalsDispatch, modalsAction } = useContext(ModalContext);
+    const handleChange = (key, value) => {
+        const dt = {
+            userMessage: user, groupMessageMessage: {
+                ...groupMessage,
+                [key]: value
+            }
+        }
+        socket.emit(`sendChangeBackground`, dt);
+        socket.emit(`sendChangeEmojii`, dt);
+    }
     //
     return (
         <li className="w-full py-1 ">
@@ -21,14 +38,20 @@ export default function SettingMessageChild(props) {
                     </div>
                     <div className="flex items-center">Mở trong messenger</div>
                 </li>}
-                <li onClick={() => modalsDispatch(modalsAction.openModalChangeColor(groupMessage, setGroupMessage))} className="w-full py-2.5 px-4 rounded-lg hover:bg-gray-200 dark:hover:bg-dark-third 
+                <li onClick={() => modalsDispatch(modalsAction.openModalChangeColor(groupMessage, (groupMessage) => {
+                    setGroupMessage(groupMessage);
+                    handleChange('color', groupMessage.color)
+                }))} className="w-full py-2.5 px-4 rounded-lg hover:bg-gray-200 dark:hover:bg-dark-third 
                 py-2 px-2 font-semibold cursor-pointer dark:text-white flex">
                     <div className="flex justity-center w-8">
                         <span className="fab fa-ussunnah text-xm dark:text-white flex items-center"></span>
                     </div>
                     <div className="flex items-center">Đổi chủ đề</div>
                 </li>
-                <li onClick={() => modalsDispatch(modalsAction.openModalChangeEmojii(groupMessage, setGroupMessage))} className="w-full py-2.5 px-4 rounded-lg hover:bg-gray-200 dark:hover:bg-dark-third 
+                <li onClick={() => modalsDispatch(modalsAction.openModalChangeEmojii(groupMessage, (groupMessage) => {
+                    setGroupMessage(groupMessage);
+                    handleChange('emoji', groupMessage.emoji)
+                }))} className="w-full py-2.5 px-4 rounded-lg hover:bg-gray-200 dark:hover:bg-dark-third 
                 py-2 px-2 font-semibold cursor-pointer dark:text-white flex">
                     <div className="flex justity-center w-8">
                         <span className=" text-xm dark:text-white flex items-center">
