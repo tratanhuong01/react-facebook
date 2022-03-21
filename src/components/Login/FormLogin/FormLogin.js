@@ -130,6 +130,9 @@ function FormLogin(props) {
       >
         Đăng Nhập
       </ButtonComponent>
+      <p className="mb-1 font-bold text-center">Demo</p>
+      <p className="mb-1 text-sm">Email or phone : trahuong.dev@gmail.com</p>
+      <p className="mb-1 text-sm">Password : huongtra2001</p>
       <p className="text-main bg-white py-4 bg-white cursor-pointer text-center">
         <Link to={PAGE_FORGET_ACCOUNT}>
           Quên Tài khoản
